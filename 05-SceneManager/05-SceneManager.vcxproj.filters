@@ -69,23 +69,26 @@
     <ClCompile Include="Textures.cpp">
       <Filter>Source Files\Animation</Filter>
     </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Brick.cpp">
-      <Filter>Source Files\Object</Filter>
+      <Filter>Header Files\Object</Filter>
     </ClCompile>
     <ClCompile Include="Coin.cpp">
-      <Filter>Source Files\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>Source Files\Object</Filter>
+      <Filter>Header Files\Object</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
-      <Filter>Source Files\Object</Filter>
+      <Filter>Header Files\Object</Filter>
     </ClCompile>
     <ClCompile Include="Goomba.cpp">
-      <Filter>Source Files\Object</Filter>
+      <Filter>Header Files\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Koopa.cpp">
+      <Filter>Header Files\Object</Filter>
     </ClCompile>
     <ClCompile Include="Mario.cpp">
-      <Filter>Source Files\Object</Filter>
+      <Filter>Header Files\Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -156,6 +159,9 @@
       <Filter>Header Files\Object</Filter>
     </ClInclude>
     <ClInclude Include="Mario.h">
+      <Filter>Header Files\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Koopa.h">
       <Filter>Header Files\Object</Filter>
     </ClInclude>
   </ItemGroup>
