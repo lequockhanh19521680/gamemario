@@ -294,7 +294,7 @@ void CMario::Render()
 		aniId = GetAniIdBig();
 	else if (level == MARIO_LEVEL_SMALL)
 		aniId = GetAniIdSmall();
-	else if (level = MARIO_LEVEL_FIRE)
+	else if (level == MARIO_LEVEL_FIRE)
 		aniId = GetAniIdFire();
 
 	animations->Get(aniId)->Render(x, y);
@@ -386,7 +386,7 @@ void CMario::SetState(int state)
 
 void CMario::GetBoundingBox(float &left, float &top, float &right, float &bottom)
 {
-	if (level==MARIO_LEVEL_BIG)
+	if ((level==MARIO_LEVEL_BIG) or (level == MARIO_LEVEL_FIRE))
 	{
 		if (isSitting)
 		{
