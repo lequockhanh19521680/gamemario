@@ -16,7 +16,7 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 	case DIK_DOWN:
 		mario->SetState(MARIO_STATE_SIT);
 		break;
-	case DIK_UP:
+	case DIK_S:
 		mario->SetState(MARIO_STATE_JUMP);
 		break;
 	case DIK_1:
@@ -63,7 +63,7 @@ void CSampleKeyHandler::KeyState(BYTE *states)
 
 	if (game->IsKeyDown(DIK_RIGHT))
 	{
-		if (game->IsKeyDown(DIK_A))
+		if (game->IsKeyDown(DIK_A)) 
 			mario->SetState(MARIO_STATE_RUNNING_RIGHT);
 		else
 			mario->SetState(MARIO_STATE_WALKING_RIGHT);

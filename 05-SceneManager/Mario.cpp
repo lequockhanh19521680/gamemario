@@ -405,6 +405,9 @@ void CMario::SetState(int state)
 		ax = -MARIO_ACCEL_WALK_X;
 		nx = -1;
 		break;
+	case MARIO_STATE_FALL:
+		if (vy < 0) vy += MARIO_JUMP_SPEED_Y / 5;
+		break;
 	case MARIO_STATE_JUMP:
 		if (isSitting) break;
 		if (isOnPlatform)
@@ -443,6 +446,7 @@ void CMario::SetState(int state)
 		ax = 0.0f;
 		vx = 0.0f;
 		break;
+	
 
 	case MARIO_STATE_DIE:
 		vy = -MARIO_JUMP_DEFLECT_SPEED;
