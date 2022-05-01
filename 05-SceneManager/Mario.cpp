@@ -106,7 +106,8 @@ void CMario::OnCollisionWithPortal(LPCOLLISIONEVENT e)
 // Get animation ID for small Mario
 //
 
-int CMario::GetAniIdFire() {
+int CMario::GetAniIdFire()
+{
 	int aniId = -1;
 	if (!isOnPlatform)
 	{
@@ -146,19 +147,19 @@ int CMario::GetAniIdFire() {
 				else if (ax == MARIO_ACCEL_RUN_X)
 					aniId = ID_ANI_MARIO_FIRE_RUNNING_RIGHT;
 				else if (ax == MARIO_ACCEL_WALK_X)
-					aniId = ID_ANI_MARIO_SMALL_WALKING_RIGHT;
+					aniId = ID_ANI_MARIO_FIRE_WALKING_RIGHT;
 			}
 			else // vx < 0
 			{
 				if (ax > 0)
-					aniId = ID_ANI_MARIO_SMALL_BRACE_LEFT;
+					aniId = ID_ANI_MARIO_FIRE_BRACE_LEFT;
 				else if (ax == -MARIO_ACCEL_RUN_X)
-					aniId = ID_ANI_MARIO_SMALL_RUNNING_LEFT;
+					aniId = ID_ANI_MARIO_FIRE_RUNNING_LEFT;
 				else if (ax == -MARIO_ACCEL_WALK_X)
-					aniId = ID_ANI_MARIO_SMALL_WALKING_LEFT;
+					aniId = ID_ANI_MARIO_FIRE_WALKING_LEFT;
 			}
 
-	if (aniId == -1) aniId = ID_ANI_MARIO_SMALL_IDLE_RIGHT;
+	if (aniId == -1) aniId = ID_ANI_MARIO_FIRE_IDLE_RIGHT;
 
 	return aniId;
 }
@@ -380,7 +381,6 @@ void CMario::SetState(int state)
 		ax = 0;
 		break;
 	}
-	DebugOut(L"[See state] state %d\n",state);
 
 	CGameObject::SetState(state);
 }
