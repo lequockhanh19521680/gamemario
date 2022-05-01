@@ -210,3 +210,9 @@
 #define ID_ANI_KOOPAS_RED_COMEBACK 40016
 #define ID_ANI_KOOPAS_RED_UPSIDE_ISKICKED 40017 // hiệu ứng bị raccoon tấn công và bị đá
 #define ID_ANI_KOOPAS_RED_UPSIDE_COMEBACK 40018 // hiệu ứng bị lật úp sau đó bắt đầu ra khỏi mai rùa
+
+
+
+#define HUD_HEIGHT 32
+
+#define MARIO_POWER_FULL 7

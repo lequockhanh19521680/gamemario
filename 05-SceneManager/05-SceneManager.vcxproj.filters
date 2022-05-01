@@ -108,6 +108,12 @@
     <ClCompile Include="HUD.h">
       <Filter>Header Files\HUD</Filter>
     </ClCompile>
+    <ClCompile Include="Font.cpp">
+      <Filter>Header Files\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="Power.cpp">
+      <Filter>Header Files\HUD</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AssetIDs.h">
@@ -186,6 +192,12 @@
       <Filter>Header Files\Map</Filter>
     </ClInclude>
     <ClInclude Include="HUD.cpp">
+      <Filter>Header Files\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="Font.h">
+      <Filter>Header Files\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="Power.h">
       <Filter>Header Files\HUD</Filter>
     </ClInclude>
   </ItemGroup>
