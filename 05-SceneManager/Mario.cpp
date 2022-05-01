@@ -380,6 +380,7 @@ void CMario::SetState(int state)
 		ax = 0;
 		break;
 	}
+	DebugOut(L"[See state] state %d\n",state);
 
 	CGameObject::SetState(state);
 }
