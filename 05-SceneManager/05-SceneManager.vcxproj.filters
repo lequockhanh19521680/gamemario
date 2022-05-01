@@ -19,11 +19,23 @@
     <Filter Include="Header Files\Object">
       <UniqueIdentifier>{ffd2c110-6606-46fe-9415-43d6cdd6962b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Animation">
-      <UniqueIdentifier>{9c428813-4fe7-4671-b9af-d75240295430}</UniqueIdentifier>
+    <Filter Include="Header Files\Object\Brick">
+      <UniqueIdentifier>{ef1197b2-0119-408e-9327-d05ec6fd23c9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Object">
-      <UniqueIdentifier>{ac652879-7e3c-4d98-972f-74c74f33c047}</UniqueIdentifier>
+    <Filter Include="Header Files\Object\Items">
+      <UniqueIdentifier>{06c2c0cb-91b1-4955-80f6-fb98c1d7be73}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Object\Enemies">
+      <UniqueIdentifier>{cdef4d00-4bdc-4248-a0a9-404cb7d26172}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Object\Mario">
+      <UniqueIdentifier>{ed8fb028-17a8-49e5-b8b4-0e571c69f8c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Map">
+      <UniqueIdentifier>{00579dc2-a2af-4961-9157-5d625318bf55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\HUD">
+      <UniqueIdentifier>{901ef1cf-d4e5-4d85-a625-a8f40b3716b8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -31,9 +43,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Collision.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="debug.cpp">
@@ -54,41 +63,50 @@
     <ClCompile Include="Portal.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Animation.cpp">
-      <Filter>Source Files\Animation</Filter>
-    </ClCompile>
-    <ClCompile Include="Animations.cpp">
-      <Filter>Source Files\Animation</Filter>
-    </ClCompile>
-    <ClCompile Include="Sprite.cpp">
-      <Filter>Source Files\Animation</Filter>
-    </ClCompile>
-    <ClCompile Include="Sprites.cpp">
-      <Filter>Source Files\Animation</Filter>
-    </ClCompile>
-    <ClCompile Include="Textures.cpp">
-      <Filter>Source Files\Animation</Filter>
-    </ClCompile>
     <ClCompile Include="Game.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Brick.cpp">
-      <Filter>Header Files\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="Coin.cpp">
-      <Filter>Header Files\Object</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
       <Filter>Header Files\Object</Filter>
     </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Brick.cpp">
+      <Filter>Header Files\Object\Brick</Filter>
+    </ClCompile>
+    <ClCompile Include="Coin.cpp">
+      <Filter>Header Files\Object\Items</Filter>
+    </ClCompile>
     <ClCompile Include="Goomba.cpp">
-      <Filter>Header Files\Object</Filter>
+      <Filter>Header Files\Object\Enemies</Filter>
     </ClCompile>
     <ClCompile Include="Koopa.cpp">
-      <Filter>Header Files\Object</Filter>
+      <Filter>Header Files\Object\Enemies</Filter>
     </ClCompile>
     <ClCompile Include="Mario.cpp">
-      <Filter>Header Files\Object</Filter>
+      <Filter>Header Files\Object\Mario</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Header Files\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Animations.cpp">
+      <Filter>Header Files\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Header Files\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprites.cpp">
+      <Filter>Header Files\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Textures.cpp">
+      <Filter>Header Files\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>Header Files\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="HUD.h">
+      <Filter>Header Files\HUD</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -146,23 +164,29 @@
     <ClInclude Include="Textures.h">
       <Filter>Header Files\Animation</Filter>
     </ClInclude>
-    <ClInclude Include="Brick.h">
-      <Filter>Header Files\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="Coin.h">
-      <Filter>Header Files\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="Goomba.h">
-      <Filter>Header Files\Object</Filter>
-    </ClInclude>
     <ClInclude Include="GameObject.h">
       <Filter>Header Files\Object</Filter>
     </ClInclude>
-    <ClInclude Include="Mario.h">
-      <Filter>Header Files\Object</Filter>
+    <ClInclude Include="Brick.h">
+      <Filter>Header Files\Object\Brick</Filter>
+    </ClInclude>
+    <ClInclude Include="Coin.h">
+      <Filter>Header Files\Object\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Goomba.h">
+      <Filter>Header Files\Object\Enemies</Filter>
     </ClInclude>
     <ClInclude Include="Koopa.h">
-      <Filter>Header Files\Object</Filter>
+      <Filter>Header Files\Object\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Mario.h">
+      <Filter>Header Files\Object\Mario</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>Header Files\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="HUD.cpp">
+      <Filter>Header Files\HUD</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
