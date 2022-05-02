@@ -37,6 +37,9 @@
     <Filter Include="Header Files\HUD">
       <UniqueIdentifier>{901ef1cf-d4e5-4d85-a625-a8f40b3716b8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Object\Enemies\Goomba">
+      <UniqueIdentifier>{2826bc92-58ba-40c3-9357-83a0cd46c85c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -78,9 +81,6 @@
     <ClCompile Include="Coin.cpp">
       <Filter>Header Files\Object\Items</Filter>
     </ClCompile>
-    <ClCompile Include="Goomba.cpp">
-      <Filter>Header Files\Object\Enemies</Filter>
-    </ClCompile>
     <ClCompile Include="Koopa.cpp">
       <Filter>Header Files\Object\Enemies</Filter>
     </ClCompile>
@@ -113,6 +113,12 @@
     </ClCompile>
     <ClCompile Include="Power.cpp">
       <Filter>Header Files\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="Goomba.cpp">
+      <Filter>Header Files\Object\Enemies\Goomba</Filter>
+    </ClCompile>
+    <ClCompile Include="GoombaFly.cpp">
+      <Filter>Header Files\Object\Enemies\Goomba</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -179,9 +185,6 @@
     <ClInclude Include="Coin.h">
       <Filter>Header Files\Object\Items</Filter>
     </ClInclude>
-    <ClInclude Include="Goomba.h">
-      <Filter>Header Files\Object\Enemies</Filter>
-    </ClInclude>
     <ClInclude Include="Koopa.h">
       <Filter>Header Files\Object\Enemies</Filter>
     </ClInclude>
@@ -199,6 +202,12 @@
     </ClInclude>
     <ClInclude Include="Power.h">
       <Filter>Header Files\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="Goomba.h">
+      <Filter>Header Files\Object\Enemies\Goomba</Filter>
+    </ClInclude>
+    <ClInclude Include="GoombaFly.h">
+      <Filter>Header Files\Object\Enemies\Goomba</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

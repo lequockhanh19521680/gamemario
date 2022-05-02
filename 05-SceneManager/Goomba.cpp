@@ -10,7 +10,8 @@ CGoomba::CGoomba(float x, float y):CGameObject(x, y)
 
 void CGoomba::GetBoundingBox(float &left, float &top, float &right, float &bottom)
 {
-	if (state == GOOMBA_STATE_DIE)
+	if(state == GOOMBA_STATE_DIE_UPSIDE){}
+	else if (state == GOOMBA_STATE_DIE)
 	{
 		left = x - GOOMBA_BBOX_WIDTH/2;
 		top = y - GOOMBA_BBOX_HEIGHT_DIE/2;
@@ -34,50 +35,62 @@ void CGoomba::OnNoCollision(DWORD dt)
 
 void CGoomba::OnCollisionWith(LPCOLLISIONEVENT e)
 {
-	if (!e->obj->IsBlocking()) return; 
-	if (dynamic_cast<CGoomba*>(e->obj)) return; 
+	if (!e->obj->IsBlocking()) return;
+	if (dynamic_cast<CGoomba*>(e->obj)) return;
 
 	if (e->ny != 0 )
 	{
-		vy = 0;
+			if (state != GOOMBA_STATE_FLY) {
+				vy = 0;
+			}
+			else {
+				if (e->ny != 1){
+					vy = -GOOMBA_FLY_ADJUST;
+				}
+			}		
 	}
 	else if (e->nx != 0)
 	{
 		vx = -vx;
 	}
+	
+	
 }
 
 void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	vy += ay * dt;
 	vx += ax * dt;
-
 	if ( (state==GOOMBA_STATE_DIE) && (GetTickCount64() - die_start > GOOMBA_DIE_TIMEOUT) )
 	{
 		isDeleted = true;
 		return;
 	}
-
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
 
-
 void CGoomba::Render()
 {
-	int aniId = ID_ANI_GOOMBA_WALKING;
-	if (state == GOOMBA_STATE_DIE) 
+	int aniId = -1;
+	if (state == GOOMBA_STATE_FLY)
 	{
-		aniId = ID_ANI_GOOMBA_DIE;
+		aniId = GetAniIdFly();
 	}
-
+	else if (state == GOOMBA_STATE_WALKING) {
+		aniId = GetAniIdWalking();
+		//SetState(GOOMBA_STATE_WALKING);
+	}
+	else if (state == GOOMBA_STATE_DIE_UPSIDE) {
+		aniId = ID_ANI_GOOMBA_DIE_UPSIDE;
+	}
+	else aniId = ID_ANI_GOOMBA_DIE;
 	CAnimations::GetInstance()->Get(aniId)->Render(x,y);
 	RenderBoundingBox();
 }
 
 void CGoomba::SetState(int state)
 {
-	CGameObject::SetState(state);
 	switch (state)
 	{
 		case GOOMBA_STATE_DIE:
@@ -89,6 +102,17 @@ void CGoomba::SetState(int state)
 			break;
 		case GOOMBA_STATE_WALKING: 
 			vx = -GOOMBA_WALKING_SPEED;
+
+			break;
+		case GOOMBA_STATE_FLY:
+			vx = -GOOMBA_WALKING_SPEED;
+			break;
+		case GOOMBA_STATE_DIE_UPSIDE:
+			vx = 0;
+			vy = -0.3f;
 			break;
 	}
+	CGameObject::SetState(state);
 }
+
+

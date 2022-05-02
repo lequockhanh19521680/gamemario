@@ -7,7 +7,6 @@
 #include "Goomba.h"
 #include "Coin.h"
 #include "Portal.h"
-
 #include "Collision.h"
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
@@ -25,7 +24,6 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	}
 
 	isOnPlatform = false;
-
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
 
@@ -63,9 +61,13 @@ void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 	// jump on top >> kill Goomba and deflect a bit 
 	if (e->ny < 0)
 	{
-		if (goomba->GetState() != GOOMBA_STATE_DIE)
+		if (goomba->GetState() == GOOMBA_STATE_FLY) {
+			goomba->SetState(GOOMBA_STATE_WALKING);
+			vy = -MARIO_JUMP_DEFLECT_SPEED;
+		}
+		else if (goomba->GetState() == GOOMBA_STATE_WALKING)
 		{
-			goomba->SetState(GOOMBA_STATE_DIE);
+			goomba->SetState(GOOMBA_STATE_DIE_UPSIDE);
 			vy = -MARIO_JUMP_DEFLECT_SPEED;
 		}
 	}
@@ -103,9 +105,8 @@ void CMario::OnCollisionWithPortal(LPCOLLISIONEVENT e)
 }
 
 //
-// Get animation ID for small Mario
+// Get animdation ID for Mario
 //
-
 int CMario::GetAniIdTail()
 {
 	int aniId = -1;
@@ -166,8 +167,6 @@ int CMario::GetAniIdTail()
 
 	return aniId;
 }
-
-
 
 
 int CMario::GetAniIdFire()
@@ -290,9 +289,7 @@ int CMario::GetAniIdSmall()
 }
 
 
-//
-// Get animdation ID for big Mario
-//
+
 int CMario::GetAniIdBig()
 {
 	int aniId = -1;
@@ -454,7 +451,6 @@ void CMario::SetState(int state)
 		ax = 0;
 		break;
 	}
-	DebugOut(L"%d\n", state);
 	CGameObject::SetState(state);
 }
 
