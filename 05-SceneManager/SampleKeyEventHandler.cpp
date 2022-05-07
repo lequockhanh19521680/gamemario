@@ -19,7 +19,7 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 		}
 		else if (mario->GetLevel() == MARIO_LEVEL_TAIL) {
 			mario->SetState(MARIO_STATE_TAIL_ATTACK);
-		};
+		}
 		break;
 	case DIK_DOWN:
 		mario->SetState(MARIO_STATE_SIT);

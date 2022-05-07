@@ -110,59 +110,65 @@ void CMario::OnCollisionWithPortal(LPCOLLISIONEVENT e)
 int CMario::GetAniIdTail()
 {
 	int aniId = -1;
-	if (!isOnPlatform)
-	{
-		if (abs(ax) == MARIO_ACCEL_RUN_X)
-		{
-			if (nx >= 0)
-				aniId = ID_ANI_MARIO_TAIL_JUMP_RUN_RIGHT;
-			else
-				aniId = ID_ANI_MARIO_TAIL_JUMP_RUN_LEFT;
-		}
-		else
-		{
-			if (nx >= 0)
-				aniId = ID_ANI_MARIO_TAIL_JUMP_WALK_RIGHT;
-			else
-				aniId = ID_ANI_MARIO_TAIL_JUMP_WALK_LEFT;
-		}
+	if (GetState() == MARIO_STATE_TAIL_ATTACK) {
+		aniId = ID_ANI_MARIO_TAIL_ATTACK;
 	}
-	else
-		if (isSitting)
+	else {
+		if (!isOnPlatform)
 		{
-			if (nx > 0)
+			if (abs(ax) == MARIO_ACCEL_RUN_X)
 			{
-				aniId = ID_ANI_MARIO_TAIL_SIT_RIGHT;
-
+				if (nx >= 0)
+					aniId = ID_ANI_MARIO_TAIL_JUMP_RUN_RIGHT;
+				else
+					aniId = ID_ANI_MARIO_TAIL_JUMP_RUN_LEFT;
 			}
 			else
-				aniId = ID_ANI_MARIO_TAIL_SIT_LEFT;
+			{
+				if (nx >= 0)
+					aniId = ID_ANI_MARIO_TAIL_JUMP_WALK_RIGHT;
+				else
+					aniId = ID_ANI_MARIO_TAIL_JUMP_WALK_LEFT;
+			}
 		}
 		else
-			if (vx == 0)
+			if (isSitting)
 			{
-				if (nx > 0) aniId = ID_ANI_MARIO_TAIL_IDLE_RIGHT;
-				else aniId = ID_ANI_MARIO_TAIL_IDLE_LEFT;
-			}
-			else if (vx > 0)
-			{
-				if (ax < 0)
-					aniId = ID_ANI_MARIO_TAIL_BRACE_RIGHT;
-				else if (ax == MARIO_ACCEL_RUN_X)
-					aniId = ID_ANI_MARIO_TAIL_RUNNING_RIGHT;
-				else if (ax == MARIO_ACCEL_WALK_X)
-					aniId = ID_ANI_MARIO_TAIL_WALKING_RIGHT;
-			}
-			else // vx < 0
-			{
-				if (ax > 0)
-					aniId = ID_ANI_MARIO_TAIL_BRACE_LEFT;
-				else if (ax == -MARIO_ACCEL_RUN_X)
-					aniId = ID_ANI_MARIO_TAIL_RUNNING_LEFT;
-				else if (ax == -MARIO_ACCEL_WALK_X)
-					aniId = ID_ANI_MARIO_TAIL_WALKING_LEFT;
-			}
+				if (nx > 0)
+				{
+					aniId = ID_ANI_MARIO_TAIL_SIT_RIGHT;
 
+				}
+				else
+					aniId = ID_ANI_MARIO_TAIL_SIT_LEFT;
+			}
+			else
+				if (vx == 0)
+				{
+					if (nx > 0) aniId = ID_ANI_MARIO_TAIL_IDLE_RIGHT;
+					//ID_ANI_MARIO_TAIL_ATTACK;
+					//ID_ANI_MARIO_TAIL_IDLE_RIGHT;
+					else aniId = ID_ANI_MARIO_TAIL_IDLE_LEFT;
+				}
+				else if (vx > 0)
+				{
+					if (ax < 0)
+						aniId = ID_ANI_MARIO_TAIL_BRACE_RIGHT;
+					else if (ax == MARIO_ACCEL_RUN_X)
+						aniId = ID_ANI_MARIO_TAIL_RUNNING_RIGHT;
+					else if (ax == MARIO_ACCEL_WALK_X)
+						aniId = ID_ANI_MARIO_TAIL_WALKING_RIGHT;
+				}
+				else // vx < 0
+				{
+					if (ax > 0)
+						aniId = ID_ANI_MARIO_TAIL_BRACE_LEFT;
+					else if (ax == -MARIO_ACCEL_RUN_X)
+						aniId = ID_ANI_MARIO_TAIL_RUNNING_LEFT;
+					else if (ax == -MARIO_ACCEL_WALK_X)
+						aniId = ID_ANI_MARIO_TAIL_WALKING_LEFT;
+				}
+	}
 	if (aniId == -1) aniId = ID_ANI_MARIO_TAIL_ATTACK;
 		//ID_ANI_MARIO_TAIL_IDLE_RIGHT;
 
@@ -445,7 +451,7 @@ void CMario::SetState(int state)
 		vx = 0.0f;
 		break;
 	case MARIO_STATE_TAIL_ATTACK:
-
+		break;
 
 	case MARIO_STATE_DIE:
 		vy = -MARIO_JUMP_DEFLECT_SPEED;
