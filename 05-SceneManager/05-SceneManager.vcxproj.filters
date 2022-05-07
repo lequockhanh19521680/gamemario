@@ -40,6 +40,9 @@
     <Filter Include="Header Files\Object\Enemies\Goomba">
       <UniqueIdentifier>{2826bc92-58ba-40c3-9357-83a0cd46c85c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Object\Enemies\Koopa">
+      <UniqueIdentifier>{3cf7630f-d62b-499e-a8c0-950228c74816}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -81,9 +84,6 @@
     <ClCompile Include="Coin.cpp">
       <Filter>Header Files\Object\Items</Filter>
     </ClCompile>
-    <ClCompile Include="Koopa.cpp">
-      <Filter>Header Files\Object\Enemies</Filter>
-    </ClCompile>
     <ClCompile Include="Mario.cpp">
       <Filter>Header Files\Object\Mario</Filter>
     </ClCompile>
@@ -119,6 +119,9 @@
     </ClCompile>
     <ClCompile Include="GoombaFly.cpp">
       <Filter>Header Files\Object\Enemies\Goomba</Filter>
+    </ClCompile>
+    <ClCompile Include="Koopa.cpp">
+      <Filter>Header Files\Object\Enemies\Koopa</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -185,9 +188,6 @@
     <ClInclude Include="Coin.h">
       <Filter>Header Files\Object\Items</Filter>
     </ClInclude>
-    <ClInclude Include="Koopa.h">
-      <Filter>Header Files\Object\Enemies</Filter>
-    </ClInclude>
     <ClInclude Include="Mario.h">
       <Filter>Header Files\Object\Mario</Filter>
     </ClInclude>
@@ -208,6 +208,9 @@
     </ClInclude>
     <ClInclude Include="GoombaFly.h">
       <Filter>Header Files\Object\Enemies\Goomba</Filter>
+    </ClInclude>
+    <ClInclude Include="Koopa.h">
+      <Filter>Header Files\Object\Enemies\Koopa</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
