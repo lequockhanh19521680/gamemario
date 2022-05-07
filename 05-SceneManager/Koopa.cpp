@@ -1,4 +1,4 @@
-#include "Koopa.h"
+/*#include "Koopa.h"
 #include "Game.h"
 #include "Mario.h"
 #include "PlayScene.h"
@@ -158,7 +158,7 @@ void CKoopas::OnCollisionWithColorBlock(LPCOLLISIONEVENT e)
 		}
 	}
 }
-*/
+
 void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	vy += ay * dt;
@@ -439,3 +439,4 @@ void CKoopas::SetState(int state)
 	}
 
 }
+*/

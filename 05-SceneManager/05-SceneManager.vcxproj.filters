@@ -43,6 +43,24 @@
     <Filter Include="Header Files\Object\Enemies\Koopa">
       <UniqueIdentifier>{3cf7630f-d62b-499e-a8c0-950228c74816}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Object\Items\Coin">
+      <UniqueIdentifier>{6f632675-1bea-4429-b82c-024275847beb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Object\Items\MushRoom">
+      <UniqueIdentifier>{2eb60dea-9d06-49f6-b3b1-44b2df9793b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Object\Items\Leaf">
+      <UniqueIdentifier>{59d69798-606f-464e-8741-eadaeab8f4b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Object\Items\FlowerFire">
+      <UniqueIdentifier>{cb918de1-c624-4094-82b4-a913e7261dde}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Object\Brick\Brick">
+      <UniqueIdentifier>{fd39b3d4-b6fa-4f96-90e8-4bb708ac0bf6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Object\Brick\Platform">
+      <UniqueIdentifier>{0e69faba-e742-44b0-9b77-5b3fa95c079b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -52,9 +70,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="debug.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Platform.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SampleKeyEventHandler.cpp">
@@ -77,12 +92,6 @@
     </ClCompile>
     <ClCompile Include="Collision.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Brick.cpp">
-      <Filter>Header Files\Object\Brick</Filter>
-    </ClCompile>
-    <ClCompile Include="Coin.cpp">
-      <Filter>Header Files\Object\Items</Filter>
     </ClCompile>
     <ClCompile Include="Mario.cpp">
       <Filter>Header Files\Object\Mario</Filter>
@@ -123,6 +132,24 @@
     <ClCompile Include="Koopa.cpp">
       <Filter>Header Files\Object\Enemies\Koopa</Filter>
     </ClCompile>
+    <ClCompile Include="Coin.cpp">
+      <Filter>Header Files\Object\Items\Coin</Filter>
+    </ClCompile>
+    <ClCompile Include="MushRoom.cpp">
+      <Filter>Header Files\Object\Items\MushRoom</Filter>
+    </ClCompile>
+    <ClCompile Include="Leaf.cpp">
+      <Filter>Header Files\Object\Items\Leaf</Filter>
+    </ClCompile>
+    <ClCompile Include="FlowerFire.cpp">
+      <Filter>Header Files\Object\Items\FlowerFire</Filter>
+    </ClCompile>
+    <ClCompile Include="Brick.cpp">
+      <Filter>Header Files\Object\Brick\Brick</Filter>
+    </ClCompile>
+    <ClCompile Include="Platform.cpp">
+      <Filter>Header Files\Object\Brick\Platform</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AssetIDs.h">
@@ -138,9 +165,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="KeyEventHandler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Platform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SampleKeyEventHandler.h">
@@ -182,12 +206,6 @@
     <ClInclude Include="GameObject.h">
       <Filter>Header Files\Object</Filter>
     </ClInclude>
-    <ClInclude Include="Brick.h">
-      <Filter>Header Files\Object\Brick</Filter>
-    </ClInclude>
-    <ClInclude Include="Coin.h">
-      <Filter>Header Files\Object\Items</Filter>
-    </ClInclude>
     <ClInclude Include="Mario.h">
       <Filter>Header Files\Object\Mario</Filter>
     </ClInclude>
@@ -211,6 +229,24 @@
     </ClInclude>
     <ClInclude Include="Koopa.h">
       <Filter>Header Files\Object\Enemies\Koopa</Filter>
+    </ClInclude>
+    <ClInclude Include="Coin.h">
+      <Filter>Header Files\Object\Items\Coin</Filter>
+    </ClInclude>
+    <ClInclude Include="MushRoom.h">
+      <Filter>Header Files\Object\Items\MushRoom</Filter>
+    </ClInclude>
+    <ClInclude Include="Leaf.h">
+      <Filter>Header Files\Object\Items\Leaf</Filter>
+    </ClInclude>
+    <ClInclude Include="FlowerFire.h">
+      <Filter>Header Files\Object\Items\FlowerFire</Filter>
+    </ClInclude>
+    <ClInclude Include="Brick.h">
+      <Filter>Header Files\Object\Brick\Brick</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform.h">
+      <Filter>Header Files\Object\Brick\Platform</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
