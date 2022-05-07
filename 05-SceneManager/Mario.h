@@ -34,6 +34,7 @@
 #define MARIO_STATE_SIT_RELEASE		601
 
 #define MARIO_STATE_FALL			700
+#define MARIO_STATE_TAIL_ATTACK		800
 #pragma region ANIMATION_ID
 
 #define ID_ANI_MARIO_BIG_IDLE_RIGHT 401
@@ -131,6 +132,8 @@
 #define ID_ANI_MARIO_TAIL_BRACE_RIGHT 3001
 #define ID_ANI_MARIO_TAIL_BRACE_LEFT 3000
 
+#define ID_ANI_MARIO_TAIL_ATTACK 3100
+
 
 
 #pragma endregion
@@ -164,7 +167,7 @@ class CMario : public CGameObject
 	float maxVx;
 	float ax;				// acceleration on x 
 	float ay;				// acceleration on y 
-
+	int acceleration;
 	int level; 
 	int untouchable; 
 	ULONGLONG untouchable_start;
@@ -197,7 +200,7 @@ public:
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void Render();
 	void SetState(int state);
-
+	int GetLevel() { return level; }
 	int IsCollidable()
 	{ 
 		return (state != MARIO_STATE_DIE); 
