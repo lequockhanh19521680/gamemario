@@ -1,5 +1,8 @@
 #include "FlowerFire.h"
 
+CFlowerFire::CFlowerFire(float x, float y) : CGameObject(x, y) {
+	vy = 0.2f;
+}
 
 void CFlowerFire::Render()
 {

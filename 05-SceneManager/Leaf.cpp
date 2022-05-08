@@ -1,14 +1,15 @@
 #include "Leaf.h"
 
-#define LEAF_FALL_SPEED 0.001f
+#define LEAF_FALL_SPEED 0.0001f
 #define LEAF_SPEED 0.04f
 #define ADJUST_AX_WHEN_FALL 0.0001f
-#define ADJUST_MAX_VX 0.1f
+#define ADJUST_MAX_VX 0.08f
 
 CLeaf::CLeaf(float x, float y) :CGameObject(x, y)
 {
 	this->ax = 0;
 	this->ay = LEAF_FALL_SPEED;
+	vy = -0.1f;
 	SetState(LEAF_STATE_FALL);
 }
 CLeaf::CLeaf(float x, float y, int state) {
@@ -18,14 +19,22 @@ CLeaf::CLeaf(float x, float y, int state) {
 	this->state = state;
 }
 void CLeaf::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
-	vy = ay*dt;
-	if (vx <= ADJUST_MAX_VX) {
-		vx += ax * dt;
+	if (vy < 0.02f) {
+		vy += ay * dt;
 	}
-	else vx = -vx;
+	else vy = ay * dt;
+	if (vy > 0) {
+		if (vx <= ADJUST_MAX_VX) {
+			vx += ax * dt;
+		}
+		else vx = -vx;
+	}
+	DebugOut(L"%f\n", vy);
+	
 
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
+
 }
 void CLeaf::OnNoCollision(DWORD dt)
 {
@@ -37,16 +46,15 @@ void CLeaf::OnCollisionWith(LPCOLLISIONEVENT e)
 {
 	if (!e->obj->IsBlocking()) return;
 	if (dynamic_cast<CLeaf*>(e->obj)) return;
-
+	
 	if (e->ny != 0)
 	{
-		vy = 0;
 		vx = 0;
 	}
 	else if (e->nx != 0)
 	{
 	}
-
+	
 
 }
 
@@ -70,12 +78,10 @@ void CLeaf::SetState(int state)
 {
 	switch (state)
 	{
-	case LEAF_STATE_FALL:
+		case LEAF_STATE_FALL:
 		ax += ADJUST_AX_WHEN_FALL;
 		break;
-	case LEAF_STATE_FLY:
-		
-		break;
+	
 	}
 	
 

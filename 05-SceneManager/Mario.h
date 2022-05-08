@@ -180,6 +180,7 @@ class CMario : public CGameObject
 	void OnCollisionWithMushRoom(LPCOLLISIONEVENT e);
 	void OnCollisionWithLeaf(LPCOLLISIONEVENT e);
 	void OnCollisionWithFlowerFire(LPCOLLISIONEVENT e);
+	void OnCollisionWithBrickQuestion(LPCOLLISIONEVENT e);
 
 
 	int GetAniIdBig();

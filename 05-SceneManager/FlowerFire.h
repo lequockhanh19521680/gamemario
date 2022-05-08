@@ -8,10 +8,11 @@ class CFlowerFire :	public CGameObject
 {
 
 public:
-	CFlowerFire(float x, float y) : CGameObject(x, y) {}
+	CFlowerFire(float x, float y);
 	void Render();
 	void Update(DWORD dt) {}
 	void GetBoundingBox(float& l, float& t, float& r, float& b);
+	virtual int IsCollidable() { return 1; }
 	int IsBlocking() { return 0; }
 };
 

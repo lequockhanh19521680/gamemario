@@ -8,6 +8,7 @@
 #include "Goomba.h"
 #include "Coin.h"
 #include "FlowerFire.h"
+#include "BrickQuestion.h"
 #include "Portal.h"
 #include "Collision.h"
 
@@ -59,6 +60,8 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithLeaf(e);
 	else if (dynamic_cast<CFlowerFire*>(e->obj))
 		OnCollisionWithFlowerFire(e);
+	else if (dynamic_cast<CBrickQuestion*>(e->obj))
+		OnCollisionWithBrickQuestion(e);
 }
 
 void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
@@ -117,6 +120,14 @@ void CMario::OnCollisionWithMushRoom(LPCOLLISIONEVENT e)
 	}
 
 }
+
+void CMario::OnCollisionWithBrickQuestion(LPCOLLISIONEVENT e) {
+	CBrickQuestion* questionBrick = dynamic_cast<CBrickQuestion*>(e->obj);
+	if (e->ny > 0 && !questionBrick->isEmpty) {
+		questionBrick->SetState(QUESTION_BRICK_STATE_UP);
+	}
+}
+
 void CMario::OnCollisionWithFlowerFire(LPCOLLISIONEVENT e) {
 	e->obj->Delete();
 	SetLevel(MARIO_LEVEL_FIRE);

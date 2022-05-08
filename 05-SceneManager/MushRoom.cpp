@@ -1,12 +1,13 @@
 #include "MushRoom.h"
 #define MUSHROOM_GRAVITY 0.001f
-#define MUSHROOM_SPEED 0.04f
-#
+#define MUSHROOM_SPEED -0.04f
+#define OUT_BRICK -0.2f
 
 CMushRoom::CMushRoom(float x, float y) :CGameObject(x, y)
 {
 	this->ax = 0;
 	this->ay = MUSHROOM_GRAVITY;
+	vy = OUT_BRICK;
 	SetState(MUSHROOM_STATE_WALKING);
 }
 void CMushRoom::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects){

@@ -15,6 +15,7 @@ class CLeaf :	public CGameObject
 {
 	float ax;
 	float ay;
+	bool isOutBrick;
 	public:
 		CLeaf(float x, float y);
 		CLeaf(float x, float y, int state);

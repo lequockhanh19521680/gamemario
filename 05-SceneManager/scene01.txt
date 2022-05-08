@@ -8,6 +8,7 @@ cloud.txt
 mushroom.txt
 leaf.txt
 flowerfire.txt
+brickquestion.txt
 #
 [OBJECTS]
 # type	x	y	extra_settings per object type
@@ -70,9 +71,12 @@ flowerfire.txt
 #MUSHROOM
 31	220	10
 #LEAF
-32	230	0
+#32	230	0
 #flower
-33	220	60
+#33	220	60
+#brick
+35	20	120
+35	60	120
 
 
 
