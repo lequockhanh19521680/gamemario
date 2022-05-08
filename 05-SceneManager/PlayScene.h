@@ -15,7 +15,6 @@ protected:
 	// A play scene has to have player, right? 
 	LPGAMEOBJECT player;					
 
-	vector<LPGAMEOBJECT> objects;
 
 	void _ParseSection_SPRITES(string line);
 	void _ParseSection_ANIMATIONS(string line);
@@ -26,6 +25,8 @@ protected:
 	void LoadAssets(LPCWSTR assetFile);
 	
 public: 
+	vector<LPGAMEOBJECT> objects;
+
 	CPlayScene(int id, LPCWSTR filePath);
 
 	virtual void Load();
