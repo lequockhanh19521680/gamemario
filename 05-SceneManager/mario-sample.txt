@@ -17,9 +17,11 @@ height	240
 0	textures\mario.png
 10	textures\enemies.png
 15	textures\enemies_2.png
-40	textures\enemies_3.png
-50	textures\enemies_4.pmg
 20	textures\misc.png
+30	Resource\Tilemap\world1-1_bank.png
+40	textures\enemies_3.png
+50	textures\enemies_4.png
+
 90	textures\misc1.png
 100	textures\misc2.png
 110	textures\effect.png
@@ -27,6 +29,5 @@ height	240
 130	textures\Font.png
 140	textures\hud_source.png
 150	textures\worldmapObj.png
-200	Resources\Tilemap\world1-1_bank.png
-210	Resources\Tilemap\world1-1-1_bank.png
-220	Resources\Tilemap\worldmap_bank.png
+200	Resource\Tilemap\world1-1_bank.png
+210	Resource\Tilemap\world1-1-1_bank.png
