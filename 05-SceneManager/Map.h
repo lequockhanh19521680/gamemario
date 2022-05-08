@@ -1,35 +1,28 @@
 #pragma once
-#include "Game.h"
+#include <d3d9.h>
+#include"Textures.h"
 #include "Sprites.h"
-#include <fstream>
 #include "Utils.h"
-#include <string>
-#include "Textures.h"
 #include "AssetIDs.h"
-
 #define TILE_WIDTH 16
 #define TILE_HEIGHT 16
-
-
-
-class Map
+class CMap
 {
-	static Map* __instance;
-	LPTEXTURE Tex;
-	int NumofRowMap, NumofColMap;
-	int NumofRowTileSet, NumofColTileSet;
-	int TotalTile;
-	int** TileMapData;
+	int TotalRowsOfMap, TotalColumnsOfMap;
+	int TotalRowsOfTileSet, TotalColumnsOfTileSet;
+	int TotalTiles;	//total tiles of tile set
+	LPTEXTURE TileSet; //sceneX_bank.png
 	vector<LPSPRITE> Tiles;
+	int** TileMap;
 	float CamX, CamY;
-
 public:
-	Map(int TexID, int NumofRowMap, int NumofColMap, int NumofRowTileSet, int NumofColTileSet, int TotalTile);
-	~Map();
-	void SetMapData(int** mapData);
-	void GetSpriteTile();
-	void DrawMap();
+	CMap(int TileSetID, int TotalRowsOfMap, int TotalColumnsOfMap, int TotalRowsOfTileSet, int  TotalColumnsOfTileSet, int TotalTiles);
+	~CMap();
+	void Render();
+	void SetTileMapData(int** TileMapData);
+	void ExtractTileFromTileSet();
 	void SetCamPos(float x, float y) { CamX = x; CamY = y; }
+	//void GetCamPos() { DebugOut(L"CamX = %f,	CamY = %f\n", CamX, CamY); }
 	int GetMapWidth();
 	int GetMapHeight();
 };

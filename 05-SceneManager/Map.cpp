@@ -1,58 +1,64 @@
 #include "Map.h"
-#include <fstream>
-#include <iostream>
-
-Map::Map(int TexID, int NumofRowMap, int NumofColMap, int NumofRowTileSet, int NumofColTileSet, int TotalTile)
+#include "Utils.h"
+#include "Game.h"
+CMap::CMap(int TileSetID, int TotalRowsOfMap, int TotalColumnsOfMap, int TotalRowsOfTileSet, int  TotalColumnsOfTileSet, int TotalTiles)
 {
-	Tex = CTextures::GetInstance()->Get(TexID);
-	this->NumofRowMap = NumofRowMap;
-	this->NumofColMap = NumofColMap;
-	this->NumofRowTileSet = NumofRowTileSet;
-	this->NumofColTileSet = NumofColTileSet;
-	this->TotalTile = TotalTile;
+	TileSet = CTextures::GetInstance()->Get(TileSetID);
+	this->TotalRowsOfMap = TotalRowsOfMap;
+	this->TotalColumnsOfMap = TotalColumnsOfMap;
+	this->TotalRowsOfTileSet = TotalRowsOfTileSet;
+	this->TotalColumnsOfTileSet = TotalColumnsOfTileSet;
+	this->TotalTiles = TotalTiles;
 	CamX = CamY = 0;
+	TileMap = NULL;
 }
-Map::~Map() {}
-void Map::SetMapData(int** mapData)
+
+CMap::~CMap()
 {
-	TileMapData = mapData;
 }
-void Map::DrawMap()
+
+void CMap::Render()
 {
-	int FirstColumn = (int)floor(CamX / TILE_WIDTH);
-	int LastColumn = (int)ceil((CamX + CGame::GetInstance()->GetScreenWidth()) / TILE_WIDTH);
-	if (LastColumn >= NumofColMap)
-		LastColumn = NumofColMap - 1;
-	for (int CurrentRow = 0; CurrentRow < NumofRowMap; CurrentRow++) {
-		for (int CurrentColumn = 0; CurrentColumn <= LastColumn; CurrentColumn++)
+	int FirstColumn = int(floor(CamX / TILE_WIDTH));
+	int LastColumn = int(ceil((CamX + CGame::GetInstance()->GetScreenWidth()) / TILE_WIDTH));
+	if (LastColumn >= TotalColumnsOfMap)
+		LastColumn = TotalColumnsOfMap - 1;
+	int d = 0;
+	for (int CurrentRow = 0; CurrentRow < TotalRowsOfMap; CurrentRow++)
+		for (int CurrentColumn = FirstColumn; CurrentColumn <= LastColumn; CurrentColumn++)
 		{
-			int index = TileMapData[CurrentRow][CurrentColumn] - 1;
-			if (index < TotalTile)
-				Tiles.at(index)->Draw((float)(CurrentColumn * TILE_WIDTH), float(CurrentRow * TILE_HEIGHT - HUD_HEIGHT));
+			int index = TileMap[CurrentRow][CurrentColumn] - 1;
+			if (index < TotalTiles)
+				Tiles.at(index)->Draw(float(CurrentColumn * TILE_WIDTH), float(CurrentRow * TILE_HEIGHT - HUD_HEIGHT));
 		}
-	}
 }
-void Map::GetSpriteTile()
+
+void CMap::SetTileMapData(int** TileMapData)
 {
-	for (int tile = 0; tile < TotalTile; tile++)
+	TileMap = TileMapData;
+}
+
+
+void CMap::ExtractTileFromTileSet()
+{
+	for (int TileNum = 0; TileNum < TotalTiles; TileNum++)
 	{
-		{
-			int left = tile % NumofColTileSet * TILE_WIDTH;
-			int top = tile / NumofColTileSet * TILE_HEIGHT;
-			int right = left + TILE_WIDTH;
-			int bottom = top + TILE_HEIGHT;
-			LPSPRITE SpriteTile = new CSprite(tile, left, top, right, bottom, Tex);
-			Tiles.push_back(SpriteTile);
-		}
+		int left = TileNum % TotalColumnsOfTileSet * TILE_WIDTH;
+		int top = TileNum / TotalColumnsOfTileSet * TILE_HEIGHT;
+		int right = left + TILE_WIDTH;
+		int bottom = top + TILE_HEIGHT;
+		//DebugOut(L"[DETAILS]	left %d top %d right %d bottom %d\n", left, top, right, bottom);
+		LPSPRITE NewTile = new CSprite(TileNum, left, top, right, bottom, TileSet); // get tile from tileset
+		this->Tiles.push_back(NewTile);
 	}
 }
-int Map::GetMapHeight()
+
+int CMap::GetMapWidth()
 {
-	return NumofRowMap * TILE_HEIGHT;
-}
-int Map::GetMapWidth()
-{
-	return NumofColMap * TILE_WIDTH;
+	return TotalColumnsOfMap * TILE_WIDTH;
 }
 
-
+int CMap::GetMapHeight()
+{
+	return TotalRowsOfMap * TILE_HEIGHT;
+}
