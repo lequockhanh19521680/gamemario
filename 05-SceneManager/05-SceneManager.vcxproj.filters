@@ -64,6 +64,12 @@
     <Filter Include="Header Files\Object\Brick\BrickQuestion">
       <UniqueIdentifier>{cab96d80-d9c4-4b88-be7d-83e479ac449e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\HUD\HUD">
+      <UniqueIdentifier>{a788cc2e-5192-40b1-b144-41e63d48b743}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\HUD\Font">
+      <UniqueIdentifier>{e032170b-f337-4f51-9a1a-92fdce0296f9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -117,15 +123,6 @@
     <ClCompile Include="Map.cpp">
       <Filter>Header Files\Map</Filter>
     </ClCompile>
-    <ClCompile Include="HUD.h">
-      <Filter>Header Files\HUD</Filter>
-    </ClCompile>
-    <ClCompile Include="Font.cpp">
-      <Filter>Header Files\HUD</Filter>
-    </ClCompile>
-    <ClCompile Include="Power.cpp">
-      <Filter>Header Files\HUD</Filter>
-    </ClCompile>
     <ClCompile Include="Goomba.cpp">
       <Filter>Header Files\Object\Enemies\Goomba</Filter>
     </ClCompile>
@@ -155,6 +152,12 @@
     </ClCompile>
     <ClCompile Include="BrickQuestion.cpp">
       <Filter>Header Files\Object\Brick\BrickQuestion</Filter>
+    </ClCompile>
+    <ClCompile Include="HUD.cpp">
+      <Filter>Header Files\HUD\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="Font.cpp">
+      <Filter>Header Files\HUD\Font</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -218,15 +221,6 @@
     <ClInclude Include="Map.h">
       <Filter>Header Files\Map</Filter>
     </ClInclude>
-    <ClInclude Include="HUD.cpp">
-      <Filter>Header Files\HUD</Filter>
-    </ClInclude>
-    <ClInclude Include="Font.h">
-      <Filter>Header Files\HUD</Filter>
-    </ClInclude>
-    <ClInclude Include="Power.h">
-      <Filter>Header Files\HUD</Filter>
-    </ClInclude>
     <ClInclude Include="Goomba.h">
       <Filter>Header Files\Object\Enemies\Goomba</Filter>
     </ClInclude>
@@ -256,6 +250,12 @@
     </ClInclude>
     <ClInclude Include="BrickQuestion.h">
       <Filter>Header Files\Object\Brick\BrickQuestion</Filter>
+    </ClInclude>
+    <ClInclude Include="HUD.h">
+      <Filter>Header Files\HUD\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="Font.h">
+      <Filter>Header Files\HUD\Font</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
