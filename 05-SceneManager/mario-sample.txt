@@ -19,6 +19,7 @@ height	240
 15	textures\enemies_2.png
 20	textures\misc.png
 30	Resource\Tilemap\world1-1_bank.png
+31	Resource\Tilemap\world1-1-1_bank.png
 40	textures\enemies_3.png
 50	textures\enemies_4.png
 
@@ -29,5 +30,5 @@ height	240
 130	textures\Font.png
 140	textures\hud_source.png
 150	textures\worldmapObj.png
-200	Resource\Tilemap\world1-1_bank.png
-210	Resource\Tilemap\world1-1-1_bank.png
+
+

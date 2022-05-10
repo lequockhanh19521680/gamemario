@@ -9,7 +9,12 @@
 #include "Map.h"
 //#include "Koopas.h"
 
+#define WORLD_1			0
+#define WORLD_INTRO		6
+#define WORLD_1_1		1
+#define WORLD_1_4		4
 
+#define CAM_CHANGE_TIME		30
 class CPlayScene: public CScene
 {
 protected: 
@@ -34,9 +39,8 @@ public:
 	virtual void Update(DWORD dt);
 	virtual void Render();
 	virtual void Unload();
-
+	CMap* GetMap() { return current_map; }
 	LPGAMEOBJECT GetPlayer() { return player; }
-
 	void Clear();
 	void PurgeDeletedObjects();
 

@@ -9,8 +9,7 @@ mushroom.txt
 leaf.txt
 flowerfire.txt
 brickquestion.txt
-#
-[TILEMAP DATA]
+[TILEMAP]
 Resource\Tilemap\world1-1.txt
 [OBJECTS]
 # type	x	y	extra_settings per object type
@@ -18,7 +17,8 @@ Resource\Tilemap\world1-1.txt
 # See OBJECT_TYPE constants in AssetIDs.h
 
 # MARIO
-0	20	10
+0	30	350
+1	30	380
 
 
 

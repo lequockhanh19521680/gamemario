@@ -1,5 +1,5 @@
 #pragma once
-#include <d3d9.h>
+#include <d3d10.h>
 #include"Textures.h"
 #include "Sprites.h"
 #include "Utils.h"
