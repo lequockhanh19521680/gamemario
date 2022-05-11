@@ -1,6 +1,7 @@
 #include "Map.h"
 #include "Utils.h"
 #include "Game.h"
+#include "debug.h"
 CMap::CMap(int TileSetID, int TotalRowsOfMap, int TotalColumnsOfMap, int TotalRowsOfTileSet, int  TotalColumnsOfTileSet, int TotalTiles)
 {
 	TileSet = CTextures::GetInstance()->Get(TileSetID);
@@ -29,7 +30,9 @@ void CMap::Render()
 		{
 			int index = TileMap[CurrentRow][CurrentColumn] - 1;
 			if (index < TotalTiles)
-				Tiles.at(index)->Draw(CurrentColumn * TILE_WIDTH, CurrentRow * TILE_HEIGHT - HUD_HEIGHT);
+			{
+				Tiles.at(index)->Draw(CurrentColumn * TILE_WIDTH, CurrentRow * TILE_HEIGHT);
+			}
 		}
 }
 
@@ -45,9 +48,8 @@ void CMap::ExtractTileFromTileSet()
 	{
 		int left = TileNum % TotalColumnsOfTileSet * TILE_WIDTH;
 		int top = TileNum / TotalColumnsOfTileSet * TILE_HEIGHT;
-		int right = left + TILE_WIDTH;
-		int bottom = top + TILE_HEIGHT;
-		//DebugOut(L"[DETAILS]	left %d top %d right %d bottom %d\n", left, top, right, bottom);
+		int right = left + TILE_WIDTH-1;
+		int bottom = top + TILE_HEIGHT-1;
 		LPSPRITE NewTile = new CSprite(TileNum, left, top, right, bottom, TileSet); // get tile from tileset
 		this->Tiles.push_back(NewTile);
 	}

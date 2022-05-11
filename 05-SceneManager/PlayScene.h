@@ -7,7 +7,7 @@
 #include "Mario.h"
 #include "Goomba.h"
 #include "Map.h"
-//#include "Koopas.h"
+
 
 #define WORLD_1			0
 #define WORLD_INTRO		6

@@ -17,8 +17,8 @@ Resource\Tilemap\world1-1.txt
 # See OBJECT_TYPE constants in AssetIDs.h
 
 # MARIO
-0	30	350
-1	30	380
+0	30	368
+1	30	416
 
 
 
