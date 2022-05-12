@@ -11,7 +11,7 @@
 #include "BrickQuestion.h"
 #include "Portal.h"
 #include "Collision.h"
-
+#include "Block.h"
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	vy += ay * dt;
@@ -37,16 +37,16 @@ void CMario::OnNoCollision(DWORD dt)
 
 void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 {
-	if (e->ny != 0 && e->obj->IsBlocking())
-	{
-		vy = 0;
-		if (e->ny < 0) isOnPlatform = true;
-	}
-	else if (e->nx != 0 && e->obj->IsBlocking())
-	{
-		vx = 0;
-	}
-
+		if (e->ny != 0 && e->obj->IsBlocking())
+		{
+			vy = 0;
+			if (e->ny < 0) isOnPlatform = true;
+		}
+		else if (e->nx != 0 && e->obj->IsBlocking())
+		{
+			vx = 0;
+		}
+	
 	if (dynamic_cast<CGoomba*>(e->obj))
 		OnCollisionWithGoomba(e);
 	else if (dynamic_cast<CCoin*>(e->obj))
@@ -61,8 +61,20 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithFlowerFire(e);
 	else if (dynamic_cast<CBrickQuestion*>(e->obj))
 		OnCollisionWithBrickQuestion(e);
+	else if (dynamic_cast<CBlock*>(e->obj))
+		OnCollisionWithBlock(e);
 }
-
+void CMario::OnCollisionWithBlock(LPCOLLISIONEVENT e) {
+	/*CBlock* block = dynamic_cast<CBlock*>(e->obj);
+		if (e->ny < 0)
+		{
+			block->SetBlock(true);
+		}
+		else if (e->ny > 0)
+		{
+			block->SetBlock(false);
+		}*/
+}
 void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 {
 	CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);

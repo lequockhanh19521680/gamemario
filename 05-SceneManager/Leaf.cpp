@@ -29,7 +29,7 @@ void CLeaf::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 		}
 		else vx = -vx;
 	}
-	DebugOut(L"%f\n", vy);
+//	DebugOut(L"[Vy cua la cay] %f\n", vy);
 	
 
 	CGameObject::Update(dt, coObjects);

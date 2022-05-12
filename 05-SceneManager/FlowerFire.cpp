@@ -1,7 +1,20 @@
 #include "FlowerFire.h"
-
+#include "debug.h"
 CFlowerFire::CFlowerFire(float x, float y) : CGameObject(x, y) {
-	vy = 0.2f;
+	ay = -0.0003f;
+	firstYPosition = y;
+}
+
+void CFlowerFire::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
+	if (firstYPosition - y < FL_BBOX_HEIGHT-1) {
+		vy = ay * dt;
+	}
+	else vy = 0;
+	DebugOut(L"[Debug bong hoa] %f %d %f \n", vy, dt,firstYPosition-y);
+	
+
+	CGameObject::Update(dt, coObjects);
+	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
 
 void CFlowerFire::Render()
@@ -11,7 +24,11 @@ void CFlowerFire::Render()
 
 	RenderBoundingBox();
 }
-
+void CFlowerFire::OnNoCollision(DWORD dt)
+{
+	x += vx * dt;
+	y += vy * dt;
+};
 void CFlowerFire::GetBoundingBox(float& l, float& t, float& r, float& b)
 {
 	l = x - FL_BBOX_WIDTH / 2;
