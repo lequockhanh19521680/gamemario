@@ -6,10 +6,11 @@ start	1
 #id	type	file
 # type: 0: intro, 1: play scene 
 [SCENES]
-0	intro.txt
-1	scene01.txt
-2	scene02.txt
-5	scene0005.txt
+0	intro.txt	1
+1	world1-1.txt	3
+2	scene02.txt		3
+5	scene0005.txt	2
+
 
 # id	file 
 [TEXTURES]
@@ -18,8 +19,6 @@ start	1
 10	textures\enemies.png
 15	textures\enemies_2.png
 20	textures\misc.png
-30	Resource\Tilemap\world1-1_bank.png
-31	Resource\Tilemap\world1-1-1_bank.png
 40	textures\enemies_3.png
 50	textures\enemies_4.png
 
@@ -31,4 +30,6 @@ start	1
 140	textures\hud_source.png
 150	textures\worldmapObj.png
 
+200	Resource\Tilemap\world1-1_bank.png
+210	Resource\Tilemap\world1-1-1_bank.png
 

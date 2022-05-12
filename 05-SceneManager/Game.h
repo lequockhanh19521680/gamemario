@@ -16,7 +16,11 @@ using namespace std;
 #define MAX_FRAME_RATE 100
 #define KEYBOARD_BUFFER_SIZE 1024
 #define KEYBOARD_STATE_SIZE 256
-
+#define TYPE_WORLD_UNKNOWN 0
+#define TYPE_WORLD_INTRO 1
+#define TYPE_WORLD_MAP 2
+#define TYPE_WORLD_PLAY 3
+#define FULL_WEIGHT_1_1 2816
 
 
 /*

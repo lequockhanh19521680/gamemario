@@ -5,6 +5,8 @@
 /*
 *  Abstract class for a game scene
 */
+#define ID_WORLD_1_1	1	
+#define ID_WORLD_1_4	2
 class CScene
 {
 protected:
@@ -19,7 +21,7 @@ public:
 		this->sceneFilePath = filePath;
 		this->key_handler = NULL;
 	}
-
+	int GetIdScene() { return id; }
 	LPKEYEVENTHANDLER GetKeyEventHandler() { return key_handler; }
 	virtual void Load() = 0;
 	virtual void Unload() = 0;

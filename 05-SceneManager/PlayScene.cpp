@@ -16,6 +16,7 @@
 #include "BrickQuestion.h"
 #include "FlowerFire.h"
 #include "SampleKeyEventHandler.h"
+#include "Game.h"
 
 using namespace std;
 
@@ -298,6 +299,7 @@ void CPlayScene::Update(DWORD dt)
 	cy -= game->GetBackBufferHeight() / 2;
 
 	if (cx < 0) cx = 0;
+	if (cx > FULL_WEIGHT_1_1) cx = FULL_WEIGHT_1_1-1000;
 
 	CGame::GetInstance()->SetCamPos(cx, cy);
 

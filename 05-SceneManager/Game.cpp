@@ -3,11 +3,10 @@
 #include "Game.h"
 #include "debug.h"
 #include "Utils.h"
-
+#include "Scene.h"
 #include "Texture.h"
 #include "Animations.h"
 #include "PlayScene.h"
-
 CGame * CGame::__instance = NULL;
 
 /*
@@ -28,7 +27,7 @@ void CGame::Init(HWND hWnd, HINSTANCE hInstance)
 	backBufferHeight = r.bottom + 1;
 
 	screen_height = r.bottom + 1;
-	screen_width = r.right + 1;
+	screen_width = r.right+1;
 	DebugOut(L"[INFO] Window's client area: width= %d, height= %d\n", r.right - 1, r.bottom - 1);
 
 	// Create & clear the DXGI_SWAP_CHAIN_DESC structure
@@ -454,13 +453,30 @@ void CGame::_ParseSection_SETTINGS(string line)
 void CGame::_ParseSection_SCENES(string line)
 {
 	vector<string> tokens = split(line);
-
+	int type = TYPE_WORLD_UNKNOWN;
 	if (tokens.size() < 2) return;
+	LPSCENE scene;
 	int id = atoi(tokens[0].c_str());
 	LPCWSTR path = ToLPCWSTR(tokens[1]);   // file: ASCII format (single-byte char) => Wide Char
-
-	LPSCENE scene = new CPlayScene(id, path);
+	if (tokens[2].c_str()) {
+		type = atoi(tokens[2].c_str());
+	}
+	/*switch (type) {
+	case TYPE_WORLD_PLAY:*/ 
+	scene = new CPlayScene(id, path);
 	scenes[id] = scene;
+		//break;
+	/*case TYPE_WORLD_UNKNOWN:
+		DebugOut(L"[ERROR] Khong tim thay scene");
+		break;
+	case TYPE_WORLD_INTRO:
+		break;
+	case TYPE_WORLD_MAP:
+		break;*/
+	
+	
+
+	
 }
 
 /*
