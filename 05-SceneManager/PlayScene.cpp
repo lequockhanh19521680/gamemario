@@ -157,7 +157,8 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_MUSHROOM: obj = new CMushRoom(x, y); break;
 	case OBJECT_TYPE_LEAF: obj = new CLeaf(x, y); break;
 	case OBJECT_TYPE_FLOWERFIRE: obj = new CFlowerFire(x, y); break;
-	case OBJECT_TYPE_BRICKQUESTION: obj = new CBrickQuestion(x, y,2); break;
+	case OBJECT_TYPE_BRICKQUESTION_COIN: obj = new CBrickQuestion(x, y, QUESTION_BRICK_COIN); break;
+	case OBJECT_TYPE_BRICKQUESTION_ITEM: obj = new CBrickQuestion(x, y, QUESTION_BRICK_ITEM); break;
 	case OBJECT_TYPE_PLATFORM:
 	{
 
@@ -299,9 +300,9 @@ void CPlayScene::Update(DWORD dt)
 	cy -= game->GetBackBufferHeight() / 2;
 
 	if (cx < 0) cx = 0;
-	if (cx > FULL_WEIGHT_1_1) cx = FULL_WEIGHT_1_1-1000;
+	
 
-	CGame::GetInstance()->SetCamPos(cx, cy);
+	CGame::GetInstance()->SetCamPos(cx, ADJUST_CAM_Y);
 
 	PurgeDeletedObjects();
 }

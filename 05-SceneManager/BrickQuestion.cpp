@@ -20,7 +20,7 @@ void CBrickQuestion::GetBoundingBox(float& left, float& top, float& right, float
 {
 	left = x - QUESTION_BRICK_BBOX_WIDTH / 2;
 	top = y - QUESTION_BRICK_BBOX_HEIGHT / 2;
-	right = left + QUESTION_BRICK_BBOX_WIDTH;
+	right = left + QUESTION_BRICK_BBOX_WIDTH-1;
 	bottom = top + QUESTION_BRICK_BBOX_HEIGHT;
 }
 
@@ -65,8 +65,10 @@ void CBrickQuestion::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				scene->objects.insert(scene->objects.begin() + 1, flower);
 			}
 		}
-		else {
+		else if(model == QUESTION_BRICK_COIN) {
+			mario->SetCoin(mario->GetCoin() + 1);
 			CCoin* coin = new CCoin(x, y);
+			coin->SetState(COIN_SUMMON_STATE);
 			scene->objects.insert(scene->objects.begin() + 1, coin);
 		}
 		isUnbox = false;

@@ -14,11 +14,33 @@ Resource\Tilemap\world1-1.txt
 [OBJECTS]
 # type	x	y	extra_settings per object type
 # type: 0 = Mario , 1 = Brick, 2 = Goomba, 4 = Koopas
+#define OBJECT_TYPE_MARIO	0
+#define OBJECT_TYPE_BRICK	1
+#define OBJECT_TYPE_GOOMBA	2
+#define OBJECT_TYPE_GOOMBA_FLY	3
+#define OBJECT_TYPE_KOOPAS	4
+#define OBJECT_TYPE_KOOPAS_FLY 5
+#define OBJECT_TYPE_COIN 30
+#define OBJECT_TYPE_MUSHROOM 31
+#define OBJECT_TYPE_LEAF 32
+#define OBJECT_TYPE_BRICKQUESTION 35
+#define OBJECT_TYPE_FLOWERFIRE 33
+#define OBJECT_TYPE_PLATFORM 40
 # See OBJECT_TYPE constants in AssetIDs.h
 
 # MARIO
 0	16	368
-1	0	416
+1	16	416
+# BRICKCOIN
+34	176	352
+34	224	304
+34	192	352
+#BRICKITEM
+35	240	304
+#GOOMPA
+2	224	400
+
+
 
 
 

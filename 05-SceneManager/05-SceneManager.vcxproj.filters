@@ -73,6 +73,9 @@
     <Filter Include="Header Files\Scene">
       <UniqueIdentifier>{162e082f-23ea-472b-b61b-dbc4489f340b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Object\Block">
+      <UniqueIdentifier>{b6a0f0e2-efb7-4a12-b7ea-58dba63f4b36}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -164,6 +167,9 @@
     </ClCompile>
     <ClCompile Include="PlayScene.cpp">
       <Filter>Header Files\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Block.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -265,6 +271,9 @@
     </ClInclude>
     <ClInclude Include="PlayScene.h">
       <Filter>Header Files\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Block.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
