@@ -17,7 +17,7 @@
 
 #define MARIO_GRAVITY			0.0006f
 
-#define MARIO_JUMP_DEFLECT_SPEED  0.1f
+#define MARIO_JUMP_DEFLECT_SPEED  0.2f
 
 #define MARIO_STATE_DIE				-10
 #define MARIO_STATE_IDLE			0
@@ -148,9 +148,9 @@
 #define MARIO_LEVEL_FIRE    3
 #define MARIO_LEVEL_TAIL	4
 
-#define MARIO_BIG_BBOX_WIDTH  14
+#define MARIO_BIG_BBOX_WIDTH  16
 #define MARIO_BIG_BBOX_HEIGHT 24
-#define MARIO_BIG_SITTING_BBOX_WIDTH  14
+#define MARIO_BIG_SITTING_BBOX_WIDTH  16
 #define MARIO_BIG_SITTING_BBOX_HEIGHT 16
 
 #define MARIO_SIT_HEIGHT_ADJUST ((MARIO_BIG_BBOX_HEIGHT-MARIO_BIG_SITTING_BBOX_HEIGHT)/2)
@@ -217,6 +217,7 @@ public:
 	int GetCoin() { return this->coin; }
 	void SetCoin(int coin) { this->coin = coin; }
 	void SetLevel(int l);
+	void SetVy(float v) { vy = v; }
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount64(); }
 
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);

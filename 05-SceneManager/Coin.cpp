@@ -5,7 +5,7 @@ void CCoin::Render()
 	CAnimations* animations = CAnimations::GetInstance();
 	animations->Get(ID_ANI_COIN)->Render(x, y);
 
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 void CCoin::GetBoundingBox(float& l, float& t, float& r, float& b)
@@ -17,7 +17,7 @@ void CCoin::GetBoundingBox(float& l, float& t, float& r, float& b)
 }
 void CCoin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 	vy += ay * dt;
-	DebugOut(L"[VANTOC] %f\n", vy);
+	//DebugOut(L"[VANTOC] %f\n", vy);
 	if (vy > COIN_MAX_SPEED_FALL) {
 		Delete();
 	}

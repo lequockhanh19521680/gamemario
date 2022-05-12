@@ -27,7 +27,6 @@ protected:
 	void _ParseSection_TILEMAP_DATA(string line);
 	void _ParseSection_ASSETS(string line);
 	void _ParseSection_OBJECTS(string line);
-
 	void LoadAssets(LPCWSTR assetFile);
 	
 public: 

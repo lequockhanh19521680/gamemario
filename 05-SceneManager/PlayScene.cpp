@@ -17,7 +17,7 @@
 #include "FlowerFire.h"
 #include "SampleKeyEventHandler.h"
 #include "Game.h"
-
+#include "Block.h"
 using namespace std;
 
 CPlayScene::CPlayScene(int id, LPCWSTR filePath) :
@@ -35,6 +35,7 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath) :
 #define ASSETS_SECTION_UNKNOWN -1
 #define ASSETS_SECTION_SPRITES 1
 #define ASSETS_SECTION_ANIMATIONS 2
+
 
 #define MAX_SCENE_LINE 1024
 
@@ -60,7 +61,6 @@ void CPlayScene::_ParseSection_SPRITES(string line)
 
 	CSprites::GetInstance()->Add(ID, l, t, r, b, tex);
 }
-
 void CPlayScene::_ParseSection_ASSETS(string line)
 {
 	vector<string> tokens = split(line);
@@ -184,8 +184,17 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		float b = (float)atof(tokens[4].c_str());
 		int scene_id = atoi(tokens[5].c_str());
 		obj = new CPortal(x, y, r, b, scene_id);
+		break;
 	}
-	break;
+	case OBJECT_TYPE_BLOCK:
+	{
+		float r = (float)atof(tokens[3].c_str());
+		float b = (float)atof(tokens[4].c_str());
+		obj = new CBlock(x, y, r, b);
+		break; 
+	}
+	
+
 
 
 	default:
