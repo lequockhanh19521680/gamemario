@@ -73,8 +73,11 @@
     <Filter Include="Header Files\Scene">
       <UniqueIdentifier>{162e082f-23ea-472b-b61b-dbc4489f340b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Object\Block">
+    <Filter Include="Header Files\Object\Portal">
       <UniqueIdentifier>{b6a0f0e2-efb7-4a12-b7ea-58dba63f4b36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game">
+      <UniqueIdentifier>{cde999cd-5167-4301-9832-055ca1fc2d0e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -91,9 +94,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Utils.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
@@ -159,17 +159,17 @@
     <ClCompile Include="Font.cpp">
       <Filter>Header Files\HUD\Font</Filter>
     </ClCompile>
-    <ClCompile Include="WorlaMap.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="PlayScene.cpp">
       <Filter>Header Files\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Block.cpp">
-      <Filter>Header Files\Object\Block</Filter>
-    </ClCompile>
     <ClCompile Include="Portal.cpp">
-      <Filter>Header Files\Object\Block</Filter>
+      <Filter>Header Files\Object\Portal</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Header Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="WorlaMap.cpp">
+      <Filter>Header Files\Map</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -180,9 +180,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="debug.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="KeyEventHandler.h">
@@ -260,20 +257,20 @@
     <ClInclude Include="Font.h">
       <Filter>Header Files\HUD\Font</Filter>
     </ClInclude>
-    <ClInclude Include="WorlaMap.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Scene.h">
       <Filter>Header Files\Scene</Filter>
     </ClInclude>
     <ClInclude Include="PlayScene.h">
       <Filter>Header Files\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Block.h">
-      <Filter>Header Files\Object\Block</Filter>
-    </ClInclude>
     <ClInclude Include="Portal.h">
-      <Filter>Header Files\Object\Block</Filter>
+      <Filter>Header Files\Object\Portal</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="WorlaMap.h">
+      <Filter>Header Files\Map</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

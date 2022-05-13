@@ -10,7 +10,7 @@ void CFlowerFire::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 		vy = ay * dt;
 	}
 	else vy = 0;
-	DebugOut(L"[Debug bong hoa] %f %d %f \n", vy, dt,firstYPosition-y);
+	//DebugOut(L"[Debug bong hoa] %f %d %f \n", vy, dt,firstYPosition-y);
 	
 
 	CGameObject::Update(dt, coObjects);

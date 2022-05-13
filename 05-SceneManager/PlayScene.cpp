@@ -17,7 +17,6 @@
 #include "FlowerFire.h"
 #include "SampleKeyEventHandler.h"
 #include "Game.h"
-#include "Block.h"
 using namespace std;
 
 CPlayScene::CPlayScene(int id, LPCWSTR filePath) :
@@ -27,7 +26,7 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath) :
 	key_handler = new CSampleKeyHandler(this);
 }
 
-
+#define ADJUST_CAMERA_X	264
 #define SCENE_SECTION_UNKNOWN -1
 #define SCENE_SECTION_ASSETS	1
 #define SCENE_SECTION_OBJECTS	2
@@ -186,13 +185,6 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		obj = new CPortal(x, y, r, b, scene_id);
 		break;
 	}
-	case OBJECT_TYPE_BLOCK:
-	{
-		float r = (float)atof(tokens[3].c_str());
-		float b = (float)atof(tokens[4].c_str());
-		obj = new CBlock(x, y, r, b);
-		break; 
-	}
 	
 
 
@@ -309,6 +301,7 @@ void CPlayScene::Update(DWORD dt)
 	cy -= game->GetBackBufferHeight() / 2;
 
 	if (cx < 0) cx = 0;
+	if (cx > FULL_WEIGHT_1_1 - ADJUST_CAMERA_X) cx = FULL_WEIGHT_1_1-ADJUST_CAMERA_X;
 	
 
 	CGame::GetInstance()->SetCamPos(cx, ADJUST_CAM_Y);
