@@ -10,6 +10,7 @@
 #include "FlowerFire.h"
 #include "BrickQuestion.h"
 #include "Portal.h"
+#include "PlayScene.h"
 #include "Collision.h"
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
@@ -122,8 +123,38 @@ void CMario::OnCollisionWithMushRoom(LPCOLLISIONEVENT e)
 
 void CMario::OnCollisionWithBrickQuestion(LPCOLLISIONEVENT e) {
 	CBrickQuestion* questionBrick = dynamic_cast<CBrickQuestion*>(e->obj);
-	if (e->ny > 0 && !questionBrick->isEmpty) {
+	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
+
+	
+	if (e->ny > 0 && !questionBrick->isEmpty && !questionBrick->isUnbox) {
+		float x = questionBrick->GetX();
+		float y = questionBrick->GetY();
+		float minY = questionBrick->GetMinY();
 		questionBrick->SetState(QUESTION_BRICK_STATE_UP);
+		DebugOut(L"[Y and minY questionBrick] %f %f\n",y, minY);
+		if (y <= minY) {
+			if (questionBrick->GetModel() == QUESTION_BRICK_ITEM) {
+				if (GetLevel() == MARIO_LEVEL_SMALL) {
+					CMushRoom* mushroom = new CMushRoom(x, y);
+					scene->AddObject(mushroom);
+				}
+				else if (GetLevel() == MARIO_LEVEL_BIG) {
+					CLeaf* leaf = new CLeaf(x, y);
+					scene->AddObject(leaf);
+				}
+				else if (GetLevel() == MARIO_LEVEL_TAIL || GetLevel() == MARIO_LEVEL_FIRE) {
+					CFlowerFire* flower = new CFlowerFire(x, y);
+					scene->AddObject(flower);
+				}
+			}
+			else if (questionBrick->GetModel() == QUESTION_BRICK_COIN) {
+				SetCoin(GetCoin() + 1);
+				CCoin* coin = new CCoin(x, y);
+				coin->SetState(COIN_SUMMON_STATE);
+				scene->AddObject(coin);
+			}
+			questionBrick->isUnbox = false;
+		}
 		
 	}
 }

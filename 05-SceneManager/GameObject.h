@@ -40,7 +40,8 @@ public:
 	int GetState() { return this->state; }
 	virtual void Delete() { isDeleted = true;  }
 	bool IsDeleted() { return isDeleted; }
-
+	void SetModel(int model) { this->model = model; }
+	int GetModel() { return model; }
 	void RenderBoundingBox();
 
 	CGameObject();
@@ -64,8 +65,8 @@ public:
 	
 	// Is this object blocking other object? If YES, collision framework will automatically push the other object
 	virtual int IsBlocking() { return 1; }
-	int GetX() { return x; }
-	int GetY() { return y; }
+	float GetX() { return x; }
+	float GetY() { return y; }
 	~CGameObject();
 
 	static bool IsDeleted(const LPGAMEOBJECT &o) { return o->isDeleted; }

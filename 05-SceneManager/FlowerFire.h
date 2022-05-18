@@ -1,7 +1,7 @@
 #pragma once
 #include "GameObject.h"
 
-#define ID_ANI_FLOWER 11003
+#define ID_ANI_FLOWER 11004
 #define FL_BBOX_WIDTH 10
 #define FL_BBOX_HEIGHT 16
 class CFlowerFire :	public CGameObject

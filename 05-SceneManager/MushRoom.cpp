@@ -1,7 +1,7 @@
 #include "MushRoom.h"
 #define MUSHROOM_GRAVITY 0.001f
 #define MUSHROOM_SPEED -0.06f
-#define OUT_BRICK -0.2f
+#define OUT_BRICK -0.22f
 
 CMushRoom::CMushRoom(float x, float y) :CGameObject(x, y)
 {

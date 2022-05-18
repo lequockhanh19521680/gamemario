@@ -4,7 +4,8 @@
 #include "AssetIDs.h"
 #include "debug.h"
 
-#define ID_ANI_LEAF 11002
+#define ID_ANI_LEAF_LEFT 11002
+#define ID_ANI_LEAF_RIGHT 11003
 
 #define	LEAF_WIDTH 10
 #define LEAF_BBOX_WIDTH 18

@@ -35,46 +35,17 @@ void CBrickQuestion::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	vy += ay * dt;
 	vx += ax * dt;
-
-	if (y <= minY)
-	{
-		vy = QUESTION_BRICK_SPEED_DOWN;
-	}
-	if (y > startY)
-	{
-		y = startY;
-		vy = 0;
-		isEmpty = true;
-		isUnbox = true;
-	}
-
-	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
-	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
-	if (isUnbox) {
-		if (model == QUESTION_BRICK_ITEM) {
-			if (mario->GetLevel() == MARIO_LEVEL_SMALL) {
-				CMushRoom* mushroom = new CMushRoom(x, y);
-				scene->objects.insert(scene->objects.begin() + 1, mushroom);
-			}
-			else if (mario->GetLevel() == MARIO_LEVEL_BIG) {
-				CLeaf* leaf = new CLeaf(x, y);
-				scene->objects.insert(scene->objects.begin() + 1, leaf);
-			}
-			else if (mario->GetLevel() == MARIO_LEVEL_TAIL || mario->GetLevel() == MARIO_LEVEL_FIRE) {
-				CFlowerFire* flower = new CFlowerFire(x, y);
-				scene->objects.insert(scene->objects.begin() + 1, flower);
-			}
+		if (y <= minY)
+		{
+			vy = QUESTION_BRICK_SPEED_DOWN;
 		}
-		else if(model == QUESTION_BRICK_COIN) {
-			mario->SetCoin(mario->GetCoin() + 1);
-			CCoin* coin = new CCoin(x, y);
-			coin->SetState(COIN_SUMMON_STATE);
-			scene->objects.insert(scene->objects.begin() + 1, coin);
+		if (y > startY)
+		{
+			y = startY;
+			vy = 0;
+			isEmpty = true;
+			isUnbox = true;
 		}
-		isUnbox = false;
-	}
-
-
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
@@ -100,5 +71,6 @@ void CBrickQuestion::SetState(int state)
 	case QUESTION_BRICK_STATE_UP:
 		vy = -QUESTION_BRICK_SPEED_UP;
 		break;
+		
 	}
 }

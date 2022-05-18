@@ -38,6 +38,7 @@ public:
 
 	CBrickQuestion(float x, float y, int model);
 	virtual void SetState(int state);
+	float GetMinY() { return minY; }
 	BOOLEAN isUnbox = false;
 	BOOLEAN isEmpty = false;
 	CGameObject* item = NULL;

@@ -22,8 +22,8 @@ start	1
 40	textures\enemies_3.png
 50	textures\enemies_4.png
 
-90	textures\misc1.png
-100	textures\misc2.png
+90	textures\misc_left.png
+100	textures\misc_right.png
 110	textures\effect.png
 120	textures\HUD.png
 130	textures\Font.png
