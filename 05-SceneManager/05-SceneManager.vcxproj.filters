@@ -37,33 +37,6 @@
     <Filter Include="Header Files\HUD">
       <UniqueIdentifier>{901ef1cf-d4e5-4d85-a625-a8f40b3716b8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Object\Enemies\Goomba">
-      <UniqueIdentifier>{2826bc92-58ba-40c3-9357-83a0cd46c85c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Object\Enemies\Koopa">
-      <UniqueIdentifier>{3cf7630f-d62b-499e-a8c0-950228c74816}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Object\Items\Coin">
-      <UniqueIdentifier>{6f632675-1bea-4429-b82c-024275847beb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Object\Items\MushRoom">
-      <UniqueIdentifier>{2eb60dea-9d06-49f6-b3b1-44b2df9793b5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Object\Items\Leaf">
-      <UniqueIdentifier>{59d69798-606f-464e-8741-eadaeab8f4b6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Object\Items\FlowerFire">
-      <UniqueIdentifier>{cb918de1-c624-4094-82b4-a913e7261dde}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Object\Brick\Brick">
-      <UniqueIdentifier>{fd39b3d4-b6fa-4f96-90e8-4bb708ac0bf6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Object\Brick\Platform">
-      <UniqueIdentifier>{0e69faba-e742-44b0-9b77-5b3fa95c079b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Object\Brick\BrickQuestion">
-      <UniqueIdentifier>{cab96d80-d9c4-4b88-be7d-83e479ac449e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\HUD\HUD">
       <UniqueIdentifier>{a788cc2e-5192-40b1-b144-41e63d48b743}</UniqueIdentifier>
     </Filter>
@@ -123,36 +96,6 @@
     <ClCompile Include="Map.cpp">
       <Filter>Header Files\Map</Filter>
     </ClCompile>
-    <ClCompile Include="Goomba.cpp">
-      <Filter>Header Files\Object\Enemies\Goomba</Filter>
-    </ClCompile>
-    <ClCompile Include="GoombaFly.cpp">
-      <Filter>Header Files\Object\Enemies\Goomba</Filter>
-    </ClCompile>
-    <ClCompile Include="Koopa.cpp">
-      <Filter>Header Files\Object\Enemies\Koopa</Filter>
-    </ClCompile>
-    <ClCompile Include="Coin.cpp">
-      <Filter>Header Files\Object\Items\Coin</Filter>
-    </ClCompile>
-    <ClCompile Include="MushRoom.cpp">
-      <Filter>Header Files\Object\Items\MushRoom</Filter>
-    </ClCompile>
-    <ClCompile Include="Leaf.cpp">
-      <Filter>Header Files\Object\Items\Leaf</Filter>
-    </ClCompile>
-    <ClCompile Include="FlowerFire.cpp">
-      <Filter>Header Files\Object\Items\FlowerFire</Filter>
-    </ClCompile>
-    <ClCompile Include="Brick.cpp">
-      <Filter>Header Files\Object\Brick\Brick</Filter>
-    </ClCompile>
-    <ClCompile Include="Platform.cpp">
-      <Filter>Header Files\Object\Brick\Platform</Filter>
-    </ClCompile>
-    <ClCompile Include="BrickQuestion.cpp">
-      <Filter>Header Files\Object\Brick\BrickQuestion</Filter>
-    </ClCompile>
     <ClCompile Include="HUD.cpp">
       <Filter>Header Files\HUD\HUD</Filter>
     </ClCompile>
@@ -170,6 +113,36 @@
     </ClCompile>
     <ClCompile Include="WorlaMap.cpp">
       <Filter>Header Files\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Brick.cpp">
+      <Filter>Header Files\Object\Brick</Filter>
+    </ClCompile>
+    <ClCompile Include="BrickQuestion.cpp">
+      <Filter>Header Files\Object\Brick</Filter>
+    </ClCompile>
+    <ClCompile Include="Platform.cpp">
+      <Filter>Header Files\Object\Brick</Filter>
+    </ClCompile>
+    <ClCompile Include="Goomba.cpp">
+      <Filter>Header Files\Object\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="GoombaFly.cpp">
+      <Filter>Header Files\Object\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Koopa.cpp">
+      <Filter>Header Files\Object\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="FlowerFire.cpp">
+      <Filter>Header Files\Object\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Coin.cpp">
+      <Filter>Header Files\Object\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Leaf.cpp">
+      <Filter>Header Files\Object\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="MushRoom.cpp">
+      <Filter>Header Files\Object\Items</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -221,36 +194,6 @@
     <ClInclude Include="Map.h">
       <Filter>Header Files\Map</Filter>
     </ClInclude>
-    <ClInclude Include="Goomba.h">
-      <Filter>Header Files\Object\Enemies\Goomba</Filter>
-    </ClInclude>
-    <ClInclude Include="GoombaFly.h">
-      <Filter>Header Files\Object\Enemies\Goomba</Filter>
-    </ClInclude>
-    <ClInclude Include="Koopa.h">
-      <Filter>Header Files\Object\Enemies\Koopa</Filter>
-    </ClInclude>
-    <ClInclude Include="Coin.h">
-      <Filter>Header Files\Object\Items\Coin</Filter>
-    </ClInclude>
-    <ClInclude Include="MushRoom.h">
-      <Filter>Header Files\Object\Items\MushRoom</Filter>
-    </ClInclude>
-    <ClInclude Include="Leaf.h">
-      <Filter>Header Files\Object\Items\Leaf</Filter>
-    </ClInclude>
-    <ClInclude Include="FlowerFire.h">
-      <Filter>Header Files\Object\Items\FlowerFire</Filter>
-    </ClInclude>
-    <ClInclude Include="Brick.h">
-      <Filter>Header Files\Object\Brick\Brick</Filter>
-    </ClInclude>
-    <ClInclude Include="Platform.h">
-      <Filter>Header Files\Object\Brick\Platform</Filter>
-    </ClInclude>
-    <ClInclude Include="BrickQuestion.h">
-      <Filter>Header Files\Object\Brick\BrickQuestion</Filter>
-    </ClInclude>
     <ClInclude Include="HUD.h">
       <Filter>Header Files\HUD\HUD</Filter>
     </ClInclude>
@@ -271,6 +214,36 @@
     </ClInclude>
     <ClInclude Include="WorlaMap.h">
       <Filter>Header Files\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Brick.h">
+      <Filter>Header Files\Object\Brick</Filter>
+    </ClInclude>
+    <ClInclude Include="BrickQuestion.h">
+      <Filter>Header Files\Object\Brick</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform.h">
+      <Filter>Header Files\Object\Brick</Filter>
+    </ClInclude>
+    <ClInclude Include="Goomba.h">
+      <Filter>Header Files\Object\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="GoombaFly.h">
+      <Filter>Header Files\Object\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Koopa.h">
+      <Filter>Header Files\Object\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="FlowerFire.h">
+      <Filter>Header Files\Object\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Coin.h">
+      <Filter>Header Files\Object\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Leaf.h">
+      <Filter>Header Files\Object\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="MushRoom.h">
+      <Filter>Header Files\Object\Items</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

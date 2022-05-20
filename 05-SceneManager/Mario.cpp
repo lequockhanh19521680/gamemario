@@ -7,6 +7,7 @@
 #include "MushRoom.h"
 #include "Goomba.h"
 #include "Coin.h"
+#include "Platform.h"
 #include "FlowerFire.h"
 #include "BrickQuestion.h"
 #include "Portal.h"
@@ -46,7 +47,6 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		{
 			vx = 0;
 		}
-	
 	if (dynamic_cast<CGoomba*>(e->obj))
 		OnCollisionWithGoomba(e);
 	else if (dynamic_cast<CCoin*>(e->obj))
@@ -59,6 +59,8 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithLeaf(e);
 	else if (dynamic_cast<CFlowerFire*>(e->obj))
 		OnCollisionWithFlowerFire(e);
+	else if (dynamic_cast<CBrickQuestion*>(e->obj))
+		OnCollisionWithBrickQuestion(e);
 	else if (dynamic_cast<CBrickQuestion*>(e->obj))
 		OnCollisionWithBrickQuestion(e);
 
@@ -124,40 +126,44 @@ void CMario::OnCollisionWithMushRoom(LPCOLLISIONEVENT e)
 void CMario::OnCollisionWithBrickQuestion(LPCOLLISIONEVENT e) {
 	CBrickQuestion* questionBrick = dynamic_cast<CBrickQuestion*>(e->obj);
 	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
+	BOOLEAN isUnbox, isEmpty;
+	isUnbox = questionBrick->GetIsUnbox();
+	isEmpty = questionBrick->GetIsEmpty();
+	if(e->ny < 0){}
+	else if (e->ny > 0 && !isUnbox && !isEmpty) {
+		float x, y, minY;
+		x = questionBrick->GetX();
+		y = questionBrick->GetY();
+		minY = questionBrick->GetMinY();
 
-	
-	if (e->ny > 0 && !questionBrick->isEmpty && !questionBrick->isUnbox) {
-		float x = questionBrick->GetX();
-		float y = questionBrick->GetY();
-		float minY = questionBrick->GetMinY();
 		questionBrick->SetState(QUESTION_BRICK_STATE_UP);
-		DebugOut(L"[Y and minY questionBrick] %f %f\n",y, minY);
-		if (y <= minY) {
-			if (questionBrick->GetModel() == QUESTION_BRICK_ITEM) {
-				if (GetLevel() == MARIO_LEVEL_SMALL) {
-					CMushRoom* mushroom = new CMushRoom(x, y);
-					scene->AddObject(mushroom);
-				}
-				else if (GetLevel() == MARIO_LEVEL_BIG) {
-					CLeaf* leaf = new CLeaf(x, y);
-					scene->AddObject(leaf);
-				}
-				else if (GetLevel() == MARIO_LEVEL_TAIL || GetLevel() == MARIO_LEVEL_FIRE) {
-					CFlowerFire* flower = new CFlowerFire(x, y);
-					scene->AddObject(flower);
-				}
+	
+		if (questionBrick->GetModel() == QUESTION_BRICK_ITEM) {
+			if (GetLevel() == MARIO_LEVEL_SMALL) {
+				CMushRoom* mushroom = new CMushRoom(x, y);
+				scene->AddObject(mushroom);
 			}
-			else if (questionBrick->GetModel() == QUESTION_BRICK_COIN) {
-				SetCoin(GetCoin() + 1);
-				CCoin* coin = new CCoin(x, y);
-				coin->SetState(COIN_SUMMON_STATE);
-				scene->AddObject(coin);
+			else if (GetLevel() == MARIO_LEVEL_BIG) {
+				CLeaf* leaf = new CLeaf(x, y);
+				scene->AddObject(leaf);
 			}
-			questionBrick->isUnbox = false;
+			else if (GetLevel() == MARIO_LEVEL_TAIL || GetLevel() == MARIO_LEVEL_FIRE) {
+				CFlowerFire* flower = new CFlowerFire(x, y);
+				scene->AddObject(flower);
+			}
 		}
-		
+		else if (questionBrick->GetModel() == QUESTION_BRICK_COIN) {
+			SetCoin(GetCoin() + 1);
+			CCoin* coin = new CCoin(x, y);
+			coin->SetState(COIN_SUMMON_STATE);
+			scene->AddObject(coin);
+		}
 	}
+
 }
+
+
+
 
 void CMario::OnCollisionWithFlowerFire(LPCOLLISIONEVENT e) {
 	e->obj->Delete();

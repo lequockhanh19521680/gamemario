@@ -11,11 +11,13 @@
 #define MUSHROOM_BBOX_WIDTH 10
 #define MUSHROOM_BBOX_HEIGHT 16
 #define MUSHROOM_STATE_WALKING 100
-#define MUSHROOM_STATE_FLY 200
+#define MUSHROOM_STATE_OUTSIDE 200
+
 
 class CMushRoom : public CGameObject {
 	float ax;
 	float ay;
+	float startY;
 public:
 	CMushRoom(float x, float y);
 	void Render();

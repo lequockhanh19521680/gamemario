@@ -4,6 +4,7 @@
 #define ID_ANI_FLOWER 11004
 #define FL_BBOX_WIDTH 10
 #define FL_BBOX_HEIGHT 16
+#define FL_QUICKLY_Y 0.0003f;
 class CFlowerFire :	public CGameObject
 {
 	float ay;

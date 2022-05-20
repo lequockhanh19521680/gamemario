@@ -1,18 +1,28 @@
 #include "MushRoom.h"
 #define MUSHROOM_GRAVITY 0.001f
 #define MUSHROOM_SPEED -0.06f
-#define OUT_BRICK -0.22f
+#define OUT_BRICK -0.02f
 
 CMushRoom::CMushRoom(float x, float y) :CGameObject(x, y)
 {
 	this->ax = 0;
 	this->ay = MUSHROOM_GRAVITY;
-	vy = OUT_BRICK;
-	SetState(MUSHROOM_STATE_WALKING);
+	vy = 0;
+	startY = y;
+	SetState(MUSHROOM_STATE_OUTSIDE);
 }
 void CMushRoom::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects){
-	vy += ay * dt;
-	vx += ax * dt;
+	if (state == MUSHROOM_STATE_WALKING) {
+		vy += ay * dt;
+		vx += ax * dt;
+	}
+	else if(state == MUSHROOM_STATE_OUTSIDE) {
+		if (startY - y < MUSHROOM_BBOX_HEIGHT - 1) {
+			vy = OUT_BRICK;
+			vx = 0;
+		}
+		else SetState(MUSHROOM_STATE_WALKING);
+	}
 		
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);

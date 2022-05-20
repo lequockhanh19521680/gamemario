@@ -1,13 +1,13 @@
 #include "FlowerFire.h"
 #include "debug.h"
 CFlowerFire::CFlowerFire(float x, float y) : CGameObject(x, y) {
-	ay = -0.0003f;
+	ay = -FL_QUICKLY_Y;
 	firstYPosition = y;
 }
 
 void CFlowerFire::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 	if (firstYPosition - y < FL_BBOX_HEIGHT-1) {
-		vy = ay * dt;
+		vy = ay*dt;
 	}
 	else vy = 0;
 	//DebugOut(L"[Debug bong hoa] %f %d %f \n", vy, dt,firstYPosition-y);
