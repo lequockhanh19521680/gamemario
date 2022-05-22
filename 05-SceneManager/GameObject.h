@@ -67,6 +67,8 @@ public:
 	virtual int IsBlocking() { return 1; }
 	float GetX() { return x; }
 	float GetY() { return y; }
+	void SetY(float f) { y = f; }
+	void SetX(float f) { y = f; }
 	~CGameObject();
 
 	static bool IsDeleted(const LPGAMEOBJECT &o) { return o->isDeleted; }

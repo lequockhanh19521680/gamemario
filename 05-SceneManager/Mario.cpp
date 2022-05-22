@@ -15,9 +15,10 @@
 #include "Collision.h"
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
+
 	vy += ay * dt;
 	vx += ax * dt;
-
+	
 	if (abs(vx) > abs(maxVx)) vx = maxVx;
 	// reset untouchable timer if untouchable time has passed
 	if ( GetTickCount64() - untouchable_start > MARIO_UNTOUCHABLE_TIME) 
@@ -47,23 +48,51 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		{
 			vx = 0;
 		}
-	if (dynamic_cast<CGoomba*>(e->obj))
-		OnCollisionWithGoomba(e);
-	else if (dynamic_cast<CCoin*>(e->obj))
-		OnCollisionWithCoin(e);
-	else if (dynamic_cast<CPortal*>(e->obj))
-		OnCollisionWithPortal(e);
-	else if (dynamic_cast<CMushRoom*>(e->obj))
-		OnCollisionWithMushRoom(e);
-	else if (dynamic_cast<CLeaf*>(e->obj))
-		OnCollisionWithLeaf(e);
-	else if (dynamic_cast<CFlowerFire*>(e->obj))
-		OnCollisionWithFlowerFire(e);
-	else if (dynamic_cast<CBrickQuestion*>(e->obj))
-		OnCollisionWithBrickQuestion(e);
-	else if (dynamic_cast<CBrickQuestion*>(e->obj))
-		OnCollisionWithBrickQuestion(e);
+		if (dynamic_cast<CGoomba*>(e->obj))
+			OnCollisionWithGoomba(e);
+		else if (dynamic_cast<CCoin*>(e->obj))
+			OnCollisionWithCoin(e);
+		else if (dynamic_cast<CPortal*>(e->obj))
+			OnCollisionWithPortal(e);
+		else if (dynamic_cast<CMushRoom*>(e->obj))
+			OnCollisionWithMushRoom(e);
+		else if (dynamic_cast<CLeaf*>(e->obj))
+			OnCollisionWithLeaf(e);
+		else if (dynamic_cast<CFlowerFire*>(e->obj))
+			OnCollisionWithFlowerFire(e);
+		else if (dynamic_cast<CBrickQuestion*>(e->obj))
+			OnCollisionWithBrickQuestion(e);
+		else if (dynamic_cast<CBrickQuestion*>(e->obj))
+			OnCollisionWithBrickQuestion(e);
+		else if (dynamic_cast<CPlatform*>(e->obj))
+			OnCollisionWithPlatForm(e);
 
+}
+
+void CMario::OnCollisionWithPlatForm(LPCOLLISIONEVENT e) {
+	CPlatform* platform = dynamic_cast<CPlatform*>(e->obj);
+	if (platform->IsBlocking()) { }
+	else {
+		if (e->ny < 0) {
+			if (level == MARIO_LEVEL_SMALL) {
+				//SetY(platform->GetY() - 15);
+				if (platform->GetY() - GetY() < (MARIO_SMALL_BBOX_HEIGHT+4))
+				{
+						SetY(platform->GetY() - MARIO_SMALL_BBOX_HEIGHT - 2);
+						vy = 0;
+						isOnPlatform = true;	
+				}
+			}
+			else {
+				if (platform->GetY() - GetY() < MARIO_BIG_BBOX_HEIGHT)
+				{
+					SetY(platform->GetY() - MARIO_BIG_BBOX_HEIGHT+4);
+					vy = 0;
+					isOnPlatform = true;
+				}
+			}
+		}
+	}
 }
 
 void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)

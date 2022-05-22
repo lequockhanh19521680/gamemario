@@ -18,6 +18,10 @@ class CMushRoom : public CGameObject {
 	float ax;
 	float ay;
 	float startY;
+
+	void OnCollisionWithPlatForm(LPCOLLISIONEVENT e);
+
+
 public:
 	CMushRoom(float x, float y);
 	void Render();
@@ -26,8 +30,11 @@ public:
 	virtual void OnNoCollision(DWORD dt);
 
 	virtual void OnCollisionWith(LPCOLLISIONEVENT e);
+
+
 	void GetBoundingBox(float& l, float& t, float& r, float& b);
 	int IsBlocking() { return 0; }
 	virtual void SetState(int state);
+
 };
 

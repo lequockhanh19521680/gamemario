@@ -18,9 +18,9 @@ CBrickQuestion::CBrickQuestion(float x, float y, int model) :CGameObject(x, y)
 void CBrickQuestion::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	left = x - QUESTION_BRICK_BBOX_WIDTH / 2 - 1;
-	top = y - QUESTION_BRICK_BBOX_HEIGHT / 2 ;
+	top = y - QUESTION_BRICK_BBOX_HEIGHT / 2 + 1;
 	right = left + QUESTION_BRICK_BBOX_WIDTH - 1;
-	bottom = top + QUESTION_BRICK_BBOX_HEIGHT;
+	bottom = top + QUESTION_BRICK_BBOX_HEIGHT + 1;
 }
 
 void CBrickQuestion::OnNoCollision(DWORD dt)

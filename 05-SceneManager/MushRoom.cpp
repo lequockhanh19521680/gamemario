@@ -2,7 +2,7 @@
 #define MUSHROOM_GRAVITY 0.001f
 #define MUSHROOM_SPEED -0.06f
 #define OUT_BRICK -0.02f
-
+#include "Platform.h"
 CMushRoom::CMushRoom(float x, float y) :CGameObject(x, y)
 {
 	this->ax = 0;
@@ -36,8 +36,7 @@ void CMushRoom::OnNoCollision(DWORD dt)
 void CMushRoom::OnCollisionWith(LPCOLLISIONEVENT e)
 {
 	if (!e->obj->IsBlocking()) return;
-	if (dynamic_cast<CMushRoom*>(e->obj)) return;
-
+	
 	if (e->ny != 0)
 	{
 		vy = 0;
@@ -47,9 +46,16 @@ void CMushRoom::OnCollisionWith(LPCOLLISIONEVENT e)
 		vx = -vx;
 	}
 
+	if (dynamic_cast<CMushRoom*>(e->obj)) return;
+	else if (dynamic_cast<CPlatform*>(e->obj))
+		OnCollisionWithPlatForm(e);
 
 }
-
+void OnCollisionWithPlatForm(LPCOLLISIONEVENT e)
+{
+	CPlatform* platform = dynamic_cast<CPlatform*>(e->obj);
+	if (platform->IsBlocking()) {}
+}
 void CMushRoom::Render()
 {
 	CAnimations* animations = CAnimations::GetInstance();
