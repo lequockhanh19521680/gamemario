@@ -58,6 +58,7 @@ void CLeaf::OnCollisionWith(LPCOLLISIONEVENT e)
 	if (e->ny != 0)
 	{
 		isOnPlatForm = true;
+		vy = 0;
 		vx = 0;
 	}
 	else if (dynamic_cast<CPlatform*>(e->obj))
@@ -77,8 +78,8 @@ void CLeaf::OnCollisionWithPlatForm(LPCOLLISIONEVENT e)
 void CLeaf::Render()
 {
 	CAnimations* animations = CAnimations::GetInstance();
-	if (vx < 0) animations->Get(ID_ANI_LEAF_LEFT)->Render(x, y);
-	else if (vx >= 0) animations->Get(ID_ANI_LEAF_RIGHT)->Render(x, y);
+	if (vx <= 0) animations->Get(ID_ANI_LEAF_LEFT)->Render(x, y);
+	else if (vx > 0) animations->Get(ID_ANI_LEAF_RIGHT)->Render(x, y);
 
 	//RenderBoundingBox();
 }

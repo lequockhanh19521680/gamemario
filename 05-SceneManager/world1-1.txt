@@ -10,6 +10,7 @@ leaf.txt
 flowerfire.txt
 brickquestion.txt
 platform.txt
+pipe.txt
 [TILEMAP]
 Resource\Tilemap\world1-1.txt
 [OBJECTS]
@@ -69,11 +70,15 @@ Resource\Tilemap\world1-1.txt
 40	1328	320	16	15	7	100040	100041	100042
 #PLATFORM WHITE
 40	512	304	16	15	4	100050	100051	100052
+#PIPE
+60	1800	393	
+70	1864	385
+70	360	385
 #BRICKCOIN
 34	176	352
 34	224	304
 34	192	352
-34	416	320
+34	415	320
 #BRICKITEM
 35	240	304
 35	16	368

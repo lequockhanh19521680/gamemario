@@ -144,6 +144,9 @@
     <ClCompile Include="MushRoom.cpp">
       <Filter>Header Files\Object\Items</Filter>
     </ClCompile>
+    <ClCompile Include="Pipe.cpp">
+      <Filter>Header Files\Object\Brick</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AssetIDs.h">
@@ -244,6 +247,9 @@
     </ClInclude>
     <ClInclude Include="MushRoom.h">
       <Filter>Header Files\Object\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Pipe.h">
+      <Filter>Header Files\Object\Brick</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

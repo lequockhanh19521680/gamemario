@@ -84,11 +84,21 @@ void CMario::OnCollisionWithPlatForm(LPCOLLISIONEVENT e) {
 				}
 			}
 			else {
-				if (platform->GetY() - GetY() < MARIO_BIG_BBOX_HEIGHT)
-				{
-					SetY(platform->GetY() - MARIO_BIG_BBOX_HEIGHT+4);
-					vy = 0;
-					isOnPlatform = true;
+				if (!isSitting) {
+					if (platform->GetY() - GetY() < MARIO_BIG_BBOX_HEIGHT)
+					{
+						SetY(platform->GetY() - MARIO_BIG_BBOX_HEIGHT + 4);
+						vy = 0;
+						isOnPlatform = true;
+					}
+				}
+				else{
+					if (platform->GetY() - GetY() < MARIO_BIG_BBOX_HEIGHT/2 + 4)
+					{
+						SetY(platform->GetY() - MARIO_BIG_BBOX_HEIGHT/2 - 4 );
+						vy = 0;
+						isOnPlatform = true;
+					}
 				}
 			}
 		}
@@ -530,10 +540,9 @@ void CMario::SetState(int state)
 	case MARIO_STATE_SIT:
 		if (isOnPlatform && level != MARIO_LEVEL_SMALL)
 		{
-			state = MARIO_STATE_IDLE;
 			isSitting = true;
-			vx = 0; vy = 0.0f;
-			y +=MARIO_SIT_HEIGHT_ADJUST;
+			state = MARIO_STATE_IDLE;
+			y += MARIO_SIT_HEIGHT_ADJUST;
 		}
 		break;
 
@@ -547,8 +556,9 @@ void CMario::SetState(int state)
 		break;
 
 	case MARIO_STATE_IDLE:
-		ax = 0.0f;
-		vx = 0.0f;
+			ax = 0.0f;
+			vx = 0.0f;
+		
 		break;
 	case MARIO_STATE_TAIL_ATTACK:
 		break;
