@@ -13,6 +13,8 @@ protected:
 	float cellHeight;
 	int spriteIdBegin, spriteIdMiddle, spriteIdEnd;
 
+	virtual bool IsPlatform() { return 1; }
+
 public: 
 	CPlatform(float x, float y,
 		float cell_width, float cell_height, int length,

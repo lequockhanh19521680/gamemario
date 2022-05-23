@@ -51,6 +51,7 @@ public:
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL) {};
 	virtual void Render() = 0;
 	virtual void SetState(int state) { this->state = state; }
+	virtual bool IsPlatform() { return 0; }
 
 	//
 	// Collision ON or OFF ? This can change depending on object's state. For example: die

@@ -81,10 +81,10 @@ Resource\Tilemap\world1-1.txt
 35	1472	368
 #GOOMPA
 2	224	400
-2	297	312
+3	298	312
 
 #MARIO
-0	1300	368
+0	16	368
 
 
 

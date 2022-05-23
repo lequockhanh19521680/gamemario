@@ -1,5 +1,5 @@
 #include "Goomba.h"
-
+#include "Platform.h"
 CGoomba::CGoomba(float x, float y):CGameObject(x, y)
 {
 	this->ax = 0;
@@ -35,7 +35,7 @@ void CGoomba::OnNoCollision(DWORD dt)
 
 void CGoomba::OnCollisionWith(LPCOLLISIONEVENT e)
 {
-	if (!e->obj->IsBlocking()) return;
+	if (!e->obj->IsBlocking() && !e->obj->IsPlatform()) return;
 	if (dynamic_cast<CGoomba*>(e->obj)) return;
 
 	if (e->ny != 0 )
@@ -54,7 +54,17 @@ void CGoomba::OnCollisionWith(LPCOLLISIONEVENT e)
 		vx = -vx;
 	}
 	
-	
+	if (dynamic_cast<CPlatform*>(e->obj))
+		OnCollisionWithPlatForm(e);
+}
+
+void CGoomba::OnCollisionWithPlatForm(LPCOLLISIONEVENT e)
+{
+	CPlatform* platform = dynamic_cast<CPlatform*>(e->obj);
+	if (platform->IsBlocking()) {}
+	else if (e->ny < 0) {
+		SetY(platform->GetY() - GOOMBA_BBOX_HEIGHT);
+	}
 }
 
 void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
@@ -86,7 +96,7 @@ void CGoomba::Render()
 	}
 	else aniId = ID_ANI_GOOMBA_DIE;
 	CAnimations::GetInstance()->Get(aniId)->Render(x,y);
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 void CGoomba::SetState(int state)

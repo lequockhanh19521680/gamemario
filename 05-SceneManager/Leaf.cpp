@@ -1,15 +1,17 @@
 #include "Leaf.h"
-
+#include "Platform.h"
 #define LEAF_FALL_SPEED 0.0001f
 #define LEAF_SPEED 0.04f
 #define ADJUST_AX_WHEN_FALL 0.0001f
-#define ADJUST_MAX_VX 0.08f
+#define ADJUST_MAX_VX 0.085f
+#define OUT_BRICK 0.13f
 
 CLeaf::CLeaf(float x, float y) :CGameObject(x, y)
 {
 	this->ax = 0;
 	this->ay = LEAF_FALL_SPEED;
-	vy = -0.1f;
+	vy = -OUT_BRICK;
+	isOnPlatForm = false;
 	SetState(LEAF_STATE_FALL);
 }
 CLeaf::CLeaf(float x, float y, int state) {
@@ -19,15 +21,21 @@ CLeaf::CLeaf(float x, float y, int state) {
 	this->state = state;
 }
 void CLeaf::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
-	if (vy < 0.02f) {
-		vy += ay * dt;
+	if (isOnPlatForm) {
+		vy = 0;
+		ay = 0;
 	}
-	else vy = ay * dt;
-	if (vy > 0) {
-		if (vx <= ADJUST_MAX_VX) {
-			vx += ax * dt;
+	else {
+		if (vy < MAX_VY) {
+			vy += ay * dt;
 		}
-		else vx = -vx;
+		else vy = ay * dt;
+		if (vy > 0) {
+			if (vx <= ADJUST_MAX_VX) {
+				vx += ax * dt;
+			}
+			else vx = -vx;
+		}
 	}
 //	DebugOut(L"[Vy cua la cay] %f\n", vy);
 	
@@ -44,18 +52,26 @@ void CLeaf::OnNoCollision(DWORD dt)
 
 void CLeaf::OnCollisionWith(LPCOLLISIONEVENT e)
 {
-	if (!e->obj->IsBlocking()) return;
+	if (!e->obj->IsBlocking() && !e->obj->IsPlatform()) return;
 	if (dynamic_cast<CLeaf*>(e->obj)) return;
 	
 	if (e->ny != 0)
 	{
+		isOnPlatForm = true;
 		vx = 0;
 	}
-	else if (e->nx != 0)
-	{
-	}
-	
+	else if (dynamic_cast<CPlatform*>(e->obj))
+		OnCollisionWithPlatForm(e);
+}
 
+void CLeaf::OnCollisionWithPlatForm(LPCOLLISIONEVENT e)
+{
+	CPlatform* platform = dynamic_cast<CPlatform*>(e->obj);
+	if (platform->IsBlocking()) {}
+	else if (e->ny < 0) {
+		SetY(platform->GetY() - LEAF_BBOX_HEIGHT);
+		isOnPlatForm = true;
+	}
 }
 
 void CLeaf::Render()
@@ -82,7 +98,6 @@ void CLeaf::SetState(int state)
 		case LEAF_STATE_FALL:
 		ax += ADJUST_AX_WHEN_FALL;
 		break;
-	
 	}
 	
 

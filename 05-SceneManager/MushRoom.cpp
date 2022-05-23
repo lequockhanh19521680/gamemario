@@ -34,9 +34,8 @@ void CMushRoom::OnNoCollision(DWORD dt)
 };
 
 void CMushRoom::OnCollisionWith(LPCOLLISIONEVENT e)
-{
-	if (!e->obj->IsBlocking()) return;
-	
+{	
+	if (!e->obj->IsBlocking() && !e->obj->IsPlatform()) return;
 	if (e->ny != 0)
 	{
 		vy = 0;
@@ -46,15 +45,18 @@ void CMushRoom::OnCollisionWith(LPCOLLISIONEVENT e)
 		vx = -vx;
 	}
 
-	if (dynamic_cast<CMushRoom*>(e->obj)) return;
+	if (dynamic_cast<CMushRoom*>(e->obj)) {}
 	else if (dynamic_cast<CPlatform*>(e->obj))
 		OnCollisionWithPlatForm(e);
 
 }
-void OnCollisionWithPlatForm(LPCOLLISIONEVENT e)
+void CMushRoom::OnCollisionWithPlatForm(LPCOLLISIONEVENT e)
 {
 	CPlatform* platform = dynamic_cast<CPlatform*>(e->obj);
 	if (platform->IsBlocking()) {}
+	else if (e->ny < 0) {
+		SetY(platform->GetY() - MUSHROOM_BBOX_HEIGHT);
+	}
 }
 void CMushRoom::Render()
 {

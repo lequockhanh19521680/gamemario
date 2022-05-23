@@ -39,7 +39,9 @@ protected:
 
 	virtual int IsCollidable() { return 1; };
 	virtual int IsBlocking() { return 0; }
+	virtual bool isEnemy() { return 1; }
 	virtual void OnNoCollision(DWORD dt);
+	virtual void OnCollisionWithPlatForm(LPCOLLISIONEVENT e);
 
 	virtual void OnCollisionWith(LPCOLLISIONEVENT e);
 	int GetAniIdWalking() { return ID_ANI_GOOMBA_WALKING; };

@@ -17,10 +17,10 @@ CBrickQuestion::CBrickQuestion(float x, float y, int model) :CGameObject(x, y)
 
 void CBrickQuestion::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	left = x - QUESTION_BRICK_BBOX_WIDTH / 2 - 1;
-	top = y - QUESTION_BRICK_BBOX_HEIGHT / 2 + 1;
+	left = x - QUESTION_BRICK_BBOX_WIDTH / 2 ;
+	top = y - QUESTION_BRICK_BBOX_HEIGHT / 2 ;
 	right = left + QUESTION_BRICK_BBOX_WIDTH - 1;
-	bottom = top + QUESTION_BRICK_BBOX_HEIGHT + 1;
+	bottom = top + QUESTION_BRICK_BBOX_HEIGHT - 1;
 }
 
 void CBrickQuestion::OnNoCollision(DWORD dt)
@@ -30,8 +30,16 @@ void CBrickQuestion::OnNoCollision(DWORD dt)
 
 
 void CBrickQuestion::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
-{
-	vy += ay * dt;
+{	
+	if (isUnbox) {
+		vy = 0;
+		ay = 0;
+		vx = 0;
+		y = startY;
+		x = startX;
+	}
+	else {
+		vy += ay * dt;
 		if (y <= minY)
 		{
 			vy = QUESTION_BRICK_SPEED_DOWN;
@@ -43,6 +51,7 @@ void CBrickQuestion::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			isEmpty = true;
 			isUnbox = true;
 		}
+	}
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
