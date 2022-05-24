@@ -13,7 +13,6 @@
 #include "Pipe.h"
 #include "Leaf.h"
 #include "Platform.h"
-#include "GoombaFly.h"
 #include "Map.h"
 #include "Koopa.h"
 #include "BrickQuestion.h"
@@ -156,10 +155,10 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 		DebugOut(L"[INFO] Player object has been created!\n");
 		break;
-	case OBJECT_TYPE_GOOMBA: obj = new CGoomba(x, y); break;
+	case OBJECT_TYPE_GOOMBA: obj = new CGoomba(x, y, GOOMBA_BASE); break;
 	case OBJECT_TYPE_BRICK: obj = new CBrick(x, y); break;
 	case OBJECT_TYPE_COIN: obj = new CCoin(x, y); break;
-	case OBJECT_TYPE_GOOMBA_FLY: obj = new CGoombaFly(x, y); break;
+	case OBJECT_TYPE_GOOMBA_FLY: obj = new CGoomba(x, y, GOOMBA_WING); break;
 	case OBJECT_TYPE_MUSHROOM: obj = new CMushRoom(x, y); break;
 	case OBJECT_TYPE_LEAF: obj = new CLeaf(x, y); break;
 	case OBJECT_TYPE_FLOWERFIRE: obj = new CFlowerFire(x, y); break;

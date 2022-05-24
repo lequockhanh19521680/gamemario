@@ -7,6 +7,7 @@
 #define GOOMBA_FLY_ADJUST 0.2f
 #define GOOMBA_WALKING_SPEED 0.04f
 
+#define TIME_WALKING 2000
 
 #define GOOMBA_BBOX_WIDTH 16
 #define GOOMBA_BBOX_HEIGHT 16
@@ -25,10 +26,15 @@
 #define ID_ANI_GOOMBA_UPSIDE 5002
 
 #define ID_ANI_GOOMBA_RED 5003
-#define ID_ANI_GOOMBA_RED_FLY 5004
-#define ID_ANI_GOOMBA_RED_DIE 5005
-#define ID_ANI_GOOMBA_RED_UPSIDE 5006
+#define ID_ANI_GOOMBA_RED_DIE 5004
+#define ID_ANI_GOOMBA_RED_FLY_WALKING 5005
+#define ID_ANI_GOOMBA_RED_FLY_JUMP 5006
+#define ID_ANI_GOOMBA_RED_UPSIDE 5007
 
+
+
+#define GOOMBA_BASE 1
+#define GOOMBA_WING 2
 
 class CGoomba : public CGameObject
 {
@@ -36,6 +42,12 @@ protected:
 	float ax;
 	float ay;
 	ULONGLONG die_start;
+	ULONGLONG time_walking;
+
+	bool isWing;
+	bool isJump;
+	bool isUpside;
+	bool isDead;
 
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
@@ -48,11 +60,12 @@ protected:
 	virtual void OnCollisionWithPlatForm(LPCOLLISIONEVENT e);
 
 	virtual void OnCollisionWith(LPCOLLISIONEVENT e);
-	int GetAniIdWalking() { return ID_ANI_GOOMBA_WALKING; };
-	int GetAniIdFly() { return ID_ANI_GOOMBA_FLY; };
+
+	int GetAniGoompaBase();
+	int GetAniGoompaWing();
 public: 	
 
-	CGoomba(float x, float y);
+	CGoomba(float x, float y, int model);
 	void SetLevel(int l);
 	virtual void SetState(int state);
 };
