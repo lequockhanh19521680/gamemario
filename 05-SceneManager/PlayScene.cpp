@@ -15,6 +15,7 @@
 #include "Platform.h"
 #include "GoombaFly.h"
 #include "Map.h"
+#include "Koopa.h"
 #include "BrickQuestion.h"
 #include "FlowerFire.h"
 #include "SampleKeyEventHandler.h"
@@ -166,6 +167,9 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_BRICKQUESTION_ITEM: obj = new CBrickQuestion(x, y, QUESTION_BRICK_ITEM); break;
 	case OBJECT_TYPE_PIPE_SHORT: obj = new CPipe(x, y, PIPE_SHORT_MODEL, FLOWER_NOT_SHOOT); break;
 	case OBJECT_TYPE_PIPE_LONG: obj = new CPipe(x, y, PIPE_LONG_MODEL, FLOWER_SHOOT); break;
+	case OBJECT_TYPE_KOOPA_GREEN: obj = new CKoopa(x, y, KOOPA_GREEN); break;
+	case OBJECT_TYPE_KOOPA_GREEN_FLY: obj = new CKoopa(x, y, KOOPA_GREEN_WING); break;
+	case OBJECT_TYPE_KOOPA_RED: obj = new CKoopa(x, y, KOOPA_RED); break;
 	case OBJECT_TYPE_PLATFORM:
 	{
 

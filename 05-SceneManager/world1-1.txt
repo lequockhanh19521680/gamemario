@@ -11,6 +11,7 @@ flowerfire.txt
 brickquestion.txt
 platform.txt
 pipe.txt
+koopa.txt
 [TILEMAP]
 Resource\Tilemap\world1-1.txt
 [OBJECTS]
@@ -87,6 +88,8 @@ Resource\Tilemap\world1-1.txt
 #GOOMPA
 2	224	400
 3	298	312
+#KOOPA
+6	62	400
 
 #MARIO
 0	16	368
