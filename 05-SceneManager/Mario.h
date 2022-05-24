@@ -175,6 +175,7 @@ class CMario : public CGameObject
 	int coin; 
 
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
+	void OnCollisionWithKoopa(LPCOLLISIONEVENT e);
 	void OnCollisionWithCoin(LPCOLLISIONEVENT e);
 	void OnCollisionWithPortal(LPCOLLISIONEVENT e);
 	void OnCollisionWithMushRoom(LPCOLLISIONEVENT e);
@@ -220,6 +221,6 @@ public:
 	void SetLevel(int l);
 	void SetVy(float v) { vy = v; }
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount64(); }
-
+	virtual int IsPlayer() { return 1; }
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 };

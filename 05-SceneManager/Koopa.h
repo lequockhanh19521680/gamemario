@@ -1,6 +1,12 @@
 ﻿#include"GameObject.h"
 
-#define KOOPA_GRAVITY 0.002f
+#define KOOPA_GRAVITY 0.001f
+#define KOOPA_WALKING_SPEED 0.04f
+#define KOOPA_IS_KICKED_SPEED 0.18f
+
+#define KOOPA_DEFEND_TIMEOUT 8000 // hết thời gian defend ( ra khỏi mai rùa và bắt đầu đi)
+#define KOOPA_COMBACK_START 6000 //thời gian tính từ lúc defend đến lúc có hiệu ứng comeback
+
 
 #define KOOPA_BBOX_WIDTH 16
 #define KOOPA_BBOX_HEIGHT 26
@@ -36,9 +42,9 @@
 #define KOOPA_STATE_IS_KICKED 300
 #define KOOPA_STATE_UPSIDE 400
 #define KOOPA_STATE_JUMP 500
+#define KOOPA_STATE_ISDEAD 600
 
-#define KOOPA_DEFEND_TIMEOUT 8000 // hết thời gian defend ( ra khỏi mai rùa và bắt đầu đi)
-#define KOOPA_COMBACK_START 6000 //thời gian tính từ lúc defend đến lúc có hiệu ứng comeback
+
 
 class CKoopa : public CGameObject
 {
@@ -55,15 +61,20 @@ protected:
 	virtual int IsBlocking() { return 0; }
 	virtual bool isEnemy() { return 1; }
 	virtual void OnNoCollision(DWORD dt);
+	int GetAniGreen();
+	int GetAniRed();
 	void OnCollisionWithPlatform(LPCOLLISIONEVENT e);
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
 	void OnCollisionWithBrickQuestion(LPCOLLISIONEVENT e);
-	void OnCollisionWithMario(LPCOLLISIONEVENT e);
 	virtual void OnCollisionWith(LPCOLLISIONEVENT e);
 
 	bool isUpside;
 	bool isDefend;
 	bool isHeld;
+	bool isKicked;
+	bool isWing;
+	bool isOnPlatform;
+	bool isComeback;
 public:
 
 	CKoopa(float x, float y,int model);

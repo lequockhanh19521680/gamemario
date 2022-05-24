@@ -89,10 +89,10 @@ Resource\Tilemap\world1-1.txt
 2	224	400
 3	298	312
 #KOOPA
-6	62	400
+6	298	312
 
 #MARIO
-0	16	368
+0	300	368
 
 
 

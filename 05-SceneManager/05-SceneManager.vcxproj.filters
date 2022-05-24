@@ -126,9 +126,6 @@
     <ClCompile Include="Goomba.cpp">
       <Filter>Header Files\Object\Enemies</Filter>
     </ClCompile>
-    <ClCompile Include="GoombaFly.cpp">
-      <Filter>Header Files\Object\Enemies</Filter>
-    </ClCompile>
     <ClCompile Include="Koopa.cpp">
       <Filter>Header Files\Object\Enemies</Filter>
     </ClCompile>
@@ -228,9 +225,6 @@
       <Filter>Header Files\Object\Brick</Filter>
     </ClInclude>
     <ClInclude Include="Goomba.h">
-      <Filter>Header Files\Object\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="GoombaFly.h">
       <Filter>Header Files\Object\Enemies</Filter>
     </ClInclude>
     <ClInclude Include="Koopa.h">

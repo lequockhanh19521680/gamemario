@@ -66,8 +66,10 @@ public:
 	
 	// Is this object blocking other object? If YES, collision framework will automatically push the other object
 	virtual int IsBlocking() { return 1; }
+	virtual int IsPlayer() { return 0; }
 	float GetX() { return x; }
 	float GetY() { return y; }
+	int GetNx() { return this->nx; }
 	void SetY(float f) { y = f; }
 	void SetX(float f) { y = f; }
 	~CGameObject();
