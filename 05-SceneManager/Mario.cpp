@@ -105,16 +105,16 @@ void CMario::OnCollisionWithKoopa(LPCOLLISIONEVENT e) {
 				koopa->SetState(KOOPA_STATE_DEFEND);
 				vy = -MARIO_JUMP_DEFLECT_SPEED;
 			}
-			else if(koopa->GetState() == KOOPA_STATE_DEFEND)
-			{
+			else {
 				koopa->SetState(KOOPA_STATE_IS_KICKED);
 			}
+
 		}
 	}
 	else {
 		if (untouchable == 0)
 		{
-			if ((koopa->GetState() != KOOPA_STATE_ISDEAD) and (koopa->GetState() != KOOPA_STATE_WALKING) and (koopa->GetState() != KOOPA_STATE_IS_KICKED))
+			if ((koopa->GetState()!=KOOPA_STATE_JUMP) && (koopa->GetState() != KOOPA_STATE_ISDEAD) && (koopa->GetState() != KOOPA_STATE_WALKING) and (koopa->GetState() != KOOPA_STATE_IS_KICKED))
 			{
 				 koopa->SetState(KOOPA_STATE_IS_KICKED);
 			}

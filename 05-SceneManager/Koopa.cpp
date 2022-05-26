@@ -307,6 +307,8 @@ void CKoopa::SetState(int state) {
 		break;
 	case KOOPA_STATE_DEAD_UPSIDE:
 		vy = -KOOPA_JUMP_DEATH;
+		ay = KOOPA_GRAVITY;
+
 		isWing = false;
 		isComeback = false;
 		isDefend = false;
