@@ -35,7 +35,7 @@ void CMushRoom::OnNoCollision(DWORD dt)
 
 void CMushRoom::OnCollisionWith(LPCOLLISIONEVENT e)
 {	
-	if (!e->obj->IsBlocking() && !e->obj->IsPlatform()) return;
+	if (!e->obj->IsBlocking() && !e->obj->IsPlatform() && !e->obj->IsPlayer()) return;
 	if (e->ny != 0)
 	{
 		vy = 0;

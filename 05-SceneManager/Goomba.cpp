@@ -6,6 +6,8 @@ CGoomba::CGoomba(float x, float y,int model):CGameObject(x, y)
 	this->ay = GOOMBA_GRAVITY;
 	die_start = -1;
 	this->model = model;
+	startX = x;
+	startY = y;
 	
 	SetState(GOOMBA_STATE_WALKING);
 	isUpside = false;
@@ -41,19 +43,16 @@ void CGoomba::OnNoCollision(DWORD dt)
 
 void CGoomba::OnCollisionWith(LPCOLLISIONEVENT e)
 {
-	if (!e->obj->IsBlocking() && !e->obj->IsPlatform()) return;
 	if (dynamic_cast<CGoomba*>(e->obj)) return;
-	else {
-		if (e->ny != 0)
-		{
-			vy = 0;
-		}
-		else if (e->nx != 0)
-		{
-			vx = -vx;
-		}
+	if (!e->obj->IsBlocking() && !e->obj->IsPlatform()) return;
+	if (e->ny != 0)
+	{
+		vy = 0;
 	}
-	
+	if ((e->nx != 0) && (!e->obj->IsEnemy()))
+	{
+		vx = -vx;
+	}
 	if (dynamic_cast<CPlatform*>(e->obj))
 		OnCollisionWithPlatForm(e);
 }
@@ -71,6 +70,7 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	vy += ay * dt;
 	vx += ax * dt;
+	
 	if ( (isDead == true) && (GetTickCount64() - die_start > GOOMBA_DIE_TIMEOUT) )
 	{
 		isDeleted = true;

@@ -44,6 +44,7 @@ class CGoomba : public CGameObject
 protected:
 	float ax;
 	float ay;
+	float startX, startY;
 	ULONGLONG die_start;
 	ULONGLONG time_walking;
 
@@ -57,8 +58,8 @@ protected:
 	virtual void Render();
 
 	virtual int IsCollidable() { return 1; };
-	virtual int IsBlocking() { return 1; }
-	virtual bool isEnemy() { return 1; }
+	virtual int IsBlocking() { return 0; }
+	virtual int IsEnemy() { return 1; }
 	virtual void OnNoCollision(DWORD dt);
 	virtual void OnCollisionWithPlatForm(LPCOLLISIONEVENT e);
 

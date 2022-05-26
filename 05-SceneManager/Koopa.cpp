@@ -66,7 +66,7 @@ int CKoopa::GetAniGreen() {
 		}
 		else {
 			if (isDefend) {
-				if (isKicked) aniId = ID_ANI_GREEN_KICKED;
+				if (isKicked) aniId = ID_ANI_GREEN_DEFEND;//ID_ANI_GREEN_KICKED;
 				else aniId = ID_ANI_GREEN_DEFEND;
 			}
 			else
@@ -86,12 +86,12 @@ int CKoopa::GetAniGreen() {
 int CKoopa::GetAniRed() {
 	int aniId;
 	if (isUpside) {
-		if (isKicked) aniId = ID_ANI_RED_KICKED;
+		if (isKicked) aniId = ID_ANI_RED_UPSIDE_KICKED;
 		else aniId = ID_ANI_RED_UPSIDE;
 	}
 	else {
 		if (isDefend) {
-			if (isKicked) aniId = ID_ANI_RED_KICKED;
+			if (isKicked) aniId = ID_ANI_RED_DEFEND;//ID_ANI_RED_KICKED;
 			else aniId = ID_ANI_RED_DEFEND;
 		}
 		else
@@ -118,7 +118,7 @@ void CKoopa::OnNoCollision(DWORD dt) {
 	y += vy * dt;
 }
 void CKoopa::OnCollisionWith(LPCOLLISIONEVENT e) {
-	if (!e->obj->IsBlocking() && !e->obj->IsPlatform() && !e->obj->IsPlayer()) return;
+	if (!e->obj->IsBlocking() && !e->obj->IsPlatform() && !e->obj->IsPlayer() && !e->obj->IsEnemy()) return;
 	if (!dynamic_cast<CGoomba*>(e->obj) && !dynamic_cast<CMario*>(e->obj)) {
 		if (e->ny < 0)
 		{
@@ -183,7 +183,13 @@ void CKoopa::OnCollisionWithPlatform(LPCOLLISIONEVENT e) {
 	CPlatform* platform = dynamic_cast<CPlatform*>(e->obj);
 	if (platform->IsBlocking()) {}
 	else if (e->ny < 0) {
-		SetY(platform->GetY() - KOOPA_BBOX_HEIGHT + 4);
+		if (!isDefend && !isUpside) {
+			SetY(platform->GetY() - KOOPA_BBOX_HEIGHT + 4);
+		}
+		else
+		{
+			SetY(platform->GetY() - KOOPA_BBOX_HEIGHT/2 - 3);
+		}
 	}
 	if ((model == KOOPA_RED) && (state == KOOPA_STATE_WALKING))
 	{

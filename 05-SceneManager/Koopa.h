@@ -58,7 +58,7 @@ protected:
 
 	virtual int IsCollidable() { return 1; };
 	virtual int IsBlocking() { return 0; }
-	virtual bool isEnemy() { return 1; }
+	virtual int IsEnemy() { return 1; }
 	virtual void OnNoCollision(DWORD dt);
 	int GetAniGreen();
 	int GetAniRed();
