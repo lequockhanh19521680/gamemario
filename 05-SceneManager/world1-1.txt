@@ -87,6 +87,8 @@ Resource\Tilemap\world1-1.txt
 
 #KOOPA
 6	574	360
+6	300	384
+6	200	384
 #KOOPA_WING
 5	300	200
 #GOOMBA

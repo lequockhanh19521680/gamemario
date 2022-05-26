@@ -45,7 +45,7 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 			vy = 0;
 			if (e->ny < 0) isOnPlatform = true;
 		}
-		else if (e->nx != 0 && e->obj->IsBlocking())
+		else if ((e->nx != 0) && (e->obj->IsBlocking()))
 		{
 			vx = 0;
 		}
@@ -105,7 +105,7 @@ void CMario::OnCollisionWithKoopa(LPCOLLISIONEVENT e) {
 				koopa->SetState(KOOPA_STATE_DEFEND);
 				vy = -MARIO_JUMP_DEFLECT_SPEED;
 			}
-			else 
+			else if(koopa->GetState() == KOOPA_STATE_DEFEND)
 			{
 				koopa->SetState(KOOPA_STATE_IS_KICKED);
 			}

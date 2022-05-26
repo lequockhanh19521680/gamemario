@@ -28,21 +28,44 @@ CKoopa::CKoopa(float x, float y, int model) :CGameObject(x, y)
 		isWing = false;
 		SetState(KOOPA_STATE_WALKING);
 	}
+
 	isComeback = false;
 	isDefend = false;
 	isKicked = false;
 	isOnPlatform = false;
 	isHeld = false;
 	isUpside = false;
+	isDead = false;
 }
+
 void CKoopa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 	vy += ay * dt;
 	vx += ax * dt;
+	if (isDead && isUpside) {
+		if (GetTickCount64() - die_start > KOOPA_DIE_TIME)
+		{
+			isDeleted = true;
+			return;
+		}
+	}
+	if (!isDead) {
+		if (GetTickCount64() - defend_start > KOOPA_COMBACK_START && (isDefend || isUpside) && !isKicked) {
+			isComeback = true;
+		}
+		if ((GetTickCount64() - defend_start > KOOPA_DEFEND_TIMEOUT && (isDefend || isUpside) && !isKicked)) {
+			if (isComeback) {
+				SetState(KOOPA_STATE_WALKING);
+				vy = -KOOPA_ADJUST_NOT_FALL;
+				defend_start = -1;
+			}
+		}
+	}
+	
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
 void CKoopa::GetBoundingBox(float& left, float& top, float& right, float& bottom) {
-	if (state == KOOPA_STATE_ISDEAD) return;
+	if ((state == KOOPA_STATE_ISDEAD) || (state == KOOPA_STATE_DEAD_UPSIDE)) return;
 	if (isDefend || isUpside) {
 		left = x - KOOPA_BBOX_WIDTH / 2;
 		top = y - KOOPA_BBOX_HEIGHT_DEFEND / 2;
@@ -56,17 +79,24 @@ void CKoopa::GetBoundingBox(float& left, float& top, float& right, float& bottom
 		bottom = top + KOOPA_BBOX_HEIGHT;
 	}
 }
+int CKoopa::PositionWithMario() {
+	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+	if (mario->GetX() < GetX()) return 1;
+	else return -1;
 
+}
 int CKoopa::GetAniGreen() {
 	int aniId = -1;
 	if (!isWing) {
 		if (isUpside) {
-			if (isKicked) aniId = ID_ANI_GREEN_UPSIDE_KICKED;
+			if (isComeback) aniId = ID_ANI_GREEN_UPSIDE_COMEBACK;
+			else if (isKicked) aniId = ID_ANI_GREEN_UPSIDE_KICKED;
 			else aniId = ID_ANI_GREEN_UPSIDE;
 		}
 		else {
 			if (isDefend) {
-				if (isKicked) aniId = ID_ANI_GREEN_DEFEND;//ID_ANI_GREEN_KICKED;
+				if (isComeback) aniId = ID_ANI_GREEN_COMEBACK;
+				else if (isKicked) aniId = ID_ANI_GREEN_DEFEND;//ID_ANI_GREEN_KICKED;
 				else aniId = ID_ANI_GREEN_DEFEND;
 			}
 			else
@@ -86,12 +116,14 @@ int CKoopa::GetAniGreen() {
 int CKoopa::GetAniRed() {
 	int aniId;
 	if (isUpside) {
-		if (isKicked) aniId = ID_ANI_RED_UPSIDE_KICKED;
+		if (isComeback) aniId = ID_ANI_RED_UPSIDE_COMEBACK;
+		else if (isKicked) aniId = ID_ANI_RED_UPSIDE_KICKED;
 		else aniId = ID_ANI_RED_UPSIDE;
 	}
 	else {
 		if (isDefend) {
-			if (isKicked) aniId = ID_ANI_RED_DEFEND;//ID_ANI_RED_KICKED;
+			if (isComeback) aniId = ID_ANI_RED_COMEBACK;
+			else if (isKicked) aniId = ID_ANI_RED_DEFEND;//ID_ANI_RED_KICKED;
 			else aniId = ID_ANI_RED_DEFEND;
 		}
 		else
@@ -122,8 +154,16 @@ void CKoopa::OnCollisionWith(LPCOLLISIONEVENT e) {
 	if (!dynamic_cast<CGoomba*>(e->obj) && !dynamic_cast<CMario*>(e->obj)) {
 		if (e->ny < 0)
 		{
-			vy = 0;
-			isOnPlatform = true;
+			if (model != KOOPA_GREEN_WING) {
+				vy = 0;
+				isOnPlatform = true;
+			}
+			else {
+				if (state == KOOPA_STATE_JUMP)  {
+					vy = -KOOPA_JUMP_SPEED;
+				}
+				else vy = 0;
+			}
 		}
 		if (e->nx != 0 && e->obj->IsBlocking())
 		{
@@ -137,6 +177,14 @@ void CKoopa::OnCollisionWith(LPCOLLISIONEVENT e) {
 		this->OnCollisionWithBrickQuestion(e);
 	else if (dynamic_cast<CPlatform*>(e->obj))
 		this->OnCollisionWithPlatform(e);
+	else if ((dynamic_cast<CKoopa*>(e->obj)))
+		this->OnCollisionWithKoopa(e);
+}
+void CKoopa::OnCollisionWithKoopa(LPCOLLISIONEVENT e) {
+	CKoopa* koopa = dynamic_cast<CKoopa*>(e->obj);
+	if (isKicked) {
+		koopa->SetState(KOOPA_STATE_DEAD_UPSIDE);
+	}
 }
 void CKoopa::OnCollisionWithBrickQuestion(LPCOLLISIONEVENT e) {
 	CBrickQuestion* questionBrick = dynamic_cast<CBrickQuestion*>(e->obj);
@@ -183,13 +231,15 @@ void CKoopa::OnCollisionWithGoomba(LPCOLLISIONEVENT e) {
 void CKoopa::OnCollisionWithPlatform(LPCOLLISIONEVENT e) {
 	CPlatform* platform = dynamic_cast<CPlatform*>(e->obj);
 	if (e->ny < 0) {
-		isOnPlatform = true;
 		if (!isDefend && !isUpside) {
 			SetY(platform->GetY() - KOOPA_BBOX_HEIGHT + 4);
 		}
 		else
 		{
 			SetY(platform->GetY() - KOOPA_BBOX_HEIGHT/2 - 3);
+		}
+		if ((model == KOOPA_GREEN_WING) && (state == KOOPA_STATE_JUMP)) {
+			vy = -KOOPA_JUMP_SPEED;
 		}
 	}
 	if ((model == KOOPA_RED) && (state == KOOPA_STATE_WALKING))
@@ -243,18 +293,29 @@ void CKoopa::SetState(int state) {
 		isOnPlatform = true;
 		isKicked = true;
 		isHeld = false;
-		vx = mario->GetNx() * KOOPA_IS_KICKED_SPEED;
+		vx = PositionWithMario() * KOOPA_IS_KICKED_SPEED;
 		break;
-	case KOOPA_STATE_JUMP: {
+	case KOOPA_STATE_JUMP: 
 		isUpside = false;
 		isDefend = false;
 		isComeback = false;
 		isKicked = false;
 		vx = -KOOPA_WALKING_SPEED;
-		ay = KOOPA_GRAVITY;
+		if (isWing) {
+			ay = KOOPA_GRAVITY_WING;
+		}
 		break;
-	}
-
+	case KOOPA_STATE_DEAD_UPSIDE:
+		vy = -KOOPA_JUMP_DEATH;
+		isWing = false;
+		isComeback = false;
+		isDefend = false;
+		isHeld = false;
+		isKicked = false;
+		isUpside = true;
+		isDead = true;
+		die_start = GetTickCount64();
+		break;
 	}
 	CGameObject::SetState(state);
 }

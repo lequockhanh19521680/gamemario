@@ -3,9 +3,9 @@
 #include "AssetIDs.h"
 #include "debug.h"
 
-#define GOOMBA_GRAVITY 0.0009f
+#define GOOMBA_GRAVITY 0.002f
 #define GOOMBA_FLY_ADJUST 0.2f
-#define GOOMBA_WALKING_SPEED 0.04f
+#define GOOMBA_WALKING_SPEED 0.03f
 #define GOOMBA_JUMP_DEFLECT_SPEED 0.3f
 
 
