@@ -151,15 +151,8 @@ void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 	// jump on top >> kill Goomba and deflect a bit 
 	if (e->ny < 0)
 	{
-		if (goomba->GetState() == GOOMBA_STATE_FLY) {
-			goomba->SetState(GOOMBA_STATE_WALKING);
-			vy = -MARIO_JUMP_DEFLECT_SPEED;
-		}
-		else if (goomba->GetState() == GOOMBA_STATE_WALKING)
-		{
-			goomba->SetState(GOOMBA_STATE_DIE);
-			vy = -MARIO_JUMP_DEFLECT_SPEED;
-		}
+		goomba->SetState(GOOMBA_STATE_IS_ATTACK);
+		vy -= MARIO_JUMP_DEFLECT_SPEED;
 	}
 	else // hit by Goomba
 	{
@@ -229,12 +222,15 @@ void CMario::OnCollisionWithBrickQuestion(LPCOLLISIONEVENT e) {
 				CFlowerFire* flower = new CFlowerFire(x, y);
 				scene->AddObject(flower);
 			}
+			questionBrick->SetIsEmpty(true);
 		}
 		else if (questionBrick->GetModel() == QUESTION_BRICK_COIN) {
 			SetCoin(GetCoin() + 1);
 			CCoin* coin = new CCoin(x, y);
 			coin->SetState(COIN_SUMMON_STATE);
 			scene->AddObject(coin);
+			questionBrick->SetIsEmpty(true);
+
 		}
 	}
 

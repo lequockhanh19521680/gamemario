@@ -6,8 +6,10 @@
 #define GOOMBA_GRAVITY 0.001f
 #define GOOMBA_FLY_ADJUST 0.2f
 #define GOOMBA_WALKING_SPEED 0.04f
+#define GOOMBA_JUMP_DEFLECT_SPEED 0.3f
 
-#define TIME_WALKING 2000
+
+#define TIME_WALKING 1000
 
 #define GOOMBA_BBOX_WIDTH 16
 #define GOOMBA_BBOX_HEIGHT 16
@@ -19,6 +21,7 @@
 #define GOOMBA_STATE_FLY 200
 #define GOOMBA_STATE_DIE 300
 #define GOOMBA_STATE_DIE_UPSIDE 400
+#define GOOMBA_STATE_IS_ATTACK 500
 
 
 #define ID_ANI_GOOMBA_WALKING 5000
@@ -44,10 +47,10 @@ protected:
 	ULONGLONG die_start;
 	ULONGLONG time_walking;
 
-	bool isWing;
 	bool isJump;
 	bool isUpside;
 	bool isDead;
+	bool isAttack;
 
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);

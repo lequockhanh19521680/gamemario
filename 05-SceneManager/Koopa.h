@@ -45,7 +45,6 @@
 #define KOOPA_STATE_ISDEAD 600
 
 
-
 class CKoopa : public CGameObject
 {
 protected:

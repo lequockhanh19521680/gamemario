@@ -34,6 +34,7 @@ public:
 	virtual void OnNoCollision(LPCOLLISIONEVENT e) {};
 
 	void RenderBoundingBox();
+	int GetLength() { return length; }
 	virtual int IsCollidable() { return 1; }
 	virtual int IsBlocking() { return (cellHeight==16); }//(cellHeight==16); }
 };

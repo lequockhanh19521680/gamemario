@@ -7,6 +7,11 @@
 #include "PlayScene.h"
 #include "debug.h"
 #include "BrickQuestion.h"
+#include "MushRoom.h"
+#include "Leaf.h"
+#include "Coin.h"
+#include "FlowerFire.h"
+#include "PlayScene.h"
 
 CKoopa::CKoopa(float x, float y, int model) :CGameObject(x, y)
 {
@@ -91,8 +96,8 @@ int CKoopa::GetAniRed() {
 		}
 		else
 		{
-			if (vx > 0) aniId = ID_ANI_RED_WALK_RIGHT;
-			else aniId = ID_ANI_RED_WALK_LEFT;
+		if (vx > 0) aniId = ID_ANI_RED_WALK_RIGHT;
+		else aniId = ID_ANI_RED_WALK_LEFT;
 		}
 	}
 	return aniId;
@@ -105,7 +110,7 @@ void CKoopa::Render() {
 	}
 	else aniId = GetAniGreen();
 	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 void CKoopa::OnNoCollision(DWORD dt) {
@@ -114,13 +119,15 @@ void CKoopa::OnNoCollision(DWORD dt) {
 }
 void CKoopa::OnCollisionWith(LPCOLLISIONEVENT e) {
 	if (!e->obj->IsBlocking() && !e->obj->IsPlatform() && !e->obj->IsPlayer()) return;
-	if (e->ny < 0)
-	{
-		vy = 0;
-	}
-	if (e->nx != 0 && e->obj->IsBlocking())
-	{
-		vx = -vx;
+	if (!dynamic_cast<CGoomba*>(e->obj) && !dynamic_cast<CMario*>(e->obj)) {
+		if (e->ny < 0)
+		{
+			vy = 0;
+		}
+		if (e->nx != 0 && e->obj->IsBlocking())
+		{
+			vx = -vx;
+		}
 	}
 
 	if (dynamic_cast<CGoomba*>(e->obj))
@@ -131,23 +138,66 @@ void CKoopa::OnCollisionWith(LPCOLLISIONEVENT e) {
 		this->OnCollisionWithPlatform(e);
 }
 void CKoopa::OnCollisionWithBrickQuestion(LPCOLLISIONEVENT e) {
-	CBrickQuestion* brickquestion = dynamic_cast<CBrickQuestion*>(e->obj);
+	CBrickQuestion* questionBrick = dynamic_cast<CBrickQuestion*>(e->obj);
 	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
+
 	if (e->nx != 0) {
-		if (state == KOOPA_STATE_IS_KICKED) {
-
-
+		if (isKicked) {
+			if (!questionBrick->GetIsEmpty() || !questionBrick->GetIsUnbox()) {
+				if (questionBrick->GetModel() == QUESTION_BRICK_ITEM) {
+					if (mario->GetLevel() == MARIO_LEVEL_SMALL) {
+						CMushRoom* mushroom = new CMushRoom(questionBrick->GetX(), questionBrick->GetY());
+						scene->AddObject(mushroom);
+					}
+					else if (mario->GetLevel() == MARIO_LEVEL_BIG) {
+						CLeaf* leaf = new CLeaf(questionBrick->GetX(), questionBrick->GetY());
+						scene->AddObject(leaf);
+					}
+					else if (mario->GetLevel() == MARIO_LEVEL_TAIL || mario->GetLevel() == MARIO_LEVEL_FIRE) {
+						CFlowerFire* flower = new CFlowerFire(questionBrick->GetX(), questionBrick->GetY());
+						scene->AddObject(flower);
+					}
+				}
+				else {
+					mario->SetCoin(mario->GetCoin() + 1);
+					CCoin* coin = new CCoin(questionBrick->GetX(), questionBrick->GetY());
+					coin->SetState(COIN_SUMMON_STATE);
+					scene->AddObject(coin);
+				}
+				questionBrick->SetIsEmpty(true);
+				questionBrick->SetIsUnbox(true);
+			}
 		}
 	}
 }
 void CKoopa::OnCollisionWithGoomba(LPCOLLISIONEVENT e) {
 	CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
 	if (e->nx != 0) {
-		goomba->SetState(GOOMBA_STATE_DIE_UPSIDE);
+		if (isKicked) {
+			goomba->SetState(GOOMBA_STATE_DIE_UPSIDE);
+		}
 	}
 }
 void CKoopa::OnCollisionWithPlatform(LPCOLLISIONEVENT e) {
-
+	CPlatform* platform = dynamic_cast<CPlatform*>(e->obj);
+	if (platform->IsBlocking()) {}
+	else if (e->ny < 0) {
+		SetY(platform->GetY() - KOOPA_BBOX_HEIGHT + 4);
+	}
+	if ((model == KOOPA_RED) && (state == KOOPA_STATE_WALKING))
+	{
+		if ((platform->GetX() > GetX()) || (GetX() > platform->GetX() + (platform->GetLength() - 1) * KOOPA_BBOX_WIDTH))
+		{
+			if ((platform->GetX() > GetX())) {
+				SetX(platform->GetX());
+			}
+			if ((GetX() > platform->GetX() + (platform->GetLength() - 1) * KOOPA_BBOX_WIDTH)){
+			SetX(platform->GetX() + (platform->GetLength() - 1) * KOOPA_BBOX_WIDTH);
+			}
+			vx = -vx;
+		}
+	}
 }
 void CKoopa::SetState(int state) {
 	if (this->state == KOOPA_STATE_ISDEAD) return;

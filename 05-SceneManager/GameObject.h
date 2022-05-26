@@ -71,7 +71,7 @@ public:
 	float GetY() { return y; }
 	int GetNx() { return this->nx; }
 	void SetY(float f) { y = f; }
-	void SetX(float f) { y = f; }
+	void SetX(float f) { x = f; }
 	~CGameObject();
 
 	static bool IsDeleted(const LPGAMEOBJECT &o) { return o->isDeleted; }
