@@ -184,7 +184,8 @@ class CMario : public CGameObject
 	void OnCollisionWithBrickQuestion(LPCOLLISIONEVENT e);
 	void OnCollisionWithBlock(LPCOLLISIONEVENT e);
 	void OnCollisionWithPlatForm(LPCOLLISIONEVENT e);
-	
+	void BlockIfNoBlock(LPGAMEOBJECT gameobject);
+
 	int GetAniIdBig();
 	int GetAniIdSmall();
 	int GetAniIdFire();

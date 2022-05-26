@@ -40,13 +40,12 @@ void CMario::OnNoCollision(DWORD dt)
 
 void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 {
-		if (!e->obj->IsBlocking() && !e->obj->IsPlatform() && !e->obj->IsPlayer() && !e->obj->IsEnemy()) return;
-		if (e->ny != 0)
+		if (e->ny != 0 && e->obj->IsBlocking())
 		{
 			vy = 0;
 			if (e->ny < 0) isOnPlatform = true;
 		}
-		else if (e->nx != 0)
+		else if (e->nx != 0 && e->obj->IsBlocking())
 		{
 			vx = 0;
 		}
@@ -76,33 +75,7 @@ void CMario::OnCollisionWithPlatForm(LPCOLLISIONEVENT e) {
 	if (platform->IsBlocking()) { }
 	else {
 		if (e->ny < 0) {
-			if (level == MARIO_LEVEL_SMALL) {
-				//SetY(platform->GetY() - 15);
-				if (platform->GetY() - GetY() < (MARIO_SMALL_BBOX_HEIGHT+4))
-				{
-						SetY(platform->GetY() - MARIO_SMALL_BBOX_HEIGHT - 2);
-						vy = 0;
-						isOnPlatform = true;	
-				}
-			}
-			else {
-				if (!isSitting) {
-					if (platform->GetY() - GetY() < MARIO_BIG_BBOX_HEIGHT)
-					{
-						SetY(platform->GetY() - MARIO_BIG_BBOX_HEIGHT + 4);
-						vy = 0;
-						isOnPlatform = true;
-					}
-				}
-				else{
-					if (platform->GetY() - GetY() < MARIO_BIG_BBOX_HEIGHT/2 + 4)
-					{
-						SetY(platform->GetY() - MARIO_BIG_BBOX_HEIGHT/2 - 4 );
-						vy = 0;
-						isOnPlatform = true;
-					}
-				}
-			}
+			BlockIfNoBlock(platform);
 		}
 	}
 }
@@ -152,6 +125,7 @@ void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 	// jump on top >> kill Goomba and deflect a bit 
 	if (e->ny < 0)
 	{
+		BlockIfNoBlock(goomba);
 		goomba->SetState(GOOMBA_STATE_IS_ATTACK);
 		vy -= MARIO_JUMP_DEFLECT_SPEED;
 	}
@@ -646,3 +620,32 @@ void CMario::SetLevel(int l)
 	level = l;
 }
 
+void CMario::BlockIfNoBlock(LPGAMEOBJECT gameobject) {
+	if (level == MARIO_LEVEL_SMALL) {
+		//SetY(platform->GetY() - 15);
+		if (gameobject->GetY() - GetY() < (MARIO_SMALL_BBOX_HEIGHT + 4))
+		{
+			SetY(gameobject->GetY() - MARIO_SMALL_BBOX_HEIGHT - 2);
+			vy = 0;
+			isOnPlatform = true;
+		}
+	}
+	else {
+		if (!isSitting) {
+			if (gameobject->GetY() - GetY() < MARIO_BIG_BBOX_HEIGHT)
+			{
+				SetY(gameobject->GetY() - MARIO_BIG_BBOX_HEIGHT + 4);
+				vy = 0;
+				isOnPlatform = true;
+			}
+		}
+		else {
+			if (gameobject->GetY() - GetY() < MARIO_BIG_BBOX_HEIGHT / 2 + 4)
+			{
+				SetY(gameobject->GetY() - MARIO_BIG_BBOX_HEIGHT / 2 - 4);
+				vy = 0;
+				isOnPlatform = true;
+			}
+		}
+	}
+}

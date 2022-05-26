@@ -19,7 +19,7 @@ CGoomba::CGoomba(float x, float y,int model):CGameObject(x, y)
 void CGoomba::GetBoundingBox(float &left, float &top, float &right, float &bottom)
 {
 	if (isUpside == true) { return; }
-	if (state == GOOMBA_STATE_DIE)
+	if (isDead)
 	{
 		left = x - GOOMBA_BBOX_WIDTH/2;
 		top = y - GOOMBA_BBOX_HEIGHT_DIE/2;
@@ -144,7 +144,7 @@ void CGoomba::Render()
 		aniId = GetAniGoompaBase();
 	}
 	CAnimations::GetInstance()->Get(aniId)->Render(x,y);
-	//RenderBoundingBox();
+	RenderBoundingBox();
 }
 
 void CGoomba::SetState(int state)
