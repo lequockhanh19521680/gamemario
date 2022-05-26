@@ -3,13 +3,13 @@
 #include "AssetIDs.h"
 #include "debug.h"
 
-#define GOOMBA_GRAVITY 0.001f
+#define GOOMBA_GRAVITY 0.0009f
 #define GOOMBA_FLY_ADJUST 0.2f
 #define GOOMBA_WALKING_SPEED 0.04f
 #define GOOMBA_JUMP_DEFLECT_SPEED 0.3f
 
 
-#define TIME_WALKING 1000
+#define TIME_WALKING 3000
 
 #define GOOMBA_BBOX_WIDTH 16
 #define GOOMBA_BBOX_HEIGHT 16
@@ -48,6 +48,7 @@ protected:
 	ULONGLONG die_start;
 	ULONGLONG time_walking;
 
+	bool walkingCheck;
 	bool isJump;
 	bool isUpside;
 	bool isDead;

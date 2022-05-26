@@ -1,5 +1,7 @@
 #include "Goomba.h"
 #include "Platform.h"
+#include "Mario.h"
+#include "PlayScene.h"
 CGoomba::CGoomba(float x, float y,int model):CGameObject(x, y)
 {
 	this->ax = 0;
@@ -31,7 +33,7 @@ void CGoomba::GetBoundingBox(float &left, float &top, float &right, float &botto
 		left = x - GOOMBA_BBOX_WIDTH/2;
 		top = y - GOOMBA_BBOX_HEIGHT/2;
 		right = left + GOOMBA_BBOX_WIDTH;
-		bottom = top + GOOMBA_BBOX_HEIGHT;
+		bottom = top + GOOMBA_BBOX_HEIGHT - 2;
 	}
 }
 
@@ -45,13 +47,15 @@ void CGoomba::OnCollisionWith(LPCOLLISIONEVENT e)
 {
 	if (dynamic_cast<CGoomba*>(e->obj)) return;
 	if (!e->obj->IsBlocking() && !e->obj->IsPlatform()) return;
-	if (e->ny != 0)
+	if (e->ny < 0)
 	{
-		vy = 0;
+			vy = 0;
 	}
 	if ((e->nx != 0) && (!e->obj->IsEnemy()))
 	{
-		vx = -vx;
+		if (!e->obj->IsPlayer()) {
+			vx = -vx;
+		}
 	}
 	if (dynamic_cast<CPlatform*>(e->obj))
 		OnCollisionWithPlatForm(e);
@@ -60,9 +64,8 @@ void CGoomba::OnCollisionWith(LPCOLLISIONEVENT e)
 void CGoomba::OnCollisionWithPlatForm(LPCOLLISIONEVENT e)
 {
 	CPlatform* platform = dynamic_cast<CPlatform*>(e->obj);
-	if (platform->IsBlocking()) {}
-	else if (e->ny < 0) {
-		SetY(platform->GetY() - GOOMBA_BBOX_HEIGHT-1);
+	if (e->ny < 0) {
+		SetY(platform->GetY() - GOOMBA_BBOX_HEIGHT+1);
 	}
 }
 
@@ -70,7 +73,8 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	vy += ay * dt;
 	vx += ax * dt;
-	
+	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+
 	if ( (isDead == true) && (GetTickCount64() - die_start > GOOMBA_DIE_TIMEOUT) )
 	{
 		isDeleted = true;
@@ -80,6 +84,23 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	{
 		isDeleted = true;
 		return;
+	}
+	if ((model == GOOMBA_WING) && (!isAttack)) {
+		if (GetTickCount64() - time_walking > TIME_WALKING && !isJump) {
+			SetState(GOOMBA_STATE_FLY);
+			if ((vx >= 0) && (mario->GetX() < GetX()))
+			{
+				vx = -GOOMBA_WALKING_SPEED;
+			}
+			else if((vx <= 0) && (mario->GetX() > GetX()))
+			{
+				vx = GOOMBA_WALKING_SPEED;
+			}
+			time_walking = -1;
+		}
+		else if (isJump) {
+			SetState(GOOMBA_STATE_WALKING);
+		}
 	}
 	
 	
@@ -144,11 +165,12 @@ void CGoomba::Render()
 		aniId = GetAniGoompaBase();
 	}
 	CAnimations::GetInstance()->Get(aniId)->Render(x,y);
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 void CGoomba::SetState(int state)
 {	
+	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 	switch (state)
 	{
 		case GOOMBA_STATE_DIE:
@@ -166,14 +188,23 @@ void CGoomba::SetState(int state)
 				isJump = false;
 				isAttack = false;
 				isUpside = false;
+				walkingCheck = false;
 			}
 			else {
-				isDead = false;
-				isJump = false;
-				isAttack = false;
-				isUpside = false;
-				vx = -GOOMBA_WALKING_SPEED;
-				time_walking = GetTickCount64();
+				if (isAttack) {
+					isDead = false;
+					isJump = false;
+					isUpside = false;
+					walkingCheck = false;
+					vx = -GOOMBA_WALKING_SPEED;
+					time_walking = GetTickCount64();
+				}
+				else {
+					isDead = false;
+					isJump = false;
+					isUpside = false;
+					time_walking = GetTickCount64();
+				}
 			}
 			break;
 		case GOOMBA_STATE_FLY:

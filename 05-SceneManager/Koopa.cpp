@@ -123,6 +123,7 @@ void CKoopa::OnCollisionWith(LPCOLLISIONEVENT e) {
 		if (e->ny < 0)
 		{
 			vy = 0;
+			isOnPlatform = true;
 		}
 		if (e->nx != 0 && e->obj->IsBlocking())
 		{
@@ -181,8 +182,8 @@ void CKoopa::OnCollisionWithGoomba(LPCOLLISIONEVENT e) {
 }
 void CKoopa::OnCollisionWithPlatform(LPCOLLISIONEVENT e) {
 	CPlatform* platform = dynamic_cast<CPlatform*>(e->obj);
-	if (platform->IsBlocking()) {}
-	else if (e->ny < 0) {
+	if (e->ny < 0) {
+		isOnPlatform = true;
 		if (!isDefend && !isUpside) {
 			SetY(platform->GetY() - KOOPA_BBOX_HEIGHT + 4);
 		}
@@ -219,8 +220,10 @@ void CKoopa::SetState(int state) {
 		isKicked = false;
 		isWing = false;
 		isHeld = false;
+		isOnPlatform = true;
 		break;
 	case KOOPA_STATE_DEFEND:
+		isOnPlatform = true;
 		isDefend = true;
 		isComeback = false;
 		isKicked = false;
@@ -237,10 +240,20 @@ void CKoopa::SetState(int state) {
 		vx = 0;
 		break;
 	case KOOPA_STATE_IS_KICKED:
+		isOnPlatform = true;
 		isKicked = true;
 		isHeld = false;
 		vx = mario->GetNx() * KOOPA_IS_KICKED_SPEED;
 		break;
+	case KOOPA_STATE_JUMP: {
+		isUpside = false;
+		isDefend = false;
+		isComeback = false;
+		isKicked = false;
+		vx = -KOOPA_WALKING_SPEED;
+		ay = KOOPA_GRAVITY;
+		break;
+	}
 
 	}
 	CGameObject::SetState(state);

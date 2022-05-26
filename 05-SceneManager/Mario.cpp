@@ -84,15 +84,32 @@ void CMario::OnCollisionWithKoopa(LPCOLLISIONEVENT e) {
 	CKoopa* koopa = dynamic_cast<CKoopa*>(e->obj); 
 
 	if (e->ny < 0) {
-		if (koopa->GetState() == KOOPA_STATE_WALKING or koopa->GetState() == KOOPA_STATE_IS_KICKED)
+		if (koopa->GetModel() != KOOPA_GREEN_WING) {
+			if ((koopa->GetState() == KOOPA_STATE_WALKING) or (koopa->GetState() == KOOPA_STATE_IS_KICKED))
+			{
+				koopa->SetState(KOOPA_STATE_DEFEND);
+				vy = -MARIO_JUMP_DEFLECT_SPEED;
+			}
+			else {
+				koopa->SetState(KOOPA_STATE_IS_KICKED);
+			}
+		}
+		else
 		{
-			koopa->SetState(KOOPA_STATE_DEFEND);
-			vy = -MARIO_JUMP_DEFLECT_SPEED;
+			if (koopa->GetState() == KOOPA_STATE_JUMP) {
+				koopa->SetState(KOOPA_STATE_WALKING);
+				vy = -MARIO_JUMP_DEFLECT_SPEED;
+			}
+			else if ((koopa->GetState() == KOOPA_STATE_WALKING) or (koopa->GetState() == KOOPA_STATE_IS_KICKED)) 
+			{
+				koopa->SetState(KOOPA_STATE_DEFEND);
+				vy = -MARIO_JUMP_DEFLECT_SPEED;
+			}
+			else 
+			{
+				koopa->SetState(KOOPA_STATE_IS_KICKED);
+			}
 		}
-		else {
-			koopa->SetState(KOOPA_STATE_IS_KICKED);
-		}
-
 	}
 	else {
 		if (untouchable == 0)

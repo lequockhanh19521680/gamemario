@@ -76,6 +76,12 @@ protected:
 	bool isComeback;
 public:
 
+	bool GetIsUpside() { return isUpside; }
+	bool GetIsDefend() { return isDefend; }
+	bool GetIsHeld() { return isHeld; }
+	bool GetIsKicked() { return isKicked; }
+	bool GetIsWing() { return isWing; }
+	bool GetIsComeBack() { return isComeback; }
 	CKoopa(float x, float y,int model);
 	void SetLevel(int l);
 	virtual void SetState(int state);
