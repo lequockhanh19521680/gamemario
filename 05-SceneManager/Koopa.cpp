@@ -4,6 +4,7 @@
 #include "Platform.h"
 #include "Scene.h"
 #include "Game.h"
+#include "PlantEnemy.h"
 #include "PlayScene.h"
 #include "debug.h"
 #include "BrickQuestion.h"
@@ -179,13 +180,26 @@ void CKoopa::OnCollisionWith(LPCOLLISIONEVENT e) {
 		this->OnCollisionWithPlatform(e);
 	else if ((dynamic_cast<CKoopa*>(e->obj)))
 		this->OnCollisionWithKoopa(e);
+	else if ((dynamic_cast<CPlantEnemy*>(e->obj)))
+		this->OnCollisionWithPlantEnemy(e);
 }
+
+
+void CKoopa::OnCollisionWithPlantEnemy(LPCOLLISIONEVENT e) {
+	CPlantEnemy* plant = dynamic_cast<CPlantEnemy*>(e->obj);
+	if (isKicked) {
+		plant->SetState(PLANT_STATE_DEATH);
+	}
+}
+
+
 void CKoopa::OnCollisionWithKoopa(LPCOLLISIONEVENT e) {
 	CKoopa* koopa = dynamic_cast<CKoopa*>(e->obj);
 	if (isKicked) {
 		koopa->SetState(KOOPA_STATE_DEAD_UPSIDE);
 	}
 }
+
 void CKoopa::OnCollisionWithBrickQuestion(LPCOLLISIONEVENT e) {
 	CBrickQuestion* questionBrick = dynamic_cast<CBrickQuestion*>(e->obj);
 	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();

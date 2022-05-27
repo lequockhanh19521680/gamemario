@@ -192,8 +192,9 @@ class CMario : public CGameObject
 	void OnCollisionWithBrickQuestion(LPCOLLISIONEVENT e);
 	void OnCollisionWithBlock(LPCOLLISIONEVENT e);
 	void OnCollisionWithPlatForm(LPCOLLISIONEVENT e);
+	void OnCollisionWithPlantEnemy(LPCOLLISIONEVENT e);
+	void OnCollisionWithFireFromPlant(LPCOLLISIONEVENT e);
 	void BlockIfNoBlock(LPGAMEOBJECT gameobject);
-
 	int GetAniIdBig();
 	int GetAniIdSmall();
 	int GetAniIdFire();
@@ -214,6 +215,7 @@ public:
 		isOnPlatform = false;
 		coin = 0;
 	}
+	void SetLevelSmall();
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void Render();
 	void SetState(int state);

@@ -3,6 +3,7 @@
 
 #include "Leaf.h"
 #include "Mario.h"
+#include "PlantEnemy.h"
 #include "Game.h"
 #include "Koopa.h"
 #include "MushRoom.h"
@@ -10,10 +11,12 @@
 #include "Coin.h"
 #include "Platform.h"
 #include "FlowerFire.h"
+#include "FireFromPlant.h"
 #include "BrickQuestion.h"
 #include "Portal.h"
 #include "PlayScene.h"
 #include "Collision.h"
+
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 
@@ -92,8 +95,12 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 			OnCollisionWithKoopa(e);
 		else if (dynamic_cast<CPlatform*>(e->obj))
 			OnCollisionWithPlatForm(e);
-
+		else if (dynamic_cast<CPlantEnemy*>(e->obj))
+			OnCollisionWithPlantEnemy(e);
+		else if (dynamic_cast<CFireFromPlant*>(e->obj))
+			OnCollisionWithFireFromPlant(e);
 }
+
 
 void CMario::OnCollisionWithPlatForm(LPCOLLISIONEVENT e) {
 	CPlatform* platform = dynamic_cast<CPlatform*>(e->obj);
@@ -103,6 +110,15 @@ void CMario::OnCollisionWithPlatForm(LPCOLLISIONEVENT e) {
 			BlockIfNoBlock(platform);
 		}
 	}
+}
+void CMario::OnCollisionWithPlantEnemy(LPCOLLISIONEVENT e) {
+	if (untouchable) return;
+	SetLevelSmall();
+}
+
+void CMario::OnCollisionWithFireFromPlant(LPCOLLISIONEVENT e) {
+	if (untouchable) return;
+	SetLevelSmall();
 }
 
 void CMario::OnCollisionWithKoopa(LPCOLLISIONEVENT e) {
@@ -145,16 +161,7 @@ void CMario::OnCollisionWithKoopa(LPCOLLISIONEVENT e) {
 				 koopa->SetState(KOOPA_STATE_IS_KICKED);
 			}
 			else {
-				if (level > MARIO_LEVEL_SMALL)
-				{
-					level = MARIO_LEVEL_SMALL;
-					StartUntouchable();
-				}
-				else
-				{
-					DebugOut(L">>> Mario DIE >>> \n");
-					SetState(MARIO_STATE_DIE);
-				}
+				SetLevelSmall();
 			}
 		}
 	}
@@ -178,16 +185,7 @@ void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 		{
 			if (goomba->GetState() != GOOMBA_STATE_DIE)
 			{
-				if (level > MARIO_LEVEL_SMALL) 
-				{
-					level = MARIO_LEVEL_SMALL;
-					StartUntouchable();
-				}
-				else
-				{
-					DebugOut(L">>> Mario DIE >>> \n");
-					SetState(MARIO_STATE_DIE);
-				}
+				SetLevelSmall();
 			}
 		}
 	}
@@ -700,5 +698,18 @@ void CMario::BlockIfNoBlock(LPGAMEOBJECT gameobject) {
 				isOnPlatform = true;
 			}
 		}
+	}
+}
+
+void CMario::SetLevelSmall() {
+	if (level > MARIO_LEVEL_SMALL)
+	{
+		level = MARIO_LEVEL_SMALL;
+		StartUntouchable();
+	}
+	else
+	{
+		DebugOut(L">>> Mario DIE >>> \n");
+		SetState(MARIO_STATE_DIE);
 	}
 }

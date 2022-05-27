@@ -72,6 +72,7 @@ protected:
 	virtual void OnNoCollision(DWORD dt);
 	int GetAniGreen();
 	int GetAniRed();
+	void OnCollisionWithPlantEnemy(LPCOLLISIONEVENT e);
 	void OnCollisionWithPlatform(LPCOLLISIONEVENT e);
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
 	void OnCollisionWithBrickQuestion(LPCOLLISIONEVENT e);

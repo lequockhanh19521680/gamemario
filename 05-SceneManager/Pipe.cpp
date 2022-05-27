@@ -1,4 +1,20 @@
 #include "Pipe.h"
+#include "PlantEnemy.h"
+#include "PlayScene.h"
+
+CPipe::CPipe(float x, float y, int model, int typePlant) : CGameObject(x,y){
+	this->x = x;
+	this->y = y;
+	this->model = model;
+	this->typePlant = typePlant;
+	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
+	if (typePlant != PLANT_NOTHING) {
+		CPlantEnemy* plant= new CPlantEnemy(x, y-PLANT_BBOX_HEIGHT/4+1, PLANT_SHOOT);
+		scene->AddObject(plant);
+	}
+
+}
+
 void CPipe::Render()
 {
 	CAnimations* animations = CAnimations::GetInstance();

@@ -1,10 +1,17 @@
 #pragma once
 #include "GameObject.h"
+
+#define PLANT_SPEED_UP_DOWN 0.025f
+
+#define TIME_OUT_PIPE 5000
+#define TIME_SHOOT 100
+#define TIME_DOWN_PIPE 3000
+
 #define PLANT_SHOOT 1
 #define PLANT_NOT_SHOOT 2
 
 #define PLANT_BBOX_WIDTH 16
-#define PLANT_BBOX_HEIGHT 26
+#define PLANT_BBOX_HEIGHT 32
 
 #define PLANT_STATE_UP 100
 #define PLANT_STATE_DOWN 200
@@ -24,9 +31,9 @@ class CPlantEnemy :	public CGameObject
 {
 protected:
 	float startY;
-	float maxY;
+	float minY;
 	bool isShoot = false;
-	bool isUp, isDown;
+	bool isUpping, isDowning;
 	ULONGLONG time_out_pipe;
 	ULONGLONG time_shoot;
 	ULONGLONG time_down_pipe;
