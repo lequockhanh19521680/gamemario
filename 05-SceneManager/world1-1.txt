@@ -1,5 +1,6 @@
 # list of object assets to load in this scene
 [ASSETS]
+
 mario.txt
 brick.txt
 coin.txt
@@ -12,6 +13,8 @@ brickquestion.txt
 platform.txt
 pipe.txt
 koopa.txt
+
+
 [TILEMAP]
 Resource\Tilemap\world1-1.txt
 [OBJECTS]
@@ -21,15 +24,24 @@ Resource\Tilemap\world1-1.txt
 #define OBJECT_TYPE_BRICK	1
 #define OBJECT_TYPE_GOOMBA	2
 #define OBJECT_TYPE_GOOMBA_FLY	3
-#define OBJECT_TYPE_KOOPAS	4
-#define OBJECT_TYPE_KOOPAS_FLY 5
+#define OBJECT_TYPE_KOOPA_GREEN	4
+#define OBJECT_TYPE_KOOPA_GREEN_FLY 5
+#define OBJECT_TYPE_KOOPA_RED 6
 #define OBJECT_TYPE_COIN 30
 #define OBJECT_TYPE_MUSHROOM 31
 #define OBJECT_TYPE_LEAF 32
-#define OBJECT_TYPE_BRICKQUESTION 35
 #define OBJECT_TYPE_FLOWERFIRE 33
+#define OBJECT_TYPE_BRICKQUESTION_COIN 34
+#define OBJECT_TYPE_BRICKQUESTION_ITEM 35
+#define OBJECT_TYPE_PIPE_SHORT 60
+#define OBJECT_TYPE_PIPE_LONG 70	
+#define OBJECT_TYPE_PLANT_SHOOT 80
+#define OBJECT_TYPE_PLANT_NOT_SHOOT 90
+#define OBJECT_TYPE_BLOCK 500
+
 #define OBJECT_TYPE_PLATFORM 40
-#See OBJECT_TYPE constants in AssetIDs.h
+
+#define OBJECT_TYPE_PORTAL 50
 
 
 
@@ -100,6 +112,8 @@ Resource\Tilemap\world1-1.txt
 2	300	384
 #GOOMBA_WING
 3	929	384
+#PLANT
+80	320	376
 
 #MARIO
 0	16	368

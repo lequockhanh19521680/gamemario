@@ -10,7 +10,7 @@
 #define MARIO_RUNNING_SPEED		0.2f
 
 #define MARIO_ACCEL_WALK_X	0.0005f
-#define MARIO_ACCEL_RUN_X	0.0007f
+#define MARIO_ACCEL_RUN_X	0.0003f
 
 #define MARIO_JUMP_SPEED_Y		0.3f
 #define MARIO_JUMP_RUN_SPEED_Y	0.3f
@@ -18,6 +18,8 @@
 #define MARIO_GRAVITY			0.0006f
 
 #define MARIO_JUMP_DEFLECT_SPEED  0.2f
+
+#define TIME_SPEED 500
 
 #define MARIO_STATE_DIE				-10
 #define MARIO_STATE_IDLE			0
@@ -170,9 +172,15 @@ class CMario : public CGameObject
 	int acceleration;
 	int level; 
 	int untouchable; 
+	int levelRun;
 	ULONGLONG untouchable_start;
+	ULONGLONG speed_start;
+	ULONGLONG speed_stop;
 	BOOLEAN isOnPlatform;
 	int coin; 
+
+
+	bool isRunning;
 
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
 	void OnCollisionWithKoopa(LPCOLLISIONEVENT e);
@@ -200,6 +208,7 @@ public:
 		ay = MARIO_GRAVITY; 
 
 		level = MARIO_LEVEL_SMALL;
+		levelRun = 0;
 		untouchable = 0;
 		untouchable_start = -1;
 		isOnPlatform = false;

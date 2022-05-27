@@ -27,6 +27,31 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		untouchable_start = 0;
 		untouchable = 0;
 	}
+	if (isRunning)
+	{
+		speed_start = GetTickCount64();
+		if (GetTickCount64() - speed_start > TIME_SPEED) {
+			if (levelRun < 7) {
+				levelRun++;
+			}
+			else levelRun = 7;
+			speed_start = 0;
+
+		}
+	}
+	else {
+		speed_stop = GetTickCount64();
+		if (GetTickCount64() - speed_stop > TIME_SPEED) {
+			if (levelRun > 0)
+			{
+				levelRun--;
+			}
+			else levelRun = 0;
+			speed_stop = 0;
+
+		}
+		
+	}
 	//DebugOut(L"[POSITION] %f %f\n", x, y);
 	isOnPlatform = false;
 	CCollision::GetInstance()->Process(this, dt, coObjects);
@@ -84,6 +109,7 @@ void CMario::OnCollisionWithKoopa(LPCOLLISIONEVENT e) {
 	CKoopa* koopa = dynamic_cast<CKoopa*>(e->obj); 
 
 	if (e->ny < 0) {
+		koopa->SetVy(-KOOPA_ADJUST_KICKED_NOT_FALL);
 		if (koopa->GetModel() != KOOPA_GREEN_WING) {
 			if ((koopa->GetState() == KOOPA_STATE_WALKING) or (koopa->GetState() == KOOPA_STATE_IS_KICKED))
 			{
@@ -253,9 +279,8 @@ int CMario::GetAniIdTail()
 	else {
 		if (!isOnPlatform)
 		{
-			if (abs(ax) == MARIO_ACCEL_RUN_X)
-			{
-				if (nx >= 0)
+			if (levelRun == 7) {
+				if (nx > 0)
 					aniId = ID_ANI_MARIO_TAIL_JUMP_RUN_RIGHT;
 				else
 					aniId = ID_ANI_MARIO_TAIL_JUMP_RUN_LEFT;
@@ -526,31 +551,41 @@ void CMario::SetState(int state)
 		if (isSitting) break;
 		maxVx = MARIO_RUNNING_SPEED;
 		ax = MARIO_ACCEL_RUN_X;
+		isRunning = true;
 		nx = 1;
 		break;
+
 	case MARIO_STATE_RUNNING_LEFT:
 		if (isSitting) break;
 		maxVx = -MARIO_RUNNING_SPEED;
 		ax = -MARIO_ACCEL_RUN_X;
+		isRunning = true;
 		nx = -1;
 		break;
 	case MARIO_STATE_WALKING_RIGHT:
 		if (isSitting) break;
+		isRunning = false;
+
 		maxVx = MARIO_WALKING_SPEED;
 		ax = MARIO_ACCEL_WALK_X;
 		nx = 1;
 		break;
 	case MARIO_STATE_WALKING_LEFT:
 		if (isSitting) break;
+		isRunning = false;
+
 		maxVx = -MARIO_WALKING_SPEED;
 		ax = -MARIO_ACCEL_WALK_X;
 		nx = -1;
 		break;
 	case MARIO_STATE_FALL:
 		if (vy < 0) vy += MARIO_JUMP_SPEED_Y / 5;
+		isRunning = false;
+
 		break;
 	case MARIO_STATE_JUMP:
 		if (isSitting) break;
+
 		if (isOnPlatform)
 		{
 			if (abs(this->vx) == MARIO_RUNNING_SPEED)
@@ -568,6 +603,7 @@ void CMario::SetState(int state)
 		if (isOnPlatform && level != MARIO_LEVEL_SMALL)
 		{
 			isSitting = true;
+			isRunning = false;
 			state = MARIO_STATE_IDLE;
 			y += MARIO_SIT_HEIGHT_ADJUST;
 		}

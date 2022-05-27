@@ -152,6 +152,7 @@
     <ClCompile Include="Coin.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="debug.cpp" />
+    <ClCompile Include="FireFromPlant.cpp" />
     <ClCompile Include="FlowerFire.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -165,6 +166,7 @@
     <ClCompile Include="Mario.cpp" />
     <ClCompile Include="MushRoom.cpp" />
     <ClCompile Include="Pipe.cpp" />
+    <ClCompile Include="PlantEnemy.cpp" />
     <ClCompile Include="Platform.cpp" />
     <ClCompile Include="PlayScene.cpp" />
     <ClCompile Include="Portal.cpp" />
@@ -185,6 +187,7 @@
     <ClInclude Include="Coin.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="debug.h" />
+    <ClInclude Include="FireFromPlant.h" />
     <ClInclude Include="FlowerFire.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="Game.h" />
@@ -198,6 +201,7 @@
     <ClInclude Include="Mario.h" />
     <ClInclude Include="MushRoom.h" />
     <ClInclude Include="Pipe.h" />
+    <ClInclude Include="PlantEnemy.h" />
     <ClInclude Include="Platform.h" />
     <ClInclude Include="PlayScene.h" />
     <ClInclude Include="Portal.h" />

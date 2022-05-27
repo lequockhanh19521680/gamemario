@@ -13,6 +13,7 @@
 #include "Pipe.h"
 #include "Leaf.h"
 #include "Platform.h"
+#include "PlantEnemy.h"
 #include "Map.h"
 #include "Koopa.h"
 #include "BrickQuestion.h"
@@ -169,6 +170,9 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_KOOPA_GREEN: obj = new CKoopa(x, y, KOOPA_GREEN); break;
 	case OBJECT_TYPE_KOOPA_GREEN_FLY: obj = new CKoopa(x, y, KOOPA_GREEN_WING); break;
 	case OBJECT_TYPE_KOOPA_RED: obj = new CKoopa(x, y, KOOPA_RED); break;
+	case OBJECT_TYPE_PLANT_SHOOT: obj = new CPlantEnemy(x, y, PLANT_SHOOT); break;
+	case OBJECT_TYPE_PLANT_NOT_SHOOT: obj = new CPlantEnemy(x, y, PLANT_NOT_SHOOT); break;
+
 	case OBJECT_TYPE_PLATFORM:
 	{
 

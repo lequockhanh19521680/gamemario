@@ -73,6 +73,8 @@ public:
 	int GetNx() { return this->nx; }
 	void SetY(float f) { y = f; }
 	void SetX(float f) { x = f; }
+	void SetVy(float f) { vy = f; }
+	void SetVx(float f) { vx = f; }
 	~CGameObject();
 
 	static bool IsDeleted(const LPGAMEOBJECT &o) { return o->isDeleted; }
