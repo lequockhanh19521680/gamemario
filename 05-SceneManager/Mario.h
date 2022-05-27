@@ -3,7 +3,7 @@
 
 #include "Animation.h"
 #include "Animations.h"
-
+#include "Tail.h"
 #include "debug.h"
 
 #define MARIO_WALKING_SPEED		0.1f
@@ -19,7 +19,11 @@
 
 #define MARIO_JUMP_DEFLECT_SPEED  0.2f
 
-#define TIME_SPEED 500
+#define MARIO_FLYING 0.2f
+
+#define TIME_FLY 3000
+#define TIME_TAIL_ATTACK 300
+#define TIME_SPEED 400
 
 #define MARIO_STATE_DIE				-10
 #define MARIO_STATE_IDLE			0
@@ -37,6 +41,9 @@
 
 #define MARIO_STATE_FALL			700
 #define MARIO_STATE_TAIL_ATTACK		800
+
+#define MARIO_STATE_SHOOT	900
+#define MARIO_STATE_FLY	1000
 #pragma region ANIMATION_ID
 
 #define ID_ANI_MARIO_BIG_IDLE_RIGHT 401
@@ -136,6 +143,9 @@
 
 #define ID_ANI_MARIO_TAIL_ATTACK 3100
 
+#define ID_ANI_MARIO_FLY_RIGHT 3300
+#define ID_ANI_MARIO_FLY_LEFT 3200
+
 
 
 #pragma endregion
@@ -169,18 +179,24 @@ class CMario : public CGameObject
 	float maxVx;
 	float ax;				// acceleration on x 
 	float ay;				// acceleration on y 
-	int acceleration;
 	int level; 
 	int untouchable; 
 	int levelRun;
 	ULONGLONG untouchable_start;
+	ULONGLONG start_fly;
 	ULONGLONG speed_start;
 	ULONGLONG speed_stop;
+	ULONGLONG start_tail_attack;
 	BOOLEAN isOnPlatform;
 	int coin; 
 
 
 	bool isRunning;
+	bool isFlying;
+	bool isShoot;
+	bool isTailAttack;
+	bool isPushTail;
+
 
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
 	void OnCollisionWithKoopa(LPCOLLISIONEVENT e);
@@ -201,20 +217,7 @@ class CMario : public CGameObject
 	int GetAniIdTail();
 
 public:
-	CMario(float x, float y) : CGameObject(x, y)
-	{
-		isSitting = false;
-		maxVx = 0.0f;
-		ax = 0.0f;
-		ay = MARIO_GRAVITY; 
-
-		level = MARIO_LEVEL_SMALL;
-		levelRun = 0;
-		untouchable = 0;
-		untouchable_start = -1;
-		isOnPlatform = false;
-		coin = 0;
-	}
+	CMario(float x, float y);
 	void SetLevelSmall();
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void Render();
@@ -232,6 +235,9 @@ public:
 	void SetCoin(int coin) { this->coin = coin; }
 	void SetLevel(int l);
 	void SetVy(float v) { vy = v; }
+	bool GetIsTailAttack() { return isTailAttack; }
+	bool GetIsFlying() { return isFlying; }
+	bool GetIsOnPlatform() { return isOnPlatform; }
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount64(); }
 	virtual int IsPlayer() { return 1; }
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);

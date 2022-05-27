@@ -150,6 +150,9 @@
     <ClCompile Include="PlantEnemy.cpp">
       <Filter>Header Files\Object\Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="Tail.cpp">
+      <Filter>Header Files\Object\Mario</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AssetIDs.h">
@@ -256,6 +259,9 @@
     </ClInclude>
     <ClInclude Include="PlantEnemy.h">
       <Filter>Header Files\Object\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Tail.h">
+      <Filter>Header Files\Object\Mario</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

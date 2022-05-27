@@ -18,27 +18,27 @@ class CGameObject
 {
 protected:
 
-	float x; 
+	float x;
 	float y;
 
 	float vx;
 	float vy;
 
-	int nx;	 
+	int nx;
 
 	int state;
 
-	bool isDeleted; 
+	bool isDeleted;
 
-public: 
+public:
 	int model = 0;
 	void SetPosition(float x, float y) { this->x = x, this->y = y; }
 	void SetSpeed(float vx, float vy) { this->vx = vx, this->vy = vy; }
-	void GetPosition(float &x, float &y) { x = this->x; y = this->y; }
-	void GetSpeed(float &vx, float &vy) { vx = this->vx; vy = this->vy; }
+	void GetPosition(float& x, float& y) { x = this->x; y = this->y; }
+	void GetSpeed(float& vx, float& vy) { vx = this->vx; vy = this->vy; }
 
 	int GetState() { return this->state; }
-	virtual void Delete() { isDeleted = true;  }
+	virtual void Delete() { isDeleted = true; }
 	bool IsDeleted() { return isDeleted; }
 	void SetModel(int model) { this->model = model; }
 	int GetModel() { return model; }
@@ -47,7 +47,7 @@ public:
 	CGameObject();
 	CGameObject(float x, float y) :CGameObject() { this->x = x; this->y = y; }
 
-	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom) = 0;
+	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom) = 0;
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL) {};
 	virtual void Render() = 0;
 	virtual void SetState(int state) { this->state = state; }
@@ -63,7 +63,7 @@ public:
 
 	// When collision with an object has been detected (triggered by CCollision::Process)
 	virtual void OnCollisionWith(LPCOLLISIONEVENT e) {};
-	
+
 	// Is this object blocking other object? If YES, collision framework will automatically push the other object
 	virtual int IsBlocking() { return 1; }
 	virtual int IsEnemy() { return 0; }
@@ -75,6 +75,9 @@ public:
 	void SetX(float f) { x = f; }
 	void SetVy(float f) { vy = f; }
 	void SetVx(float f) { vx = f; }
+	void SetIsDeleted(bool b) {
+		isDeleted = b;
+}
 	~CGameObject();
 
 	static bool IsDeleted(const LPGAMEOBJECT &o) { return o->isDeleted; }

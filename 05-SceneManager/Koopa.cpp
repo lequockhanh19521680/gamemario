@@ -300,6 +300,7 @@ void CKoopa::SetState(int state) {
 		isDefend = false;
 		isComeback = false;
 		isKicked = false;
+		vy = -KOOPA_JUMP_SPEED;
 		defend_start = GetTickCount64();
 		vx = 0;
 		break;

@@ -3,6 +3,7 @@
 #include "PlayScene.h"
 #include "Animation.h"
 #include "PlantEnemy.h"
+#include "Pipe.h"
 #include "Map.h"
 CFireFromPlant::CFireFromPlant(float bx, float by, bool Up, bool Right)
 {
@@ -10,12 +11,12 @@ CFireFromPlant::CFireFromPlant(float bx, float by, bool Up, bool Right)
 
 	if (Up)
 	{
-		y = by;
+		y = by - PLANT_BBOX_HEIGHT/2;
 		vy = -abs((mario->GetY() - GetY()))/ADJUST_VECTOR_Y * BULLET_SPEED_Y;
 	}
 	else
 	{
-		y = by + BULLET_BBOX_HEIGHT;
+		y = by + BULLET_BBOX_HEIGHT - PLANT_BBOX_HEIGHT/2;
 		vy = abs((mario->GetY() - GetY())- CHANGE_DIRECTION)/ADJUST_VECTOR_Y * BULLET_SPEED_Y;
 	}
 
@@ -61,6 +62,9 @@ void CFireFromPlant::GetBoundingBox(float& l, float& t, float& r, float& b)
 }
 
 void CFireFromPlant::OnCollisionWith(LPCOLLISIONEVENT e) {
-
+	if (dynamic_cast<CPipe*>(e->obj)) return;
+	if (e->obj->IsBlocking() && !e->obj->IsPlayer()) {
+		isDeleted = true;
+	}
 
 }
