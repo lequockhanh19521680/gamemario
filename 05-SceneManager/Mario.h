@@ -22,7 +22,7 @@
 #define MARIO_FLYING 0.015f
 
 #define TIME_FLY 3000
-#define TIME_TAIL_ATTACK 300
+#define TIME_TAIL_ATTACK 150
 #define TIME_SPEED 400
 
 #define MARIO_STATE_DIE				-10
