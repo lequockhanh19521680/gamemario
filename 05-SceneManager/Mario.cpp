@@ -317,36 +317,37 @@ int CMario::GetAniIdTail()
 {
 	int aniId = -1;
 	if (!isFlying) {
-		if (!isOnPlatform)
-		{
-			if (abs(ax)==MARIO_ACCEL_RUN_X) {
-				if (nx > 0)
-					aniId = ID_ANI_MARIO_TAIL_JUMP_RUN_RIGHT;
-				else
-					aniId = ID_ANI_MARIO_TAIL_JUMP_RUN_LEFT;
-			}
-			else
+		if (!isTailAttack) {
+			if (!isOnPlatform)
 			{
-				if (nx >= 0)
-					aniId = ID_ANI_MARIO_TAIL_JUMP_WALK_RIGHT;
-				else
-					aniId = ID_ANI_MARIO_TAIL_JUMP_WALK_LEFT;
-			}
-		}
-		else
-			if (isSitting)
-			{
-				if (nx > 0)
-				{
-					aniId = ID_ANI_MARIO_TAIL_SIT_RIGHT;
-
+				if (abs(ax) == MARIO_ACCEL_RUN_X) {
+					if (nx > 0)
+						aniId = ID_ANI_MARIO_TAIL_JUMP_RUN_RIGHT;
+					else
+						aniId = ID_ANI_MARIO_TAIL_JUMP_RUN_LEFT;
 				}
 				else
-					aniId = ID_ANI_MARIO_TAIL_SIT_LEFT;
+				{
+					if (nx >= 0)
+						aniId = ID_ANI_MARIO_TAIL_JUMP_WALK_RIGHT;
+					else
+						aniId = ID_ANI_MARIO_TAIL_JUMP_WALK_LEFT;
+				}
 			}
 			else
-			{	
-				if (!isTailAttack) {
+				if (isSitting)
+				{
+					if (nx > 0)
+					{
+						aniId = ID_ANI_MARIO_TAIL_SIT_RIGHT;
+
+					}
+					else
+						aniId = ID_ANI_MARIO_TAIL_SIT_LEFT;
+				}
+				else
+				{
+
 					if (vx == 0)
 					{
 						if (nx > 0) aniId = ID_ANI_MARIO_TAIL_IDLE_RIGHT;
@@ -372,9 +373,10 @@ int CMario::GetAniIdTail()
 						else if (ax == -MARIO_ACCEL_WALK_X)
 							aniId = ID_ANI_MARIO_TAIL_WALKING_LEFT;
 					}
+
 				}
-				else aniId = ID_ANI_MARIO_TAIL_ATTACK;
-			}
+		}
+		else aniId = ID_ANI_MARIO_TAIL_ATTACK;
 	}
 	else {
 		if (!isOnPlatform) {
@@ -604,6 +606,7 @@ void CMario::SetState(int state)
 	{
 	case MARIO_STATE_RUNNING_RIGHT:
 		if (isSitting) break;
+		SetMarioTailAttack();
 		maxVx = MARIO_RUNNING_SPEED;
 		ax = MARIO_ACCEL_RUN_X;
 		isHolding = true;
@@ -613,6 +616,7 @@ void CMario::SetState(int state)
 
 	case MARIO_STATE_RUNNING_LEFT:
 		if (isSitting) break;
+		SetMarioTailAttack();
 		maxVx = -MARIO_RUNNING_SPEED;
 		ax = -MARIO_ACCEL_RUN_X;
 		isHolding = true;
@@ -650,7 +654,6 @@ void CMario::SetState(int state)
 			else
 				vy = -MARIO_JUMP_SPEED_Y;
 		}
-	
 		break;
 
 	case MARIO_STATE_RELEASE_JUMP:
@@ -796,4 +799,10 @@ void CMario::SetLevelSmall() {
 void CMario::SetFly() {
 	vy = -MARIO_FLYING;
 	isFlying = true;
+}
+
+void CMario::SetMarioTailAttack() {
+	if (level == MARIO_LEVEL_TAIL) {
+		isTailAttack = true;
+	}
 }

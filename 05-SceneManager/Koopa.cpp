@@ -293,6 +293,7 @@ void CKoopa::SetState(int state) {
 		isComeback = false;
 		isKicked = false;
 		isUpside = false;
+		if (isOnPlatform) vx = 0;
 		defend_start = GetTickCount64();
 		break;
 	case KOOPA_STATE_UPSIDE:
@@ -301,8 +302,8 @@ void CKoopa::SetState(int state) {
 		isComeback = false;
 		isKicked = false;
 		vy = -KOOPA_JUMP_SPEED;
+		if (isOnPlatform) vx = 0;
 		defend_start = GetTickCount64();
-		if (isOnPlatform) { vx = 0; }
 		break;
 	case KOOPA_STATE_IS_KICKED:
 		isOnPlatform = true;

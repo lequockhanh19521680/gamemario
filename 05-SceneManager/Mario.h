@@ -223,6 +223,7 @@ class CMario : public CGameObject
 	bool isRunning;
 	bool isHolding;
 	bool isFlying;
+	bool isKicking;
 	bool isShoot;
 	bool isTailAttack;
 
@@ -267,9 +268,13 @@ public:
 	bool GetIsTailAttack() { return isTailAttack; }
 	bool GetIsFlying() { return isFlying; }
 	bool GetIsHolding() { return isHolding; }
+	void SetIsHolding(bool b) { isHolding = b; }
+	bool GetIsKicking() { return isKicking; }
+	void SetIsKicking(bool b) { isKicking = b; }
 	bool GetIsOnPlatform() { return isOnPlatform; }
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount64(); }
 	virtual int IsPlayer() { return 1; }
 	void SetFly();
+	void SetMarioTailAttack();
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 };
