@@ -576,8 +576,8 @@ int CMario::GetAniIdBig()
 void CMario::Render()
 {
 	CAnimations* animations = CAnimations::GetInstance();
-	int aniId = -1;
-
+	int aniId = 2330;
+	/*
 	if (state == MARIO_STATE_DIE)
 		aniId = ID_ANI_MARIO_DIE;
 	else if (level == MARIO_LEVEL_BIG)
@@ -588,7 +588,7 @@ void CMario::Render()
 		aniId = GetAniIdFire();
 	else if (level == MARIO_LEVEL_TAIL)
 		aniId = GetAniIdTail();
-
+		*/
 	animations->Get(aniId)->Render(x, y);
 
 	RenderBoundingBox();
