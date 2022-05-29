@@ -12,12 +12,12 @@ CFireFromPlant::CFireFromPlant(float bx, float by, bool Up, bool Right)
 	if (Up)
 	{
 		y = by - PLANT_BBOX_HEIGHT/2;
-		vy = -abs((mario->GetY() - GetY()))/ADJUST_VECTOR_Y * BULLET_SPEED_Y;
+		vy = -BULLET_SPEED_Y;
 	}
 	else
 	{
-		y = by + BULLET_BBOX_HEIGHT - PLANT_BBOX_HEIGHT/2;
-		vy = abs((mario->GetY() - GetY())- CHANGE_DIRECTION)/ADJUST_VECTOR_Y * BULLET_SPEED_Y;
+		y = by + PLANT_BBOX_HEIGHT/2;
+		vy = BULLET_SPEED_Y;
 	}
 
 
@@ -28,7 +28,7 @@ CFireFromPlant::CFireFromPlant(float bx, float by, bool Up, bool Right)
 	}
 	else
 	{
-		x = bx - BULLET_BBOX_WIDTH;
+		x = bx - PLANT_BBOX_WIDTH;
 		vx = -BULLET_SPEED_X;
 	}
 	start_deleted = GetTickCount64();
@@ -63,8 +63,6 @@ void CFireFromPlant::GetBoundingBox(float& l, float& t, float& r, float& b)
 
 void CFireFromPlant::OnCollisionWith(LPCOLLISIONEVENT e) {
 	if (dynamic_cast<CPipe*>(e->obj)) return;
-	if (e->obj->IsBlocking() && !e->obj->IsPlayer()) {
-		isDeleted = true;
-	}
+	if (e->obj->IsPlatform() && e->obj->IsBlocking()) isDeleted = true;
 
 }

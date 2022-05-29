@@ -9,7 +9,7 @@
 void CSampleKeyHandler::OnKeyDown(int KeyCode)
 {
 	//DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
-	CMario* mario = (CMario *)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer(); 
+	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 
 	switch (KeyCode)
 	{
@@ -17,21 +17,21 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 		mario->SetState(MARIO_STATE_SIT);
 		break;
 	case DIK_S:
-		mario->SetState(MARIO_STATE_JUMP);
-		break;
-	case DIK_A:
-		if(mario->GetIsOnPlatform()){
-			if ((mario->GetLevel() == MARIO_LEVEL_TAIL))
-			{
-				mario->SetState(MARIO_STATE_TAIL_ATTACK);
-			}
+		if (mario->GetIsOnPlatform()) {
+			mario->SetState(MARIO_STATE_JUMP);
 		}
-		else if (mario->GetLevel() == MARIO_LEVEL_TAIL && !mario->GetIsOnPlatform()) {
-			mario->SetState(MARIO_STATE_FLY);
+		else {
+			if (mario->GetLevel() == MARIO_LEVEL_TAIL) mario->SetState(MARIO_STATE_FLY);
 		}
+
 		break;
 	case DIK_1:
 		mario->SetLevel(MARIO_LEVEL_SMALL);
+		break;
+	case DIK_A:
+		if (mario->GetLevel() == MARIO_LEVEL_TAIL) {
+			mario->SetState(MARIO_STATE_TAIL_ATTACK);
+		}
 		break;
 	case DIK_2:
 		mario->SetLevel(MARIO_LEVEL_BIG);
@@ -67,35 +67,24 @@ void CSampleKeyHandler::OnKeyUp(int KeyCode)
 	}
 }
 
-void CSampleKeyHandler::KeyState(BYTE *states)
+void CSampleKeyHandler::KeyState(BYTE* states)
 {
 	LPGAME game = CGame::GetInstance();
 	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 
 	if (game->IsKeyDown(DIK_RIGHT))
 	{
-
-		if (game->IsKeyDown(DIK_A)) {
-			if (mario->GetLevel() == MARIO_LEVEL_TAIL && mario->GetIsFlying()) {
-
-				mario->SetState(MARIO_STATE_FLY);
-			}
+		if (game->IsKeyDown(DIK_A))
 			mario->SetState(MARIO_STATE_RUNNING_RIGHT);
-		}
-		else mario->SetState(MARIO_STATE_WALKING_RIGHT);
+		else
+			mario->SetState(MARIO_STATE_WALKING_RIGHT);
 	}
 	else if (game->IsKeyDown(DIK_LEFT))
 	{
-
-		if (game->IsKeyDown(DIK_A)) {
-			if (mario->GetLevel() == MARIO_LEVEL_TAIL && mario->GetIsFlying()) {
-
-				mario->SetState(MARIO_STATE_FLY);
-			}
+		if (game->IsKeyDown(DIK_A))
 			mario->SetState(MARIO_STATE_RUNNING_LEFT);
-		}
-		else mario->SetState(MARIO_STATE_WALKING_LEFT);
-		
+		else
+			mario->SetState(MARIO_STATE_WALKING_LEFT);
 	}
 	else
 		mario->SetState(MARIO_STATE_IDLE);

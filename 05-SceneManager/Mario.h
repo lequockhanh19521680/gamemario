@@ -9,17 +9,17 @@
 #define MARIO_WALKING_SPEED		0.1f
 #define MARIO_RUNNING_SPEED		0.2f
 
-#define MARIO_ACCEL_WALK_X	0.0005f
+#define MARIO_ACCEL_WALK_X	0.001f
 #define MARIO_ACCEL_RUN_X	0.0003f
 
-#define MARIO_JUMP_SPEED_Y		0.3f
-#define MARIO_JUMP_RUN_SPEED_Y	0.3f
+#define MARIO_JUMP_SPEED_Y		0.25f
+#define MARIO_JUMP_RUN_SPEED_Y	0.25f
 
-#define MARIO_GRAVITY			0.0006f
+#define MARIO_GRAVITY			0.0004f
 
 #define MARIO_JUMP_DEFLECT_SPEED  0.2f
 
-#define MARIO_FLYING 0.2f
+#define MARIO_FLYING 0.015f
 
 #define TIME_FLY 3000
 #define TIME_TAIL_ATTACK 300
@@ -192,10 +192,10 @@ class CMario : public CGameObject
 
 
 	bool isRunning;
+	bool isHolding;
 	bool isFlying;
 	bool isShoot;
 	bool isTailAttack;
-	bool isPushTail;
 
 
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
@@ -237,8 +237,10 @@ public:
 	void SetVy(float v) { vy = v; }
 	bool GetIsTailAttack() { return isTailAttack; }
 	bool GetIsFlying() { return isFlying; }
+	bool GetIsHolding() { return isHolding; }
 	bool GetIsOnPlatform() { return isOnPlatform; }
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount64(); }
 	virtual int IsPlayer() { return 1; }
+	void SetFly();
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 };

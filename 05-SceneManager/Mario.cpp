@@ -79,6 +79,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	if (isFlying) {
 		if (isOnPlatform) {
 			isFlying = false;
+			ay = MARIO_GRAVITY;
 		}
 	}
 	if (isTailAttack) {
@@ -152,7 +153,10 @@ void CMario::OnCollisionWithPlantEnemy(LPCOLLISIONEVENT e) {
 
 void CMario::OnCollisionWithFireFromPlant(LPCOLLISIONEVENT e) {
 	if (untouchable) return;
+	CFireFromPlant* bullet = dynamic_cast<CFireFromPlant*>(e->obj);
+	bullet->SetIsDeleted(true);
 	SetLevelSmall();
+
 }
 
 void CMario::OnCollisionWithKoopa(LPCOLLISIONEVENT e) {
@@ -601,47 +605,31 @@ void CMario::SetState(int state)
 	{
 	case MARIO_STATE_RUNNING_RIGHT:
 		if (isSitting) break;
-		if (isFlying) {
-			isFlying = true;
-		}
-		else isFlying = false;
 		maxVx = MARIO_RUNNING_SPEED;
 		ax = MARIO_ACCEL_RUN_X;
+		isHolding = true;
 		isRunning = true;
 		nx = 1;
 		break;
 
 	case MARIO_STATE_RUNNING_LEFT:
 		if (isSitting) break;
-		if (isFlying) {
-			isFlying = true;
-		}
-		else isFlying = false;
 		maxVx = -MARIO_RUNNING_SPEED;
 		ax = -MARIO_ACCEL_RUN_X;
+		isHolding = true;
 		isRunning = true;
-		isFlying = false;
 		nx = -1;
 		break;
 	case MARIO_STATE_WALKING_RIGHT:
 		if (isSitting) break;
-		if (isFlying) {
-			isFlying = true;
-		}
-		else isFlying = false;
-			isRunning = false;
-			isFlying = false;
-			maxVx = MARIO_WALKING_SPEED;
-			ax = MARIO_ACCEL_WALK_X;
-			nx = 1;
-		
+		isRunning = false;
+
+		maxVx = MARIO_WALKING_SPEED;
+		ax = MARIO_ACCEL_WALK_X;
+		nx = 1;
 		break;
 	case MARIO_STATE_WALKING_LEFT:
 		if (isSitting) break;
-		if (isFlying) {
-			isFlying = true;
-		}
-		else isFlying = false;
 		isRunning = false;
 
 		maxVx = -MARIO_WALKING_SPEED;
@@ -655,7 +643,7 @@ void CMario::SetState(int state)
 		break;
 	case MARIO_STATE_JUMP:
 		if (isSitting) break;
-		
+
 		if (isOnPlatform)
 		{
 			if (abs(this->vx) == MARIO_RUNNING_SPEED)
@@ -663,6 +651,7 @@ void CMario::SetState(int state)
 			else
 				vy = -MARIO_JUMP_SPEED_Y;
 		}
+	
 		break;
 
 	case MARIO_STATE_RELEASE_JUMP:
@@ -689,9 +678,9 @@ void CMario::SetState(int state)
 		break;
 
 	case MARIO_STATE_IDLE:
-			ax = 0.0f;
-			vx = 0.0f;
-		
+		ax = 0.0f;
+		vx = 0.0f;
+
 		break;
 	case MARIO_STATE_TAIL_ATTACK:
 		isTailAttack = true;
@@ -700,8 +689,7 @@ void CMario::SetState(int state)
 	case MARIO_STATE_FLY: 
 		isFlying = true;
 		isOnPlatform = false;
-		vy = -MARIO_FLYING;
-
+		SetFly();
 		break;
 	
 	case MARIO_STATE_DIE:
@@ -806,3 +794,7 @@ void CMario::SetLevelSmall() {
 	}
 }
 
+void CMario::SetFly() {
+	vy = -MARIO_FLYING;
+	isFlying = true;
+}
