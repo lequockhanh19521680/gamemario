@@ -20,7 +20,7 @@ CGoomba::CGoomba(float x, float y,int model):CGameObject(x, y)
 
 void CGoomba::GetBoundingBox(float &left, float &top, float &right, float &bottom)
 {
-	if (isUpside == true) { return; }
+	if (isUpside) { return; }
 	if (isDead)
 	{
 		left = x - GOOMBA_BBOX_WIDTH/2;
@@ -71,6 +71,8 @@ void CGoomba::OnCollisionWithPlatForm(LPCOLLISIONEVENT e)
 
 void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
+	if (!checkObjectInCamera(this)) return;
+
 	vy += ay * dt;
 	vx += ax * dt;
 	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();

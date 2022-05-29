@@ -33,7 +33,7 @@ void CCoin::SetState(int l) {
 	switch (l) {
 	case COIN_SUMMON_STATE:
 		vy = -OUT_BRICK;
-
+		canCollect = false;
 		break;
 
 	case COIN_NOT_SUMMON_STATE:

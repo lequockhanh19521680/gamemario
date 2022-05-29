@@ -69,7 +69,7 @@ protected:
 	int GetAniGoompaBase();
 	int GetAniGoompaWing();
 public: 	
-
+	bool GetIsDead() { return isDead; }
 	CGoomba(float x, float y, int model);
 	void SetLevel(int l);
 	virtual void SetState(int state);

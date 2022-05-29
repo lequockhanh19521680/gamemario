@@ -70,6 +70,8 @@ public:
 	virtual int IsPlayer() { return 0; }
 	float GetX() { return x; }
 	float GetY() { return y; }
+	float GetVx() { return vx; }
+	float GetVy() { return vy; }
 	int GetNx() { return this->nx; }
 	void SetY(float f) { y = f; }
 	void SetX(float f) { x = f; }
@@ -77,7 +79,8 @@ public:
 	void SetVx(float f) { vx = f; }
 	void SetIsDeleted(bool b) {
 		isDeleted = b;
-}
+	}
+	bool checkObjectInCamera(CGameObject* obj);
 	~CGameObject();
 
 	static bool IsDeleted(const LPGAMEOBJECT &o) { return o->isDeleted; }

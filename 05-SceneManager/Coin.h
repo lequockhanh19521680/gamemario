@@ -18,6 +18,7 @@
 class CCoin : public CGameObject {
 	int state;
 	float ay;
+	bool canCollect;
 public:
 	CCoin(float x, float y) : CGameObject(x, y) {
 		state = COIN_NOT_SUMMON_STATE;
@@ -26,7 +27,8 @@ public:
 	int GetState() { return state; }
 	void SetState(int s);
 	virtual void OnNoCollision(DWORD dt);
-
+	bool CanCollect(){ return canCollect; }
+	void SetCanCollect(bool b) { canCollect = b; }
 	void Render();
 	virtual int IsCollidable() { return 1; } 	
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);

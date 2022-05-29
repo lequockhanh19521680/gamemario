@@ -13,6 +13,9 @@ using namespace std;
 #include "KeyEventHandler.h"
 #include "Scene.h"
 
+
+#define SCREEN_WIDTH 272
+#define SCREEN_HEIGHT 256
 #define MAX_FRAME_RATE 100
 #define KEYBOARD_BUFFER_SIZE 1024
 #define KEYBOARD_STATE_SIZE 256
@@ -67,6 +70,8 @@ class CGame
 	int screen_width;
 
 public:
+	float GetCamX() { return cam_x; }
+	float GetCamY() { return cam_y; }
 	// Init DirectX, Sprite Handler
 	void Init(HWND hWnd, HINSTANCE hInstance);
 

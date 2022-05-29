@@ -21,6 +21,8 @@ void CPlantEnemy::GetBoundingBox(float& left, float& top, float& right, float& b
 }
 void CPlantEnemy::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	if (!checkObjectInCamera(this)) return;
+
 	/*
 	ULONGLONG time_out_pipe;
 	ULONGLONG time_shoot;
