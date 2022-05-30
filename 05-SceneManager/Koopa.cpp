@@ -217,6 +217,7 @@ void CKoopa::OnCollisionWithPlantEnemy(LPCOLLISIONEVENT e) {
 void CKoopa::OnCollisionWithKoopa(LPCOLLISIONEVENT e) {
 	CKoopa* koopa = dynamic_cast<CKoopa*>(e->obj);
 	if (isKicked || isHeld) {
+		SetState(KOOPA_STATE_DEAD_UPSIDE);
 		koopa->SetState(KOOPA_STATE_DEAD_UPSIDE);
 	}
 }
@@ -343,7 +344,7 @@ void CKoopa::SetState(int state) {
 	case KOOPA_STATE_DEAD_UPSIDE:
 		vy = -KOOPA_JUMP_DEATH;
 		ay = KOOPA_GRAVITY;
-
+		vx = 0;
 		isWing = false;
 		isComeback = false;
 		isDefend = false;
