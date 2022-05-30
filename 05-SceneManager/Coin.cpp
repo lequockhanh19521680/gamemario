@@ -16,7 +16,9 @@ void CCoin::GetBoundingBox(float& l, float& t, float& r, float& b)
 	b = t + COIN_BBOX_HEIGHT;
 }
 void CCoin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
-	vy += ay * dt;
+	if (!checkObjectInCamera(this)) return;
+	if (!canCollect) vy += ay * dt;
+	
 	//DebugOut(L"[VANTOC] %f\n", vy);
 	if (vy > COIN_MAX_SPEED_FALL) {
 		Delete();
@@ -37,6 +39,7 @@ void CCoin::SetState(int l) {
 		break;
 
 	case COIN_NOT_SUMMON_STATE:
+		canCollect = true;
 		break;
 	}
 	CGameObject::SetState(l);

@@ -51,7 +51,7 @@ void CFireFromPlant::Render()
 	else
 		aniId = ID_ANI_BULLET_LEFT;
 	animations->Get(aniId)->Render(x, y);
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 void CFireFromPlant::GetBoundingBox(float& l, float& t, float& r, float& b)
 {

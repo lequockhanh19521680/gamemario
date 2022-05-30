@@ -181,6 +181,7 @@ void CMario::OnCollisionWithKoopa(LPCOLLISIONEVENT e) {
 				}
 				else if ((koopa->GetState() == KOOPA_STATE_WALKING) or (koopa->GetState() == KOOPA_STATE_IS_KICKED))
 				{
+					koopa->SetVy(KOOPA_ADJUST_KICKED_NOT_FALL);
 					koopa->SetState(KOOPA_STATE_DEFEND);
 					vy = -MARIO_JUMP_DEFLECT_SPEED;
 				}
@@ -200,6 +201,7 @@ void CMario::OnCollisionWithKoopa(LPCOLLISIONEVENT e) {
 						koopa->SetIsHeld(false);
 						isKicking = true;
 						start_kick = GetTickCount64();
+
 						koopa->SetState(KOOPA_STATE_IS_KICKED);
 					}
 					else {
@@ -246,11 +248,11 @@ void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 
 void CMario::OnCollisionWithCoin(LPCOLLISIONEVENT e)
 {
-	CCoin* coin = dynamic_cast<CCoin*>(e->obj);
-	if (coin->CanCollect()) {
+	CCoin* coin1 = dynamic_cast<CCoin*>(e->obj);
+	if (coin1->CanCollect()) {
 		e->obj->Delete();
+		coin++;
 	}
-	coin++;
 }
 void CMario::OnCollisionWithLeaf(LPCOLLISIONEVENT e) {
 	e->obj->Delete();
@@ -418,10 +420,16 @@ int CMario::GetAniIdTail()
 	else {
 		if (!isHolding) {
 			if (!isOnPlatform) {
-				if (nx > 0) {
-					aniId = ID_ANI_MARIO_FLY_RIGHT;
+				if (isRunning) {
+					if (nx > 0) {
+						aniId = ID_ANI_MARIO_FLY_RIGHT;
+					}
+					else aniId = ID_ANI_MARIO_FLY_LEFT;
 				}
-				else aniId = ID_ANI_MARIO_FLY_LEFT;
+				else {
+					if (nx > 0) aniId = ID_ANI_MARIO_TAIL_FLY_DOWN_RIGHT;
+					else aniId = ID_ANI_MARIO_TAIL_FLY_DOWN_LEFT;
+				}
 			}
 			else {
 				if (nx > 0) aniId = ID_ANI_MARIO_TAIL_IDLE_RIGHT;
@@ -710,7 +718,7 @@ void CMario::Render()
 		aniId = GetAniIdTail();
 	animations->Get(aniId)->Render(x, y);
 
-	RenderBoundingBox();
+	//RenderBoundingBox();
 	
 	DebugOutTitle(L"Coins: %d", coin);
 }

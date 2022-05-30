@@ -68,16 +68,19 @@ void CKoopa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 		}
 	}
 	if (!isDead) {
-		if (GetTickCount64() - defend_start > KOOPA_COMBACK_START && (isDefend || isUpside) && !isKicked) {
-			isComeback = true;
-		}
-		if ((GetTickCount64() - defend_start > KOOPA_DEFEND_TIMEOUT && (isDefend || isUpside) && !isKicked)) {
-			if (isComeback) {
-				SetState(KOOPA_STATE_WALKING);
-				vy = -KOOPA_ADJUST_NOT_FALL;
-				defend_start = -1;
+		if (!isKicked) {
+			if (GetTickCount64() - defend_start > KOOPA_COMBACK_START && (isDefend || isUpside) && !isKicked) {
+				isComeback = true;
+			}
+			if ((GetTickCount64() - defend_start > KOOPA_DEFEND_TIMEOUT && (isDefend || isUpside) && !isKicked)) {
+				if (isComeback) {
+					SetState(KOOPA_STATE_WALKING);
+					vy = -KOOPA_ADJUST_NOT_FALL;
+					defend_start = -1;
+				}
 			}
 		}
+		else { isComeback = false; }
 	}
 	if (state == KOOPA_STATE_UPSIDE && !isOnPlatform) {
 		vx = -KOOPA_WALKING_SPEED;
@@ -216,8 +219,11 @@ void CKoopa::OnCollisionWithPlantEnemy(LPCOLLISIONEVENT e) {
 
 void CKoopa::OnCollisionWithKoopa(LPCOLLISIONEVENT e) {
 	CKoopa* koopa = dynamic_cast<CKoopa*>(e->obj);
-	if (isKicked || isHeld) {
+	if (isHeld) {
 		SetState(KOOPA_STATE_DEAD_UPSIDE);
+		koopa->SetState(KOOPA_STATE_DEAD_UPSIDE);
+	}
+	else if (isKicked) {
 		koopa->SetState(KOOPA_STATE_DEAD_UPSIDE);
 	}
 }
@@ -326,6 +332,9 @@ void CKoopa::SetState(int state) {
 		defend_start = GetTickCount64();
 		break;
 	case KOOPA_STATE_IS_KICKED:
+		if (isHeld) {
+			vy = -KOOPA_KICKED_NOT_FALL;
+		}
 		isOnPlatform = true;
 		isKicked = true;
 		isHeld = false;
