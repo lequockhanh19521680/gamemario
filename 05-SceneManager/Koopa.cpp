@@ -41,6 +41,7 @@ CKoopa::CKoopa(float x, float y, int model) :CGameObject(x, y)
 
 void CKoopa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 	if (!checkObjectInCamera(this)) return;
+
 	vy += ay * dt;
 	vx += ax * dt;
 	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
@@ -215,7 +216,7 @@ void CKoopa::OnCollisionWithPlantEnemy(LPCOLLISIONEVENT e) {
 
 void CKoopa::OnCollisionWithKoopa(LPCOLLISIONEVENT e) {
 	CKoopa* koopa = dynamic_cast<CKoopa*>(e->obj);
-	if (isKicked) {
+	if (isKicked || isHeld) {
 		koopa->SetState(KOOPA_STATE_DEAD_UPSIDE);
 	}
 }
@@ -265,6 +266,7 @@ void CKoopa::OnCollisionWithGoomba(LPCOLLISIONEVENT e) {
 void CKoopa::OnCollisionWithPlatform(LPCOLLISIONEVENT e) {
 	CPlatform* platform = dynamic_cast<CPlatform*>(e->obj);
 	if (e->ny < 0) {
+		isOnPlatform = true;
 		if (!isDefend && !isUpside) {
 			SetY(platform->GetY() - KOOPA_BBOX_HEIGHT + 4);
 		}
@@ -310,7 +312,7 @@ void CKoopa::SetState(int state) {
 		isComeback = false;
 		isKicked = false;
 		isUpside = false;
-		if (isOnPlatform) vx = 0;
+		if(isOnPlatform) vx = 0;
 		defend_start = GetTickCount64();
 		break;
 	case KOOPA_STATE_UPSIDE:

@@ -306,7 +306,7 @@ void CPlayScene::Update(DWORD dt)
 
 	// skip the rest if scene was already unloaded (Mario::Update might trigger PlayScene::Unload)
 	if (player == NULL) return;
-
+	
 	// Update camera to follow mario
 	float cx, cy;
 	player->GetPosition(cx, cy);
@@ -317,9 +317,11 @@ void CPlayScene::Update(DWORD dt)
 
 	if (cx < 0) cx = 0;
 	if (cx > FULL_WEIGHT_1_1 - ADJUST_CAMERA_X) cx = FULL_WEIGHT_1_1-ADJUST_CAMERA_X;
-	
 
-	CGame::GetInstance()->SetCamPos(cx, ADJUST_CAM_Y);
+
+	if(cy>ADJUST_CAM_MAX_Y || player->GetModel()!=MARIO_LEVEL_TAIL) cy = ADJUST_CAM_MAX_Y;
+	if (cy < 0) cy = 0;
+	CGame::GetInstance()->SetCamPos(cx, cy);
 
 	PurgeDeletedObjects();
 }

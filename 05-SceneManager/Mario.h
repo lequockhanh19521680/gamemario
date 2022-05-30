@@ -19,7 +19,8 @@
 
 #define MARIO_JUMP_DEFLECT_SPEED  0.2f
 
-#define MARIO_FLYING 0.015f
+#define MARIO_FLY_FALL 0.015f
+#define MARIO_FLYING 0.2f
 
 #define TIME_FLY 3000
 #define TIME_TAIL_ATTACK 150

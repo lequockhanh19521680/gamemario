@@ -41,7 +41,15 @@ CMario::CMario(float x, float y) : CGameObject(x, y) {
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
-
+	if (x < MARIO_BIG_BBOX_WIDTH)
+	{
+		x = MARIO_BIG_BBOX_WIDTH;
+		vx = 0;
+	}
+	if (y < MARIO_SMALL_BBOX_HEIGHT) {
+		y = MARIO_SMALL_BBOX_HEIGHT;
+		vy = 0;
+	}
 	vy += ay * dt;
 	vx += ax * dt;
 	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
@@ -787,9 +795,9 @@ void CMario::GetBoundingBox(float &left, float &top, float &right, float &bottom
 		else {
 			if (level == MARIO_LEVEL_TAIL && isTailAttack) {
 				{
-					left = x - MARIO_BIG_BBOX_WIDTH/2+2;
+					left = x - MARIO_BIG_BBOX_WIDTH/2;
 					top = y - MARIO_BIG_BBOX_HEIGHT / 2;
-					right = left + MARIO_BIG_BBOX_WIDTH+2;
+					right = left + MARIO_BIG_BBOX_WIDTH+8;
 					bottom = top + MARIO_BIG_BBOX_HEIGHT;
 				}
 			}
@@ -819,6 +827,7 @@ void CMario::SetLevel(int l)
 		y -= (MARIO_BIG_BBOX_HEIGHT - MARIO_SMALL_BBOX_HEIGHT) / 2;
 	}
 	level = l;
+	SetModel(l);
 }
 
 void CMario::BlockIfNoBlock(LPGAMEOBJECT gameobject) {
@@ -854,7 +863,7 @@ void CMario::BlockIfNoBlock(LPGAMEOBJECT gameobject) {
 void CMario::SetLevelLower() {
 	if (level > MARIO_LEVEL_SMALL)
 	{
-		level = MARIO_LEVEL_SMALL;
+		SetLevel(MARIO_LEVEL_SMALL);
 		StartUntouchable();
 	}
 	else
@@ -865,7 +874,10 @@ void CMario::SetLevelLower() {
 }
 
 void CMario::SetFly() {
-	vy = -MARIO_FLYING;
+	if (isRunning) {
+		vy = -MARIO_FLYING;
+	}
+	else vy = -MARIO_FLY_FALL;
 	isFlying = true;
 }
 
