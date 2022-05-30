@@ -29,9 +29,8 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 		mario->SetLevel(MARIO_LEVEL_SMALL);
 		break;
 	case DIK_A:
-		if (mario->GetLevel() == MARIO_LEVEL_TAIL) {
-			mario->SetState(MARIO_STATE_TAIL_ATTACK);
-		}
+		if (mario->GetLevel() == MARIO_LEVEL_TAIL) mario->SetState(MARIO_STATE_TAIL_ATTACK);
+		else if (mario->GetLevel() == MARIO_LEVEL_FIRE) mario->SetState(MARIO_STATE_SHOOT);
 		break;
 	case DIK_2:
 		mario->SetLevel(MARIO_LEVEL_BIG);

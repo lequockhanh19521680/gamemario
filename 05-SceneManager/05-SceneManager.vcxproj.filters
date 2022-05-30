@@ -52,6 +52,9 @@
     <Filter Include="Header Files\Game">
       <UniqueIdentifier>{cde999cd-5167-4301-9832-055ca1fc2d0e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Other">
+      <UniqueIdentifier>{e1efcb30-c27c-4926-aba9-133cef779172}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -60,20 +63,8 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="debug.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SampleKeyEventHandler.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Utils.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GameObject.cpp">
       <Filter>Header Files\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="Collision.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Mario.cpp">
       <Filter>Header Files\Object\Mario</Filter>
@@ -150,27 +141,24 @@
     <ClCompile Include="PlantEnemy.cpp">
       <Filter>Header Files\Object\Enemies</Filter>
     </ClCompile>
-    <ClCompile Include="Tail.cpp">
+    <ClCompile Include="Bullet.cpp">
       <Filter>Header Files\Object\Mario</Filter>
+    </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>Header Files\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils.cpp">
+      <Filter>Header Files\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="debug.cpp">
+      <Filter>Header Files\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="SampleKeyEventHandler.cpp">
+      <Filter>Header Files\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AssetIDs.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Collision.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="debug.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="KeyEventHandler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SampleKeyEventHandler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Animation.h">
@@ -260,8 +248,23 @@
     <ClInclude Include="PlantEnemy.h">
       <Filter>Header Files\Object\Enemies</Filter>
     </ClInclude>
-    <ClInclude Include="Tail.h">
+    <ClInclude Include="Bullet.h">
       <Filter>Header Files\Object\Mario</Filter>
+    </ClInclude>
+    <ClInclude Include="AssetIDs.h">
+      <Filter>Header Files\Object\Mario</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision.h">
+      <Filter>Header Files\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="debug.h">
+      <Filter>Header Files\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils.h">
+      <Filter>Header Files\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="SampleKeyEventHandler.h">
+      <Filter>Header Files\Scene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

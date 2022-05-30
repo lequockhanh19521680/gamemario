@@ -34,8 +34,9 @@ class CLeaf :	public CGameObject
 
 		virtual void OnCollisionWith(LPCOLLISIONEVENT e);
 		void GetBoundingBox(float& l, float& t, float& r, float& b);
-		int IsBlocking() { return 0; }
 		virtual void SetState(int state);
+		virtual bool IsItem() { return 1; }
+
 	
 
 };

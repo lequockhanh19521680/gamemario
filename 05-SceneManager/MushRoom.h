@@ -36,5 +36,8 @@ public:
 	int IsBlocking() { return 0; }
 	virtual void SetState(int state);
 
+	virtual bool IsItem() { return 1; }
+
+
 };
 
