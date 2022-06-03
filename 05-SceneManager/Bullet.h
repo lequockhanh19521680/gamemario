@@ -18,6 +18,7 @@ protected:
 	float ax, ay;
 
 	virtual int IsCollidable() { return 1; }
+	virtual int IsBlocking() { return 0; }
 
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
 	void OnCollisionWithKoopa(LPCOLLISIONEVENT e);
@@ -30,9 +31,8 @@ public:
 		x += vx * dt;
 		y += vy * dt;
 	}
-	virtual void OnCollisionWith(LPCOLLISIONEVENT e);
-	virtual int IsBlocking() { return 0; }
 
+	virtual void OnCollisionWith(LPCOLLISIONEVENT e);
 	virtual void GetBoundingBox(float& l, float& t, float& r, float& b);
 
 };

@@ -1,11 +1,11 @@
 #pragma once
 #include "GameObject.h"
 
-#define BULLET_BBOX_WIDTH	9
-#define BULLET_BBOX_HEIGHT	9
+#define BULLET_BBOX_WIDTH_PLANT	9
+#define BULLET_BBOX_HEIGHT_PLANT	9
 
-#define BULLET_SPEED_X	0.05f
-#define BULLET_SPEED_Y	0.07f
+#define BULLET_SPEED_X_PLANT	0.05f
+#define BULLET_SPEED_Y_PLANT	0.07f
 
 #define ADJUST_VECTOR_Y 30
 

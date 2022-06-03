@@ -97,7 +97,7 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	}
 	if (!isUpside) {
 		if ((model == GOOMBA_WING) && (!isAttack)) {
-			if ((GetTickCount64() - time_walking > TIME_WALKING-500)&& !isJump) {
+			if ((GetTickCount64() - time_walking > TIME_WALKING-TIME_JUMP_SMALL)&& !isJump) {
 				if (isOnPlatForm && (num_jump_small <3)) {
 					vy = -GOOMBA_JUMP_DEFLECT_SPEED / 2; 
 					num_jump_small +=1;

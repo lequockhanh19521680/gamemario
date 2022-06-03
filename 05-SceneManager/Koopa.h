@@ -73,6 +73,8 @@ protected:
 	virtual int IsBlocking() { return 0; }
 	virtual int IsEnemy() { return 1; }
 	virtual void OnNoCollision(DWORD dt);
+
+
 	int GetAniGreen();
 	int GetAniRed();
 	void OnCollisionWithPlantEnemy(LPCOLLISIONEVENT e);
@@ -91,16 +93,19 @@ protected:
 	bool isComeback;
 	bool isDead;
 public:
+	CKoopa(float x, float y, int model);
 
 
-
+	//get
 	bool GetIsUpside() { return isUpside; }
 	bool GetIsDefend() { return isDefend; }
 	bool GetIsHeld() { return isHeld; }
 	bool GetIsKicked() { return isKicked; }
 	bool GetIsWing() { return isWing; }
 	bool GetIsComeBack() { return isComeback; }
-	CKoopa(float x, float y,int model);
+
+
+	//set
 	void SetLevel(int l);
 	virtual void SetState(int state);
 	void SetIsHeld(bool b) { isHeld = b; }

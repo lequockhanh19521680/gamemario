@@ -43,9 +43,11 @@ protected:
 	virtual void Render();
 	int PositionYWithMario(); //1 if mario on top plant, -1 if mario underplant
 	int PositionXWithMario(); //1 if mario left to plant, -1 if mario right to plant
+
 	virtual int IsCollidable() { return 1; };
 	virtual int IsBlocking() { return 0; }
 	virtual int IsEnemy() { return 1; }
+
 	virtual void OnNoCollision(DWORD dt);
 
 public:

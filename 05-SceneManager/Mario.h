@@ -260,7 +260,18 @@ class CMario : public CGameObject
 	bool isShoot;
 	bool isTailAttack;
 
+	void BlockIfNoBlock(LPGAMEOBJECT gameobject);
+	int GetAniIdBig();
+	int GetAniIdSmall();
+	int GetAniIdFire();
+	int GetAniIdTail();
 
+	virtual int IsPlayer() { return 1; }
+	int IsCollidable(){ return (state != MARIO_STATE_DIE); }
+	int IsBlocking() { return (state != MARIO_STATE_DIE && untouchable == 0); }
+
+	void OnNoCollision(DWORD dt);
+	void OnCollisionWith(LPCOLLISIONEVENT e);
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
 	void OnCollisionWithKoopa(LPCOLLISIONEVENT e);
 	void OnCollisionWithCoin(LPCOLLISIONEVENT e);
@@ -273,44 +284,40 @@ class CMario : public CGameObject
 	void OnCollisionWithPlatForm(LPCOLLISIONEVENT e);
 	void OnCollisionWithPlantEnemy(LPCOLLISIONEVENT e);
 	void OnCollisionWithFireFromPlant(LPCOLLISIONEVENT e);
-	void BlockIfNoBlock(LPGAMEOBJECT gameobject);
-	int GetAniIdBig();
-	int GetAniIdSmall();
-	int GetAniIdFire();
-	int GetAniIdTail();
+
+	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 
 public:
 	CMario(float x, float y);
-	void SetLevelLower();
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void Render();
-	void SetState(int state);
-	int GetLevel() { return level; }
-	int IsCollidable()
-	{ 
-		return (state != MARIO_STATE_DIE); 
-	}
-	int IsBlocking() { return (state != MARIO_STATE_DIE && untouchable==0); }
 
-	void OnNoCollision(DWORD dt);
-	void OnCollisionWith(LPCOLLISIONEVENT e);
+
+
+	//get
+	int GetLevel() { return level; }
 	int GetCoin() { return this->coin; }
-	void SetCoin(int coin) { this->coin = coin; }
-	void SetLevel(int l);
-	void SetVy(float v) { vy = v; }
 	bool GetIsTailAttack() { return isTailAttack; }
 	bool GetIsFlying() { return isFlying; }
 	bool GetIsHolding() { return isHolding; }
-	void SetIsHolding(bool b) { isHolding = b; }
 	bool GetIsKicking() { return isKicking; }
-	void SetIsKicking(bool b) { isKicking = b; }
 	bool GetIsOnPlatform() { return isOnPlatform; }
 	bool GetIsRunning() { return isRunning; }
-	void SetIsRunning(bool b) { isRunning = b; }
 	bool GetIsShoot() { return isShoot; }
+	
+	//set
+	void SetState(int state);
+	void SetIsHolding(bool b) { isHolding = b; }
+	void SetIsKicking(bool b) { isKicking = b; }
+	void SetIsRunning(bool b) { isRunning = b; }
+	void SetCoin(int coin) { this->coin = coin; }
+	void SetLevel(int l);
+	void SetVy(float v) { vy = v; }
+
+	//void phat sinh
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount64(); }
-	virtual int IsPlayer() { return 1; }
 	void SetFly();
 	void SetMarioTailAttack();
-	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
+	void SetLevelLower();
+
 };
