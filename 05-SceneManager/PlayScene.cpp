@@ -9,6 +9,7 @@
 #include "Sprites.h"
 #include "Portal.h"
 #include "Coin.h"
+#include "HUD.h"
 #include "MushRoom.h"
 #include "Pipe.h"
 #include "Leaf.h"
@@ -303,7 +304,7 @@ void CPlayScene::Update(DWORD dt)
 	{
 		objects[i]->Update(dt, &coObjects);
 	}
-
+	
 	// skip the rest if scene was already unloaded (Mario::Update might trigger PlayScene::Unload)
 	if (player == NULL) return;
 	
@@ -333,6 +334,7 @@ void CPlayScene::Render()
 	current_map->Render();
 	for (unsigned int i = 0; i < objects.size(); i++)
 		objects[i]->Render();
+
 	
 }
 

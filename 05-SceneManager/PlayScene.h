@@ -7,6 +7,7 @@
 #include "Mario.h"
 #include "Goomba.h"
 #include "Map.h"
+#include "HUD.h"
 
 
 #define WORLD_1			0
@@ -21,6 +22,7 @@ protected:
 	// A play scene has to have player, right? 
 	LPGAMEOBJECT player;					
 	CMap* current_map = NULL;
+	CHUD* hud = new CHUD(0,0);
 	vector<LPGAMEOBJECT> objects;
 
 	void _ParseSection_SPRITES(string line);

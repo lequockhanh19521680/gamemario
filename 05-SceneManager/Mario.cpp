@@ -37,16 +37,6 @@ CMario::CMario(float x, float y) : CGameObject(x, y) {
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
-
-	if (x < MARIO_BIG_BBOX_WIDTH)
-	{
-		x = MARIO_BIG_BBOX_WIDTH;
-		vx = 0;
-	}
-	if (y < MARIO_SMALL_BBOX_HEIGHT) {
-		y = MARIO_SMALL_BBOX_HEIGHT;
-		vy = 0;
-	}
 	vy += ay * dt;
 	vx += ax * dt;
 	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
