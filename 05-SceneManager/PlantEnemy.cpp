@@ -21,13 +21,6 @@ void CPlantEnemy::GetBoundingBox(float& left, float& top, float& right, float& b
 }
 void CPlantEnemy::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	if (!checkObjectInCamera(this)) return;
-
-	/*
-	ULONGLONG time_out_pipe;
-	ULONGLONG time_shoot;
-	ULONGLONG time_down_pipe;
-	*/
 	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
 
 	if (isUpping) {
@@ -45,12 +38,6 @@ void CPlantEnemy::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				if (!isShoot) {
 					if (GetTickCount64() - time_shoot < TIME_SHOOT) {
 						isShoot = true;
-						/*
-						CGoomba* goomba = new CGoomba(x, y, GOOMBA_WING);
-						scene->AddObject(goomba);
-							int PositionYWithMario(); //1 if mario on top plant, -1 if mario underplant
-							int PositionXWithMario(); //1 if mario left to plant, -1 if mario right to plant
-						*/
 						bool isOnTop = false, isLeft = false;
 						if (PositionXWithMario() == 1) {
 							isOnTop = true;

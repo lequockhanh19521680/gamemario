@@ -314,12 +314,14 @@ void CPlayScene::Update(DWORD dt)
 	CGame* game = CGame::GetInstance();
 	cx -= game->GetBackBufferWidth() / 2;
 	cy -= game->GetBackBufferHeight() / 2;
-
 	if (cx < 0) cx = 0;
 	if (cx > FULL_WEIGHT_1_1 - ADJUST_CAMERA_X) cx = FULL_WEIGHT_1_1-ADJUST_CAMERA_X;
 
 
-	if(cy>ADJUST_CAM_MAX_Y || player->GetModel()!=MARIO_LEVEL_TAIL) cy = ADJUST_CAM_MAX_Y;
+	if (cy > ADJUST_CAM_MAX_Y) cy = ADJUST_CAM_MAX_Y;
+	else if ((ADJUST_CAM_MIN_Y < cy) && (cy < ADJUST_CAM_MAX_Y)) cy = ADJUST_CAM_MAX_Y;
+	else  cy = ADJUST_CAM_MAX_Y + cy - ADJUST_CAM_MIN_Y;
+	//else if (cy < ADJUST_CAM_MAX_Y) cy =  cy+ ADJUST_CAM_MAX_Y ;
 	if (cy < 0) cy = 0;
 	CGame::GetInstance()->SetCamPos(cx, cy);
 

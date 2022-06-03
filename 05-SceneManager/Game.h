@@ -24,6 +24,7 @@ using namespace std;
 #define TYPE_WORLD_MAP 2
 #define TYPE_WORLD_PLAY 3
 #define FULL_WEIGHT_1_1 2816
+#define ADJUST_CAM_MIN_Y 196
 #define ADJUST_CAM_MAX_Y 260
 
 /*

@@ -17,14 +17,8 @@
 #include "Portal.h"
 #include "PlayScene.h"
 #include "Collision.h"
-#include "Tail.h"
 
 CMario::CMario(float x, float y) : CGameObject(x, y) {
-	/*CTail* tail = new CTail(x, y);
-	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
-
-	scene->AddObject(tail);
-	*/
 	isShoot = false;
 	isHolding = false;
 	isSitting = false;
@@ -43,6 +37,7 @@ CMario::CMario(float x, float y) : CGameObject(x, y) {
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
+
 	if (x < MARIO_BIG_BBOX_WIDTH)
 	{
 		x = MARIO_BIG_BBOX_WIDTH;
@@ -895,7 +890,6 @@ void CMario::SetLevel(int l)
 		y -= (MARIO_BIG_BBOX_HEIGHT - MARIO_SMALL_BBOX_HEIGHT) / 2;
 	}
 	level = l;
-	SetModel(l);
 }
 
 void CMario::BlockIfNoBlock(LPGAMEOBJECT gameobject) {
