@@ -326,8 +326,12 @@ void CKoopa::SetState(int state) {
 		isUpside = true;
 		isDefend = false;
 		isComeback = false;
+		if (isWing) {
+			isWing = false;
+			ay = -KOOPA_GRAVITY;
+		}
 		isKicked = false;
-		vy = -KOOPA_JUMP_SPEED;
+		vy = -KOOPA_JUMP_IS_ATTACKED;
 		if (isOnPlatform) vx = 0;
 		defend_start = GetTickCount64();
 		break;

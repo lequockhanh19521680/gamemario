@@ -21,14 +21,14 @@
 #define MARIO_JUMP_DEFLECT_SPEED  0.2f
 
 #define MARIO_FLY_FALL 0.015f
-#define MARIO_FLYING 0.25f
+#define MARIO_FLYING 0.3f
 
 #define TIME_FLY 3000
 #define TIME_TAIL_ATTACK 300
 #define TIME_SPEED 400
 #define TIME_KICK_ANIMATION 100
 #define TIME_SHOOT_ANI 100
-#define TIME_SHOOT_LIMIT 1000
+#define TIME_SHOOT_LIMIT 200
 
 #define MARIO_STATE_DIE				-10
 #define MARIO_STATE_IDLE			0
@@ -226,7 +226,7 @@
 
 #define MARIO_SIT_HEIGHT_ADJUST ((MARIO_BIG_BBOX_HEIGHT-MARIO_BIG_SITTING_BBOX_HEIGHT)/2)
 
-#define MARIO_SMALL_BBOX_WIDTH  13
+#define MARIO_SMALL_BBOX_WIDTH  16
 #define MARIO_SMALL_BBOX_HEIGHT 12
 
 
@@ -305,6 +305,9 @@ public:
 	bool GetIsKicking() { return isKicking; }
 	void SetIsKicking(bool b) { isKicking = b; }
 	bool GetIsOnPlatform() { return isOnPlatform; }
+	bool GetIsRunning() { return isRunning; }
+	void SetIsRunning(bool b) { isRunning = b; }
+	bool GetIsShoot() { return isShoot; }
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount64(); }
 	virtual int IsPlayer() { return 1; }
 	void SetFly();

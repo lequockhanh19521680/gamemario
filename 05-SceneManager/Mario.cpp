@@ -25,6 +25,7 @@ CMario::CMario(float x, float y) : CGameObject(x, y) {
 
 	scene->AddObject(tail);
 	*/
+	isShoot = false;
 	isHolding = false;
 	isSitting = false;
 	maxVx = 0.0f;

@@ -1,7 +1,7 @@
 #pragma once
 #include "GameObject.h"
 
-#define PIPE_BBOX_WIDTH 32
+#define PIPE_BBOX_WIDTH 28
 #define PIPE_BBOX_HEIGHT_SHORT 32 
 #define	PIPE_BBOX_HEIGHT_LONG 48 
 
