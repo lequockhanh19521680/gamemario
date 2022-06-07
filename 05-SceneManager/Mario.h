@@ -252,7 +252,7 @@ class CMario : public CGameObject
 	BOOLEAN isOnPlatform;
 	int coin; 
 
-
+	bool isChanging;
 	bool isRunning;
 	bool isHolding;
 	bool isFlying;

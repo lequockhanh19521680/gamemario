@@ -191,7 +191,7 @@ void CGoomba::Render()
 	}
 	CAnimations::GetInstance()->Get(aniId)->Render(x,y);
 	//RenderBoundingBox();
-	DebugOutTitle(L"IsPlatform: %d", isOnPlatForm);
+	//DebugOutTitle(L"IsPlatform: %d", isOnPlatForm);
 
 }
 
