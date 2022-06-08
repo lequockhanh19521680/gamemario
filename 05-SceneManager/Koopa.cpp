@@ -40,11 +40,12 @@ CKoopa::CKoopa(float x, float y, int model) :CGameObject(x, y)
 }
 
 void CKoopa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
+	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 	if (!checkObjectInCamera(this)) return;
-
+	if (mario->GetIsChanging()) return;
 	vy += ay * dt;
 	vx += ax * dt;
-	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+
 
 	if (mario->GetIsHolding() && isHeld) {
 		this->x = mario->GetX() + mario->GetNx() * (MARIO_BIG_BBOX_WIDTH-3);

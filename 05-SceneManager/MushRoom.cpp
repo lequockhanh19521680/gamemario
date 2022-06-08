@@ -3,6 +3,8 @@
 #define MUSHROOM_SPEED 0.06f
 #define OUT_BRICK -0.02f
 #include "Platform.h"
+#include "PlayScene.h"
+#include "Mario.h"
 CMushRoom::CMushRoom(float x, float y) :CGameObject(x, y)
 {
 	this->ax = 0;
@@ -12,6 +14,8 @@ CMushRoom::CMushRoom(float x, float y) :CGameObject(x, y)
 	SetState(MUSHROOM_STATE_OUTSIDE);
 }
 void CMushRoom::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects){
+	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+	if (mario->GetIsChanging()) return;
 	if (state == MUSHROOM_STATE_WALKING) {
 		vy += ay * dt;
 		vx += ax * dt;

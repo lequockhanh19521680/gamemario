@@ -76,11 +76,11 @@ void CGoomba::OnCollisionWithPlatForm(LPCOLLISIONEVENT e)
 
 void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
+	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 	if (!checkObjectInCamera(this)) return;
-
+	if (mario->GetIsChanging()) return;
 	vy += ay * dt;
 	vx += ax * dt;
-	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 
 	if ( (isDead == true) && (GetTickCount64() - die_start > GOOMBA_DIE_TIMEOUT) )
 	{

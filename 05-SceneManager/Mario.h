@@ -8,8 +8,8 @@
 #define MARIO_WALKING_SPEED		0.1f
 #define MARIO_RUNNING_SPEED		0.15f
 
-#define MARIO_ACCEL_WALK_X	0.0002f
-#define MARIO_ACCEL_RUN_X	0.0003f
+#define MARIO_ACCEL_WALK_X	0.00014f
+#define MARIO_ACCEL_RUN_X	0.0002f
 
 #define MARIO_JUMP_SPEED_Y		0.28f
 #define MARIO_JUMP_RUN_SPEED_Y	0.28f
@@ -221,8 +221,9 @@
 #define ID_ANI_MARIO_TAIL_FLY_DOWN_RIGHT 3061
 #define ID_ANI_MARIO_TAIL_FLY_DOWN_LEFT 3060
 
-#define ID_ANI_MARIO_CHANGE_SMALL_TO_BIG 3400
-#define ID_ANI_MARIO_CHANGE_BIG_TO_BIGGER 3401
+#define ID_ANI_MARIO_CHANGE_SMALL_TO_BIG_RIGHT 3401
+#define ID_ANI_MARIO_CHANGE_SMALL_TO_BIG_LEFT 3400
+#define ID_ANI_MARIO_CHANGE_BIG_TO_BIGGER 3402
 
 
 #pragma endregion
@@ -247,7 +248,7 @@
 #define MARIO_SMALL_BBOX_WIDTH  16
 #define MARIO_SMALL_BBOX_HEIGHT 12
 
-#define MARIO_CHANGING 1500
+#define TIME_CHANGING 1000
 #define MARIO_UNTOUCHABLE_TIME 2000
 
 class CMario : public CGameObject
@@ -268,6 +269,7 @@ class CMario : public CGameObject
 	ULONGLONG speed_start;
 	ULONGLONG speed_stop;
 	ULONGLONG start_tail_attack;
+	ULONGLONG start_changing;
 	BOOLEAN isOnPlatform;
 	int coin; 
 
@@ -278,6 +280,7 @@ class CMario : public CGameObject
 	bool isKicking;
 	bool isShoot;
 	bool isTailAttack;
+	bool isLower;
 
 	void BlockIfNoBlock(LPGAMEOBJECT gameobject);
 	int GetAniIdBig();
@@ -335,7 +338,7 @@ public:
 	void SetVy(float v) { vy = v; }
 
 	//void phat sinh
-	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount64(); }
+	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount64(); isLower = false; }
 	void SetFly();
 	void SetMarioTailAttack();
 	void SetLevelLower();
