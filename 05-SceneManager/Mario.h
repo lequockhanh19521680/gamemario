@@ -6,13 +6,15 @@
 #include "debug.h"
 
 #define MARIO_WALKING_SPEED		0.1f
-#define MARIO_RUNNING_SPEED		0.3f
+#define MARIO_RUNNING_SPEED		0.15f
 
 #define MARIO_ACCEL_WALK_X	0.0002f
 #define MARIO_ACCEL_RUN_X	0.0003f
 
 #define MARIO_JUMP_SPEED_Y		0.28f
 #define MARIO_JUMP_RUN_SPEED_Y	0.28f
+
+#define SPEED_LEVEL_RUN 0.015f
 
 
 #define MARIO_GRAVITY			0.00055f
@@ -25,7 +27,8 @@
 #define LEVEL_RUN_MAX 7
 #define TIME_FLY 3000
 #define TIME_TAIL_ATTACK 300
-#define TIME_SPEED 400
+#define TIME_PREPARE_RUN 700
+#define TIME_SPEED 250
 #define TIME_KICK_ANIMATION 100
 #define TIME_SHOOT_ANI 100
 #define TIME_SHOOT_LIMIT 200
@@ -59,6 +62,9 @@
 
 #define ID_ANI_MARIO_BIG_RUNNING_RIGHT 601
 #define ID_ANI_MARIO_BIG_RUNNING_LEFT 600
+
+#define ID_ANI_MARIO_BIG_RUNNING_PREPARE_RIGHT 603
+#define ID_ANI_MARIO_BIG_RUNNING_PREPARE_LEFT 602
 
 #define ID_ANI_MARIO_BIG_JUMP_WALK_RIGHT 701
 #define ID_ANI_MARIO_BIG_JUMP_WALK_LEFT 700
@@ -97,6 +103,9 @@
 #define ID_ANI_MARIO_SMALL_RUNNING_RIGHT 1301
 #define ID_ANI_MARIO_SMALL_RUNNING_LEFT 1300
 
+#define ID_ANI_MARIO_SMALL_RUNNING_PREPARE_RIGHT 1303
+#define ID_ANI_MARIO_SMALL_RUNNING_PREPARE_LEFT 1302
+
 #define ID_ANI_MARIO_SMALL_BRACE_RIGHT 1401
 #define ID_ANI_MARIO_SMALL_BRACE_LEFT 1400
 
@@ -132,6 +141,9 @@
 
 #define ID_ANI_MARIO_FIRE_RUNNING_RIGHT 1901
 #define ID_ANI_MARIO_FIRE_RUNNING_LEFT 1900
+
+#define ID_ANI_MARIO_FIRE_RUNNING_PREPARE_RIGHT 1903
+#define ID_ANI_MARIO_FIRE_RUNNING_PREPARE_LEFT 1902
 
 #define ID_ANI_MARIO_FIRE_JUMP_WALK_RIGHT 2001
 #define ID_ANI_MARIO_FIRE_JUMP_WALK_LEFT 2000
@@ -174,6 +186,9 @@
 #define ID_ANI_MARIO_TAIL_RUNNING_RIGHT 2601
 #define ID_ANI_MARIO_TAIL_RUNNING_LEFT 2600
 
+#define ID_ANI_MARIO_TAIL_RUNNING_PREPARE_RIGHT 2603
+#define ID_ANI_MARIO_TAIL_RUNNING_PREPARE_LEFT 2602
+
 #define ID_ANI_MARIO_TAIL_JUMP_WALK_RIGHT 2701
 #define ID_ANI_MARIO_TAIL_JUMP_WALK_LEFT 2700
 
@@ -206,6 +221,9 @@
 #define ID_ANI_MARIO_TAIL_FLY_DOWN_RIGHT 3061
 #define ID_ANI_MARIO_TAIL_FLY_DOWN_LEFT 3060
 
+#define ID_ANI_MARIO_CHANGE_SMALL_TO_BIG 3400
+#define ID_ANI_MARIO_CHANGE_BIG_TO_BIGGER 3401
+
 
 #pragma endregion
 
@@ -229,8 +247,8 @@
 #define MARIO_SMALL_BBOX_WIDTH  16
 #define MARIO_SMALL_BBOX_HEIGHT 12
 
-
-#define MARIO_UNTOUCHABLE_TIME 2500
+#define MARIO_CHANGING 1500
+#define MARIO_UNTOUCHABLE_TIME 2000
 
 class CMario : public CGameObject
 {
@@ -244,6 +262,7 @@ class CMario : public CGameObject
 	ULONGLONG untouchable_start;
 	ULONGLONG start_limit_shoot;
 	ULONGLONG start_fly;
+	ULONGLONG start_prepare;
 	ULONGLONG start_kick;
 	ULONGLONG start_shoot;
 	ULONGLONG speed_start;
@@ -304,7 +323,8 @@ public:
 	bool GetIsOnPlatform() { return isOnPlatform; }
 	bool GetIsRunning() { return isRunning; }
 	bool GetIsShoot() { return isShoot; }
-	
+	bool IsBrace() { return (ax * vx < 0); }
+	bool GetIsChanging() { return isChanging; }
 	//set
 	void SetState(int state);
 	void SetIsHolding(bool b) { isHolding = b; }

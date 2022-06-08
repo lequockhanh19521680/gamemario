@@ -49,19 +49,22 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		untouchable_start = 0;
 		untouchable = 0;
 	}
-	if (isRunning)
+	if ((!isRunning) || (!vx) || (IsBrace()))
 	{
-		if (GetTickCount64() - speed_start > TIME_SPEED) {
-			if(levelRun < LEVEL_RUN_MAX){
-				levelRun++;
+			if (GetTickCount64() - speed_stop > TIME_SPEED) {
+				if (levelRun > 0) levelRun--;
+				speed_stop = GetTickCount64();
 			}
-			speed_start = GetTickCount64();
-		}
+			start_prepare = GetTickCount64();
 	}
 	else {
-		if (GetTickCount64() - speed_stop > TIME_SPEED) {
-			if (levelRun > 0) levelRun--;
-			speed_stop = GetTickCount64();
+		if (GetTickCount64() - start_prepare > TIME_PREPARE_RUN) {
+			if (GetTickCount64() - speed_start > TIME_SPEED) {
+				if (levelRun < LEVEL_RUN_MAX) {
+					levelRun++;
+				}
+				speed_start = GetTickCount64();
+			}
 		}
 	}
 	if (isFlying) {
@@ -266,7 +269,10 @@ void CMario::OnCollisionWithCoin(LPCOLLISIONEVENT e)
 }
 void CMario::OnCollisionWithLeaf(LPCOLLISIONEVENT e) {
 	e->obj->Delete();
-	SetLevel(MARIO_LEVEL_TAIL);
+	if (level != MARIO_LEVEL_SMALL) {
+		SetLevel(MARIO_LEVEL_TAIL);
+	}
+	else SetLevel(MARIO_LEVEL_BIG);
 }
 void CMario::OnCollisionWithMushRoom(LPCOLLISIONEVENT e) 
 {
@@ -324,7 +330,10 @@ void CMario::OnCollisionWithBrickQuestion(LPCOLLISIONEVENT e) {
 
 void CMario::OnCollisionWithFlowerFire(LPCOLLISIONEVENT e) {
 	e->obj->Delete();
-	SetLevel(MARIO_LEVEL_FIRE);
+	if (level != MARIO_LEVEL_SMALL) {
+		SetLevel(MARIO_LEVEL_FIRE);
+	}
+	else SetLevel(MARIO_LEVEL_BIG);
 }
 void CMario::OnCollisionWithPortal(LPCOLLISIONEVENT e)
 {
@@ -387,7 +396,7 @@ int CMario::GetAniIdTail()
 									aniId = ID_ANI_MARIO_TAIL_BRACE_RIGHT;
 								else if (ax == MARIO_ACCEL_RUN_X) {
 									if (levelRun == LEVEL_RUN_MAX) aniId = ID_ANI_MARIO_TAIL_RUNNING_RIGHT;
-									else aniId = ID_ANI_MARIO_TAIL_WALKING_RIGHT;
+									else aniId = ID_ANI_MARIO_TAIL_RUNNING_PREPARE_RIGHT;
 								}
 								else if (ax == MARIO_ACCEL_WALK_X)
 									aniId = ID_ANI_MARIO_TAIL_WALKING_RIGHT;
@@ -398,7 +407,7 @@ int CMario::GetAniIdTail()
 									aniId = ID_ANI_MARIO_TAIL_BRACE_LEFT;
 								else if (ax == -MARIO_ACCEL_RUN_X) {
 									if (levelRun == LEVEL_RUN_MAX) aniId = ID_ANI_MARIO_TAIL_RUNNING_LEFT;
-									else aniId = ID_ANI_MARIO_TAIL_WALKING_LEFT;
+									else aniId = ID_ANI_MARIO_TAIL_RUNNING_PREPARE_LEFT;
 								}
 								else if (ax == -MARIO_ACCEL_WALK_X)
 									aniId = ID_ANI_MARIO_TAIL_WALKING_LEFT;
@@ -515,7 +524,7 @@ int CMario::GetAniIdFire()
 								aniId = ID_ANI_MARIO_FIRE_BRACE_RIGHT;
 							else if (ax == MARIO_ACCEL_RUN_X) {
 								if (levelRun == LEVEL_RUN_MAX) aniId = ID_ANI_MARIO_FIRE_RUNNING_RIGHT;
-								else aniId = ID_ANI_MARIO_FIRE_WALKING_RIGHT;
+								else aniId = ID_ANI_MARIO_FIRE_RUNNING_PREPARE_RIGHT;
 							}
 							else if (ax == MARIO_ACCEL_WALK_X)
 								aniId = ID_ANI_MARIO_FIRE_WALKING_RIGHT;
@@ -526,7 +535,7 @@ int CMario::GetAniIdFire()
 								aniId = ID_ANI_MARIO_FIRE_BRACE_LEFT;
 							else if (ax == -MARIO_ACCEL_RUN_X) {
 								if (levelRun == LEVEL_RUN_MAX) aniId = ID_ANI_MARIO_FIRE_RUNNING_LEFT;
-								else aniId = ID_ANI_MARIO_FIRE_WALKING_LEFT;
+								else aniId = ID_ANI_MARIO_FIRE_RUNNING_PREPARE_LEFT;
 							}
 							else if (ax == -MARIO_ACCEL_WALK_X)
 								aniId = ID_ANI_MARIO_FIRE_WALKING_LEFT;
@@ -605,7 +614,7 @@ int CMario::GetAniIdSmall()
 							aniId = ID_ANI_MARIO_SMALL_BRACE_RIGHT;
 						else if (ax == MARIO_ACCEL_RUN_X) {
 							if (levelRun == LEVEL_RUN_MAX) aniId = ID_ANI_MARIO_SMALL_RUNNING_RIGHT;
-							else aniId = ID_ANI_MARIO_SMALL_WALKING_RIGHT;
+							else aniId = ID_ANI_MARIO_SMALL_RUNNING_PREPARE_RIGHT;
 						}
 						else if (ax == MARIO_ACCEL_WALK_X)
 							aniId = ID_ANI_MARIO_SMALL_WALKING_RIGHT;
@@ -616,7 +625,7 @@ int CMario::GetAniIdSmall()
 							aniId = ID_ANI_MARIO_SMALL_BRACE_LEFT;
 						else if (ax == -MARIO_ACCEL_RUN_X) {
 							if (levelRun == LEVEL_RUN_MAX) aniId = ID_ANI_MARIO_SMALL_RUNNING_LEFT;
-							else aniId = ID_ANI_MARIO_SMALL_WALKING_LEFT;
+							else aniId = ID_ANI_MARIO_SMALL_RUNNING_PREPARE_LEFT;
 						}
 						else if (ax == -MARIO_ACCEL_WALK_X)
 							aniId = ID_ANI_MARIO_SMALL_WALKING_LEFT;
@@ -693,7 +702,7 @@ int CMario::GetAniIdBig()
 							aniId = ID_ANI_MARIO_BIG_BRACE_RIGHT;
 						else if (ax == MARIO_ACCEL_RUN_X) {
 							if (levelRun == LEVEL_RUN_MAX) aniId = ID_ANI_MARIO_BIG_RUNNING_RIGHT;
-							else aniId = ID_ANI_MARIO_BIG_WALKING_RIGHT;
+							else aniId = ID_ANI_MARIO_BIG_RUNNING_PREPARE_RIGHT;
 						}
 						else if (ax == MARIO_ACCEL_WALK_X)
 							aniId = ID_ANI_MARIO_BIG_WALKING_RIGHT;
@@ -704,7 +713,7 @@ int CMario::GetAniIdBig()
 							aniId = ID_ANI_MARIO_BIG_BRACE_LEFT;
 						else if (ax == -MARIO_ACCEL_RUN_X) {
 							if (levelRun == LEVEL_RUN_MAX) aniId = ID_ANI_MARIO_BIG_RUNNING_LEFT;
-							else aniId = ID_ANI_MARIO_BIG_WALKING_LEFT;
+							else aniId = ID_ANI_MARIO_BIG_RUNNING_PREPARE_LEFT;
 						}
 						else if (ax == -MARIO_ACCEL_WALK_X)
 							aniId = ID_ANI_MARIO_BIG_WALKING_LEFT;
@@ -762,7 +771,7 @@ void CMario::SetState(int state)
 	case MARIO_STATE_RUNNING_RIGHT:
 		if (isSitting) break;
 		SetMarioTailAttack();
-		maxVx = MARIO_RUNNING_SPEED;
+		maxVx = MARIO_RUNNING_SPEED + levelRun*SPEED_LEVEL_RUN;
 		ax = MARIO_ACCEL_RUN_X;
 		isRunning = true;
 		nx = 1;
@@ -771,7 +780,7 @@ void CMario::SetState(int state)
 	case MARIO_STATE_RUNNING_LEFT:
 		if (isSitting) break;
 		SetMarioTailAttack();
-		maxVx = -MARIO_RUNNING_SPEED;
+		maxVx = -MARIO_RUNNING_SPEED - levelRun* SPEED_LEVEL_RUN;
 		ax = -MARIO_ACCEL_RUN_X;
 		isRunning = true;
 		nx = -1;
@@ -944,8 +953,14 @@ void CMario::BlockIfNoBlock(LPGAMEOBJECT gameobject) {
 void CMario::SetLevelLower() {
 	if (level > MARIO_LEVEL_SMALL)
 	{
-		SetLevel(MARIO_LEVEL_SMALL);
-		StartUntouchable();
+		if (level == MARIO_LEVEL_BIG) {
+			SetLevel(MARIO_LEVEL_SMALL);
+			StartUntouchable();
+		}
+		else {
+			SetLevel(MARIO_LEVEL_BIG);
+			StartUntouchable();
+		}
 	}
 	else
 	{
