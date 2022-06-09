@@ -60,6 +60,7 @@ class CKoopa : public CGameObject
 protected:
 	float ax;
 	float ay;
+	int model;
 	ULONGLONG defend_start;
 	ULONGLONG die_start;
 	ULONGLONG comeback_start;
@@ -106,9 +107,10 @@ public:
 
 
 	//set
-	void SetLevel(int l);
 	virtual void SetState(int state);
 	void SetIsHeld(bool b) { isHeld = b; }
+	void SetModel(int model) { this->model = model; }
+	int GetModel() { return model; }
 
 
 };

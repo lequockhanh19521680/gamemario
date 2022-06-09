@@ -33,6 +33,7 @@ protected:
 	float startY;
 	float minY;
 	bool isShoot = false;
+	int model;
 	bool isUpping, isDowning;
 	ULONGLONG time_out_pipe;
 	ULONGLONG time_shoot;
@@ -54,5 +55,7 @@ public:
 
 	CPlantEnemy(float x, float y, int model);
 	virtual void SetState(int state);
+	void SetModel(int model) { this->model = model; }
+	int GetModel() { return model; }
 };
 

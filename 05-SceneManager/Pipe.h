@@ -15,6 +15,7 @@
 class CPipe : public CGameObject
 {
 	protected:
+		int model;
 		int typePlant;
 
 	public:
@@ -25,5 +26,7 @@ class CPipe : public CGameObject
 		void GetBoundingBox(float& l, float& t, float& r, float& b);
 
 		virtual int IsBlocking() { return 1; }
+		void SetModel(int model) { this->model = model; }
+		int GetModel() { return model; }
 };
 

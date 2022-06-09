@@ -31,7 +31,6 @@ protected:
 	bool isDeleted;
 
 public:
-	int model = 0;
 	void SetPosition(float x, float y) { this->x = x, this->y = y; }
 	void SetSpeed(float vx, float vy) { this->vx = vx, this->vy = vy; }
 	void GetPosition(float& x, float& y) { x = this->x; y = this->y; }
@@ -40,8 +39,7 @@ public:
 	int GetState() { return this->state; }
 	virtual void Delete() { isDeleted = true; }
 	bool IsDeleted() { return isDeleted; }
-	void SetModel(int model) { this->model = model; }
-	int GetModel() { return model; }
+
 	void RenderBoundingBox();
 
 	CGameObject();

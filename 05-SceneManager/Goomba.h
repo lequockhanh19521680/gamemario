@@ -46,6 +46,7 @@ protected:
 	float ax;
 	float ay;
 	float startX, startY;
+	int model; 
 	ULONGLONG die_start;
 	ULONGLONG time_walking;
 	ULONGLONG time_jump_small;
@@ -79,7 +80,8 @@ public:
 	//get
 	bool GetIsDead() { return isDead; }
 
-
+	void SetModel(int model) { this->model = model; }
+	int GetModel() { return model; }
 	//set
 	void SetLevel(int l);
 	virtual void SetState(int state);

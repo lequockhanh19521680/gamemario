@@ -250,6 +250,7 @@
 
 #define TIME_CHANGING 700
 #define MARIO_UNTOUCHABLE_TIME (TIME_CHANGING + 2500)
+#define TIME_ONE_SECOND 1000
 
 class CMario : public CGameObject
 {
@@ -259,7 +260,11 @@ class CMario : public CGameObject
 	float ay;				// acceleration on y 
 	int level; 
 	int untouchable; 
+	int clock;
 	int levelRun;
+	int Up;
+
+
 	ULONGLONG untouchable_start;
 	ULONGLONG start_limit_shoot;
 	ULONGLONG start_fly;
@@ -270,6 +275,7 @@ class CMario : public CGameObject
 	ULONGLONG speed_stop;
 	ULONGLONG start_tail_attack;
 	ULONGLONG start_changing;
+	ULONGLONG time_down_1_second;
 	BOOLEAN isOnPlatform;
 	int coin; 
 

@@ -5,11 +5,22 @@
 #include "Platform.h"
 #include "PlayScene.h"
 #include "Mario.h"
+
 CMushRoom::CMushRoom(float x, float y) :CGameObject(x, y)
 {
 	this->ax = 0;
 	this->ay = MUSHROOM_GRAVITY;
 	vy = 0;
+	model = MUSHROOM_RED;
+	startY = y;
+	SetState(MUSHROOM_STATE_OUTSIDE);
+}
+CMushRoom::CMushRoom(float x, float y,int model) :CGameObject(x, y)
+{
+	this->ax = 0;
+	this->ay = MUSHROOM_GRAVITY;
+	vy = 0;
+	this->model = model;
 	startY = y;
 	SetState(MUSHROOM_STATE_OUTSIDE);
 }
@@ -67,9 +78,10 @@ void CMushRoom::OnCollisionWithPlatForm(LPCOLLISIONEVENT e)
 void CMushRoom::Render()
 {
 	CAnimations* animations = CAnimations::GetInstance();
-	animations->Get(ID_ANI_MUSHROOM)->Render(x, y);
+	if (model == MUSHROOM_RED) animations->Get(ID_ANI_MUSHROOM_RED)->Render(x, y);
+	else animations->Get(ID_ANI_MUSHROOM_GREEN)->Render(x, y);
 
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 void CMushRoom::GetBoundingBox(float& l, float& t, float& r, float& b)

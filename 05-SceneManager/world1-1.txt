@@ -180,7 +180,8 @@ Resource\Tilemap\world1-1.txt
 35	240	304
 35	656	384
 35	1472	368
-
+#BRICKGREEN
+37	1440	128
 #KOOPA_RED
 6	574	360
 #KOOPA_WING
@@ -200,6 +201,9 @@ Resource\Tilemap\world1-1.txt
 
 #MARIO
 0	18	368
+
+
+
 
 
 

@@ -23,7 +23,9 @@ CMario::CMario(float x, float y) : CGameObject(x, y) {
 	isHolding = false;
 	isSitting = false;
 	maxVx = 0.0f;
+	Up = 4;
 	ax = 0.0f;
+	clock = 300;
 	ay = MARIO_GRAVITY;
 
 	level = MARIO_LEVEL_SMALL;
@@ -40,7 +42,9 @@ CMario::CMario(float x, float y) : CGameObject(x, y) {
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
-	DebugOutTitle(L"POWERUP %d", levelRun);
+	DebugOutTitle(L"Up %d", Up);
+	//DebugOutTitle(L"TIME %d", clock);
+	//DebugOutTitle(L"POWERUP %d", levelRun);
 	if (isChanging) {
 		vx = 0;
 		vy = 0;
@@ -52,6 +56,16 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
 	if (abs(vx) > abs(maxVx)) vx = maxVx;
 	// reset untouchable timer if untouchable time has passed
+	if (clock > 0) {
+		if (GetTickCount64() - time_down_1_second > TIME_ONE_SECOND) {
+			clock--;
+			time_down_1_second = GetTickCount64();
+		}
+	}
+	else {
+		clock = 0;
+		SetState(MARIO_STATE_DIE);
+	}
 	if ( GetTickCount64() - untouchable_start > MARIO_UNTOUCHABLE_TIME) 
 	{
 		untouchable_start = 0;
@@ -290,12 +304,18 @@ void CMario::OnCollisionWithLeaf(LPCOLLISIONEVENT e) {
 }
 void CMario::OnCollisionWithMushRoom(LPCOLLISIONEVENT e) 
 {
-	e->obj->Delete();
-	if (GetLevel() == MARIO_LEVEL_SMALL)
-	{
-		isLower = false;
-		SetLevel(MARIO_LEVEL_BIG);
+	CMushRoom* mushroom = dynamic_cast<CMushRoom*>(e->obj);
+	if (mushroom->GetModel() == MUSHROOM_RED) {
+		if (GetLevel() == MARIO_LEVEL_SMALL)
+		{
+			isLower = false;
+			SetLevel(MARIO_LEVEL_BIG);
+		}
 	}
+	else if(mushroom->GetModel() == MUSHROOM_GREEN){
+		Up++;
+	}
+	mushroom->Delete();
 
 }
 
@@ -335,6 +355,10 @@ void CMario::OnCollisionWithBrickQuestion(LPCOLLISIONEVENT e) {
 			coin->SetState(COIN_SUMMON_STATE);
 			scene->AddObject(coin);
 			questionBrick->SetIsEmpty(true);
+		}
+		else {
+			CMushRoom* mushroom = new CMushRoom(x, y, MUSHROOM_GREEN);
+			scene->AddObject(mushroom);
 		}
 	}
 

@@ -12,6 +12,7 @@
 #define QUESTION_BRICK_SPEED_DOWN 0.04f
 
 #define QUESTION_BRICK_ITEM 2
+#define QUESTION_BRICK_MUSHROOM_GREEN 3
 #define QUESTION_BRICK_COIN 1
 
 #define QUESTION_BRICK_STATE_UP 100
@@ -26,6 +27,7 @@ protected:
 	float minY;
 	float startY;
 	float startX;
+	int model;
 	BOOLEAN isUnbox = false;
 	BOOLEAN isEmpty = false;
 
@@ -46,6 +48,8 @@ public:
 	BOOLEAN GetIsEmpty() { return isEmpty; }
 	void SetIsUnbox(BOOLEAN b) { isUnbox = b; }
 	void SetIsEmpty(BOOLEAN b) { isEmpty = b; }
+	void SetModel(int model) { this->model = model; }
+	int GetModel() { return model; }
 	
 	CGameObject* item = NULL;
 };
