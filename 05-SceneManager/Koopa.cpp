@@ -293,8 +293,8 @@ void CKoopa::OnCollisionWithPlatform(LPCOLLISIONEVENT e) {
 			if ((platform->GetX() > GetX())) {
 				SetX(platform->GetX());
 			}
-			if ((GetX() > platform->GetX() + (platform->GetLength() - 1) * KOOPA_BBOX_WIDTH)){
-			SetX(platform->GetX() + (platform->GetLength() - 1) * KOOPA_BBOX_WIDTH);
+			if ((GetX() > platform->GetX() + (platform->GetLength() - 1) * KOOPA_BBOX_WIDTH)) {
+				SetX(platform->GetX() + (platform->GetLength() - 1) * KOOPA_BBOX_WIDTH);
 			}
 			vx = -vx;
 		}
@@ -371,3 +371,4 @@ void CKoopa::SetState(int state) {
 	}
 	CGameObject::SetState(state);
 }
+

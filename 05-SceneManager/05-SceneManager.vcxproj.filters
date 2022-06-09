@@ -156,6 +156,9 @@
     <ClCompile Include="SampleKeyEventHandler.cpp">
       <Filter>Header Files\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="BrickColor.cpp">
+      <Filter>Header Files\Object\Brick</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="KeyEventHandler.h">
@@ -265,6 +268,9 @@
     </ClInclude>
     <ClInclude Include="SampleKeyEventHandler.h">
       <Filter>Header Files\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="BrickColor.h">
+      <Filter>Header Files\Object\Brick</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
