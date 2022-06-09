@@ -59,9 +59,10 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	}
 	if (GetTickCount64() - start_changing > TIME_CHANGING) {
 		isChanging = false;
+		isLower = false;
 		start_changing = 0;
-
 	}
+	
 	if ((!isRunning) || (!vx) || (IsBrace()))
 	{
 			if (GetTickCount64() - speed_stop > TIME_SPEED) {
@@ -780,15 +781,25 @@ void CMario::Render()
 		aniId = GetAniIdFire();
 	else if (level == MARIO_LEVEL_TAIL)
 		aniId = GetAniIdTail();
-	if (!untouchable) {
-		animations->Get(aniId)->Render(x, y);
+	if((level>MARIO_LEVEL_BIG)) {
+		if(!isChanging) animations->Get(aniId)->Render(x, y);
 	}
 	else {
-		int check = rand() % 2;
-		if (check == 0) {
-			animations->Get(aniId)->Render(x, y);
+		if((level==MARIO_LEVEL_BIG) && (isLower)){}
+		else {
+			if (!untouchable)
+			{
+				animations->Get(aniId)->Render(x, y);
+			}
+			else {
+				int check = rand() % 2;
+				if (check == 0) {
+					animations->Get(aniId)->Render(x, y);
+				}
+			}
 		}
 	}
+	
 
 	//RenderBoundingBox();
 	

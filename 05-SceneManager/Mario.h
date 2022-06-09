@@ -248,8 +248,8 @@
 #define MARIO_SMALL_BBOX_WIDTH  16
 #define MARIO_SMALL_BBOX_HEIGHT 12
 
-#define TIME_CHANGING 1000
-#define MARIO_UNTOUCHABLE_TIME 2000
+#define TIME_CHANGING 700
+#define MARIO_UNTOUCHABLE_TIME (TIME_CHANGING + 2500)
 
 class CMario : public CGameObject
 {
@@ -338,7 +338,7 @@ public:
 	void SetVy(float v) { vy = v; }
 
 	//void phat sinh
-	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount64(); isLower = false; }
+	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount64(); }
 	void SetFly();
 	void SetMarioTailAttack();
 	void SetLevelLower();
