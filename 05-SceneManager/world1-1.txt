@@ -14,7 +14,7 @@ platform.txt
 pipe.txt
 koopa.txt
 bulletplant.txt
-
+hud.txt
 [TILEMAP]
 Resource\Tilemap\world1-1.txt
 [OBJECTS]
@@ -221,7 +221,7 @@ Resource\Tilemap\world1-1.txt
 
 
 #MARIO
-0	1900	368
+0	17	368
 
 
 

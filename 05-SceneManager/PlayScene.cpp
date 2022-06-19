@@ -335,9 +335,15 @@ void CPlayScene::Update(DWORD dt)
 
 void CPlayScene::Render()
 {
+	CGame* game = CGame::GetInstance();
+
 	current_map->Render();
 	for (unsigned int i = 0; i < objects.size(); i++)
 		objects[i]->Render();
+	hud = new CHUD(game->GetCamX()+130,game->GetCamY()+190);
+	hud->Render();
+
+
 
 	
 }

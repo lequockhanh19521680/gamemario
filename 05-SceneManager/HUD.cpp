@@ -3,11 +3,16 @@
 #include"Textures.h"
 #include "Sprites.h"
 #include"PlayScene.h"
-void CHUD::Render() {
-	CSprites::GetInstance()->Get(SPRITE_HUD_ID)->Draw(x, y);
+CHUD::CHUD(float x, float y) {
+	this->x = x;
+	this->y = y;
+
 
 }
-void CHUD::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects){
-	CGameObject::Update(dt, coObjects);
+
+void CHUD::Render() {
+	CAnimations::GetInstance()->Get(ID_ANI_BLACK_RECTANGEL)->Render(x, y);
+
+	CAnimations::GetInstance()->Get(ID_ANI_HUD)->Render(x, y);
 
 }
