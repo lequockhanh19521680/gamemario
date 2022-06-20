@@ -75,20 +75,24 @@ void CBullet::OnCollisionWith(LPCOLLISIONEVENT e) {
 }
 
 void CBullet::OnCollisionWithGoomba(LPCOLLISIONEVENT e) {
-
+	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+	mario->SetScore(mario->GetScore() + 100);
 	CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
 	goomba->SetState(GOOMBA_STATE_DIE_UPSIDE);
 	isDeleted = true;
 }
 
 void CBullet::OnCollisionWithKoopa(LPCOLLISIONEVENT e) {
-
+	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+	mario->SetScore(mario->GetScore() + 100);
 	CKoopa* koopa = dynamic_cast<CKoopa*>(e->obj);
 	koopa->SetState(KOOPA_STATE_DEAD_UPSIDE);
 	isDeleted = true;
 }
 
 void CBullet::OnCollisionWithPlantEnemy(LPCOLLISIONEVENT e) {
+	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+	mario->SetScore(mario->GetScore() + 100);
 	isDeleted = true;
 	CPlantEnemy* plant = dynamic_cast<CPlantEnemy*>(e->obj);
 	plant->SetState(PLANT_STATE_DEATH);

@@ -1,9 +1,9 @@
 #pragma once
 #include "GameObject.h"
 
-#define SPEED_EFFECT 0.05f
+#define SPEED_EFFECT 0.12f
 
-#define EFFECT_DELETE_TIME 700
+#define EFFECT_DELETE_TIME 600
 
 #define EFFECT_SCORE_100 1
 #define EFFECT_SCORE_200 2

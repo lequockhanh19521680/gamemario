@@ -204,7 +204,10 @@ void CMario::OnCollisionWithPlatForm(LPCOLLISIONEVENT e) {
 }
 void CMario::OnCollisionWithPlantEnemy(LPCOLLISIONEVENT e) {
 	if (untouchable) return;
+	
 	CPlantEnemy* plant = dynamic_cast<CPlantEnemy*>(e->obj);
+	AddScore(plant->GetX(), plant->GetY(), 100);
+	score += 100;
 	if (isTailAttack) { plant->SetIsDeleted(true); }
 	else SetLevelLower();
 }
@@ -220,6 +223,8 @@ void CMario::OnCollisionWithFireFromPlant(LPCOLLISIONEVENT e) {
 void CMario::OnCollisionWithKoopa(LPCOLLISIONEVENT e) {
 	CKoopa* koopa = dynamic_cast<CKoopa*>(e->obj); 
 	if(isTailAttack){
+		AddScore(koopa->GetX(), koopa->GetY(), 100);
+		score += 100;
 		koopa->SetState(KOOPA_STATE_UPSIDE);
 	}
 	else {
@@ -284,8 +289,10 @@ void CMario::OnCollisionWithKoopa(LPCOLLISIONEVENT e) {
 void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 {
 	CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
-
+	
 	if (isTailAttack) {
+		AddScore(goomba->GetX(), goomba->GetY(), 100);
+		score += 100;
 		goomba->SetState(GOOMBA_STATE_DIE_UPSIDE);
 	}
 	else {
@@ -374,13 +381,9 @@ void CMario::OnCollisionWithBrickQuestion(LPCOLLISIONEVENT e) {
 				CMushRoom* mushroom = new CMushRoom(x, y);
 				scene->AddObject(mushroom);
 			}
-			else if (GetLevel() == MARIO_LEVEL_BIG) {
+			else if (GetLevel() >= MARIO_LEVEL_BIG) {
 				CLeaf* leaf = new CLeaf(x, y);
 				scene->AddObject(leaf);
-			}
-			else if (GetLevel() == MARIO_LEVEL_TAIL || GetLevel() == MARIO_LEVEL_FIRE) {
-				CFlowerFire* flower = new CFlowerFire(x, y);
-				scene->AddObject(flower);
 			}
 			questionBrick->SetIsEmpty(true);
 		}
@@ -1199,7 +1202,7 @@ void CMario::IncreaseScoreUpCollision(float xTemp, float yTemp) {
 		scoreUpCollision++;
 	}
 	else if (scoreUpCollision > 8) {
-		scoreUpCollision = 8;
+		scoreUpCollision = 9;
 		AddScore(xTemp, yTemp, 0);
 	}
 

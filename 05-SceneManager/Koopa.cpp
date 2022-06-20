@@ -249,13 +249,9 @@ void CKoopa::OnCollisionWithBrickQuestion(LPCOLLISIONEVENT e) {
 						CMushRoom* mushroom = new CMushRoom(questionBrick->GetX(), questionBrick->GetY());
 						scene->AddObject(mushroom);
 					}
-					else if (mario->GetLevel() == MARIO_LEVEL_BIG) {
+					else if (mario->GetLevel() >= MARIO_LEVEL_BIG) {
 						CLeaf* leaf = new CLeaf(questionBrick->GetX(), questionBrick->GetY());
 						scene->AddObject(leaf);
-					}
-					else if (mario->GetLevel() == MARIO_LEVEL_TAIL || mario->GetLevel() == MARIO_LEVEL_FIRE) {
-						CFlowerFire* flower = new CFlowerFire(questionBrick->GetX(), questionBrick->GetY());
-						scene->AddObject(flower);
 					}
 				}
 				else {
@@ -271,13 +267,14 @@ void CKoopa::OnCollisionWithBrickQuestion(LPCOLLISIONEVENT e) {
 	}
 }
 void CKoopa::OnCollisionWithGoomba(LPCOLLISIONEVENT e) {
-	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 
 	CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
 	
-		if (isKicked) {
-			goomba->SetState(GOOMBA_STATE_DIE_UPSIDE);
-		}
+	if (isKicked) {
+		CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+		mario->IncreaseScoreUpCollision(x, y);
+		goomba->SetState(GOOMBA_STATE_DIE_UPSIDE);
+	}
 		
 }
 void CKoopa::OnCollisionWithPlatform(LPCOLLISIONEVENT e) {
