@@ -15,6 +15,7 @@ pipe.txt
 koopa.txt
 bulletplant.txt
 hud.txt
+effect.txt
 [TILEMAP]
 Resource\Tilemap\world1-1.txt
 [OBJECTS]
@@ -218,7 +219,8 @@ Resource\Tilemap\world1-1.txt
 38	2096	384
 38	2096	400
 38	2112	400
-
+#EFFECT
+600	17	368
 
 #MARIO
 0	17	368

@@ -154,6 +154,7 @@
     <ClCompile Include="Coin.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="debug.cpp" />
+    <ClCompile Include="Effect.cpp" />
     <ClCompile Include="FireFromPlant.cpp" />
     <ClCompile Include="FlowerFire.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -190,6 +191,7 @@
     <ClInclude Include="Coin.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="debug.h" />
+    <ClInclude Include="Effect.h" />
     <ClInclude Include="FireFromPlant.h" />
     <ClInclude Include="FlowerFire.h" />
     <ClInclude Include="Game.h" />

@@ -49,6 +49,9 @@
     <Filter Include="Header Files\Other">
       <UniqueIdentifier>{e1efcb30-c27c-4926-aba9-133cef779172}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Object\Effects">
+      <UniqueIdentifier>{b26b889d-0d12-4c3b-82ce-b4ef873373d1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -150,6 +153,9 @@
     <ClCompile Include="HUD.cpp">
       <Filter>Header Files\HUD</Filter>
     </ClCompile>
+    <ClCompile Include="Effect.cpp">
+      <Filter>Header Files\Object\Effects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="KeyEventHandler.h">
@@ -239,9 +245,6 @@
     <ClInclude Include="Bullet.h">
       <Filter>Header Files\Object\Mario</Filter>
     </ClInclude>
-    <ClInclude Include="AssetIDs.h">
-      <Filter>Header Files\Object\Mario</Filter>
-    </ClInclude>
     <ClInclude Include="Collision.h">
       <Filter>Header Files\Other</Filter>
     </ClInclude>
@@ -259,6 +262,12 @@
     </ClInclude>
     <ClInclude Include="HUD.h">
       <Filter>Header Files\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect.h">
+      <Filter>Header Files\Object\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="AssetIDs.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
