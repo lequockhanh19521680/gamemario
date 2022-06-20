@@ -20,15 +20,17 @@
 #define MARIO_GRAVITY			0.00055f
 
 #define MARIO_JUMP_DEFLECT_SPEED  0.2f
+#define MARIO_JUMP_DEFLECT_SPEED_DIE  0.3f
 
 #define MARIO_FLY_FALL 0.015f
 #define MARIO_FLYING 0.3f
+
 
 #define LEVEL_RUN_MAX 7
 #define TIME_FLY 3000
 #define TIME_TAIL_ATTACK 300
 #define TIME_PREPARE_RUN 700
-#define TIME_SPEED 250
+#define TIME_SPEED 150
 #define TIME_KICK_ANIMATION 100
 #define TIME_SHOOT_ANI 100
 #define TIME_SHOOT_LIMIT 200
@@ -248,6 +250,7 @@
 #define MARIO_SMALL_BBOX_WIDTH  16
 #define MARIO_SMALL_BBOX_HEIGHT 12
 
+#define POSITION_Y_DIE 440
 #define TIME_CHANGING 700
 #define MARIO_UNTOUCHABLE_TIME (TIME_CHANGING + 2500)
 #define TIME_ONE_SECOND 1000
@@ -325,6 +328,7 @@ public:
 	//get
 	int GetLevel() { return level; }
 	int GetCoin() { return this->coin; }
+	int GetLevelRun() { return levelRun; }
 	bool GetIsTailAttack() { return isTailAttack; }
 	bool GetIsFlying() { return isFlying; }
 	bool GetIsHolding() { return isHolding; }

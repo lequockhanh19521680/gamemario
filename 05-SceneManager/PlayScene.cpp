@@ -340,12 +340,8 @@ void CPlayScene::Render()
 	current_map->Render();
 	for (unsigned int i = 0; i < objects.size(); i++)
 		objects[i]->Render();
-	hud = new CHUD(game->GetCamX()+130,game->GetCamY()+190);
+	hud = new CHUD(game->GetCamX()+ ADJUST_HUD_X_POSITION,game->GetCamY()+ ADJUST_HUD_Y_POSITION);
 	hud->Render();
-
-
-
-	
 }
 
 /*
