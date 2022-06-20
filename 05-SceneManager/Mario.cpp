@@ -40,6 +40,7 @@ CMario::CMario(float x, float y) : CGameObject(x, y) {
 	isLower = false;
 	coin = 0;
 	score = 0;
+	scoreUpCollision = 1;
 }
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -63,8 +64,19 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		coin = 0;
 	}
 	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
+
+
+
 	if (abs(vx) > abs(maxVx)) vx = maxVx;
-	// reset untouchable timer if untouchable time has passed
+
+
+
+	if (GetTickCount64() - start_score_up > TIME_SCORE_UP_MAX) {
+		scoreUpCollision = 1;
+		start_score_up = 0;
+	}
+
+
 	if (clock > 0) {
 		if (GetTickCount64() - time_down_1_second > TIME_ONE_SECOND) {
 			clock--;
@@ -212,6 +224,7 @@ void CMario::OnCollisionWithKoopa(LPCOLLISIONEVENT e) {
 	}
 	else {
 		if (e->ny < 0) {
+			IncreaseScoreUpCollision(x, y);
 			koopa->SetVy(-KOOPA_ADJUST_KICKED_NOT_FALL);
 			if (koopa->GetModel() != KOOPA_GREEN_WING) {
 				if ((koopa->GetState() == KOOPA_STATE_WALKING) or (koopa->GetState() == KOOPA_STATE_IS_KICKED))
@@ -282,6 +295,7 @@ void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 			if (goomba->GetIsDead()) return;
 			BlockIfNoBlock(goomba);//dam bao goomba khong roi xuong khi mario jump
 			goomba->SetState(GOOMBA_STATE_IS_ATTACK);
+			IncreaseScoreUpCollision(x,y);
 			vy -= MARIO_JUMP_DEFLECT_SPEED;
 		}
 		else // hit by Goomba
@@ -1139,4 +1153,54 @@ void CMario::AddScore(float xTemp, float yTemp, int scoreAdd) {
 		CEffect* effect = new CEffect(xTemp, yTemp, EFFECT_UP);
 		scene->AddObject(effect);
 	}
+}
+
+
+void CMario::IncreaseScoreUpCollision(float xTemp, float yTemp) {
+	start_score_up = GetTickCount64();
+	if (scoreUpCollision == 1) {
+		score += 100;
+		AddScore(xTemp, yTemp, 100);
+		scoreUpCollision++;
+	}
+	else if (scoreUpCollision == 2) {
+		score += 200;
+		AddScore(xTemp, yTemp, 200);
+		scoreUpCollision++;
+	}
+	else if (scoreUpCollision == 3) {
+		score += 400;
+		AddScore(xTemp, yTemp, 400);
+		scoreUpCollision++;
+	}
+	else if (scoreUpCollision == 4) {
+		score += 800;
+		AddScore(xTemp, yTemp, 800);
+		scoreUpCollision++;
+	}
+	else if (scoreUpCollision == 5) {
+		score += 1000;
+		AddScore(xTemp, yTemp, 1000);
+		scoreUpCollision++;
+	}
+	else if (scoreUpCollision == 6) {
+		score += 2000;
+		AddScore(xTemp, yTemp, 2000);
+		scoreUpCollision++;
+	}
+	else if (scoreUpCollision == 7) {
+		score += 4000;
+		AddScore(xTemp, yTemp, 4000);
+		scoreUpCollision++;
+	}
+	else if (scoreUpCollision == 8) {
+		score += 8000;
+		AddScore(xTemp, yTemp, 8000);
+		scoreUpCollision++;
+	}
+	else if (scoreUpCollision > 8) {
+		scoreUpCollision = 8;
+		AddScore(xTemp, yTemp, 0);
+	}
+
 }

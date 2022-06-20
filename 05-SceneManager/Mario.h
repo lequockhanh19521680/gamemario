@@ -254,6 +254,7 @@
 #define TIME_CHANGING 900
 #define MARIO_UNTOUCHABLE_TIME (TIME_CHANGING + 2500)
 #define TIME_ONE_SECOND 1000
+#define TIME_SCORE_UP_MAX 2000
 
 class CMario : public CGameObject
 {
@@ -267,8 +268,9 @@ class CMario : public CGameObject
 	int levelRun;
 	int score;
 	int Up;
+	int scoreUpCollision;
 
-
+	ULONGLONG start_score_up;
 	ULONGLONG untouchable_start;
 	ULONGLONG start_limit_shoot;
 	ULONGLONG start_fly;
@@ -327,6 +329,7 @@ public:
 
 
 	//get
+	int GetScoreCollision() { return scoreUpCollision; }
 	int GetScore() { return score; }
 	int GetLevel() { return level; }
 	int GetCoin() { return this->coin; }
@@ -343,6 +346,7 @@ public:
 	bool IsBrace() { return (ax * vx < 0); }
 	bool GetIsChanging() { return isChanging; }
 	//set
+	void SetScoreCollision(int l) { scoreUpCollision = l; }
 	void SetState(int state);
 	void SetIsHolding(bool b) { isHolding = b; }
 	void SetIsKicking(bool b) { isKicking = b; }
@@ -359,5 +363,5 @@ public:
 	void AddChangeAnimation();
 	void AddEffectAttack(float xTemp,float yTemp);
 	void AddScore(float xTemp, float yTemp, int scoreAdd);
-
+	void IncreaseScoreUpCollision(float xTemp,float yTemp);
 };

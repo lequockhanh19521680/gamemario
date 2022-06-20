@@ -23,7 +23,7 @@ CGoomba::CGoomba(float x, float y,int model):CGameObject(x, y)
 
 void CGoomba::GetBoundingBox(float &left, float &top, float &right, float &bottom)
 {
-	if (isUpside) { return; }
+	if (isUpside) return;
 	if (isDead)
 	{
 		left = x - GOOMBA_BBOX_WIDTH/2;
@@ -267,11 +267,10 @@ void CGoomba::SetState(int state)
 			};
 			break;
 		case GOOMBA_STATE_DIE_UPSIDE:
-			ay = GOOMBA_GRAVITY / 4;
-			vy = -GOOMBA_JUMP_DEFLECT_SPEED/2;
+			ay = GOOMBA_GRAVITY;
+			vy = -GOOMBA_JUMP_DEFLECT_SPEED;
 			isUpside = true;
 			die_start = GetTickCount64();
-
 			break;
 	}
 	CGameObject::SetState(state);
