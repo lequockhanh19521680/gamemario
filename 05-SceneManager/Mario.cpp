@@ -39,9 +39,10 @@ CMario::CMario(float x, float y) : CGameObject(x, y) {
 	isChanging = false;
 	isLower = false;
 	coin = 0;
+	score = 0;
 }
 
-void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
+void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	DebugOutTitle(L"Up %d", Up);
 	//DebugOutTitle(L"TIME %d", clock);
@@ -74,7 +75,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		clock = 0;
 		SetState(MARIO_STATE_DIE);
 	}
-	if ( GetTickCount64() - untouchable_start > MARIO_UNTOUCHABLE_TIME) 
+	if (GetTickCount64() - untouchable_start > MARIO_UNTOUCHABLE_TIME)
 	{
 		untouchable_start = 0;
 		untouchable = 0;
@@ -84,8 +85,8 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		isLower = false;
 		start_changing = 0;
 	}
-	
-	if ((!isRunning) || (!vx) || (IsBrace()))
+
+	if ((!isRunning) || (!vx) || (IsBrace()) || ((!isOnPlatform) && (isFlying) && (vy>0)))
 	{
 			if (GetTickCount64() - speed_stop > TIME_SPEED) {
 				if (levelRun > 0) levelRun--;
@@ -270,6 +271,7 @@ void CMario::OnCollisionWithKoopa(LPCOLLISIONEVENT e) {
 void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 {
 	CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
+
 	if (isTailAttack) {
 		goomba->SetState(GOOMBA_STATE_DIE_UPSIDE);
 	}
@@ -300,12 +302,17 @@ void CMario::OnCollisionWithCoin(LPCOLLISIONEVENT e)
 	CCoin* coin1 = dynamic_cast<CCoin*>(e->obj);
 	if (coin1->CanCollect()) {
 		e->obj->Delete();
+		score += 100;
 		coin++;
 	}
 }
 void CMario::OnCollisionWithLeaf(LPCOLLISIONEVENT e) {
 	e->obj->Delete();
-	if (level != MARIO_LEVEL_SMALL) {
+	score += 1000;
+	AddScore(x, y, 1000);
+	if (level == MARIO_LEVEL_TAIL) {
+	}
+	else if (level != MARIO_LEVEL_SMALL) {
 		AddChangeAnimation();
 
 		SetLevel(MARIO_LEVEL_TAIL);
@@ -316,6 +323,8 @@ void CMario::OnCollisionWithMushRoom(LPCOLLISIONEVENT e)
 {
 	CMushRoom* mushroom = dynamic_cast<CMushRoom*>(e->obj);
 	if (mushroom->GetModel() == MUSHROOM_RED) {
+		score += 1000;
+		AddScore(x, y-MARIO_BIG_BBOX_HEIGHT, 1000);
 		if (GetLevel() == MARIO_LEVEL_SMALL)
 		{
 			isLower = false;
@@ -323,7 +332,7 @@ void CMario::OnCollisionWithMushRoom(LPCOLLISIONEVENT e)
 		}
 	}
 	else if(mushroom->GetModel() == MUSHROOM_GREEN){
-		Up++;
+		if(!mushroom->IsDeleted()) AddScore(x,y,0);
 	}
 	mushroom->Delete();
 
@@ -378,7 +387,13 @@ void CMario::OnCollisionWithBrickQuestion(LPCOLLISIONEVENT e) {
 
 
 void CMario::OnCollisionWithFlowerFire(LPCOLLISIONEVENT e) {
+	if (!e->obj->IsDeleted())
+	{
+		score += 1000;
+		AddScore(x, y, 1000);
+	}
 	e->obj->Delete();
+	
 	if (level != MARIO_LEVEL_SMALL) {
 		AddChangeAnimation();
 		SetLevel(MARIO_LEVEL_FIRE);
@@ -1041,12 +1056,13 @@ void CMario::SetLevelLower() {
 	
 	if (level > MARIO_LEVEL_SMALL)
 	{
-		AddChangeAnimation();
 		StartUntouchable();
 		if (level == MARIO_LEVEL_BIG) {
+
 			SetLevel(MARIO_LEVEL_SMALL);
 		}
 		else {
+			AddChangeAnimation();
 			SetLevel(MARIO_LEVEL_BIG);
 		}
 	}
@@ -1075,4 +1091,50 @@ void CMario::AddChangeAnimation() {
 	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
 	CEffect* effect = new CEffect(x, y, EFFECT_CHANGE);
 	scene->AddObject(effect);
+}
+
+void CMario::AddEffectAttack(float xTemp, float yTemp) {
+	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
+	CEffect* effect = new CEffect(xTemp, yTemp, EFFECT_ATTACK);
+	scene->AddObject(effect);
+}
+void CMario::AddScore(float xTemp, float yTemp, int scoreAdd) {
+	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
+	if (scoreAdd == 100) {
+		CEffect* effect = new CEffect(xTemp, yTemp, EFFECT_SCORE_100);
+		scene->AddObject(effect);
+	}
+	else if(scoreAdd == 200) {
+		CEffect* effect = new CEffect(xTemp, yTemp, EFFECT_SCORE_200);
+		scene->AddObject(effect);
+	}
+	else if (scoreAdd == 400) {
+		CEffect* effect = new CEffect(xTemp, yTemp, EFFECT_SCORE_400);
+		scene->AddObject(effect);
+	}
+	else if (scoreAdd == 800) {
+		CEffect* effect = new CEffect(xTemp, yTemp, EFFECT_SCORE_800);
+		scene->AddObject(effect);
+	}
+	else if (scoreAdd == 1000) {
+		CEffect* effect = new CEffect(xTemp, yTemp, EFFECT_SCORE_1000);
+		scene->AddObject(effect);
+	}
+	else if (scoreAdd == 2000) {
+		CEffect* effect = new CEffect(xTemp, yTemp, EFFECT_SCORE_2000);
+		scene->AddObject(effect);
+	}
+	else if (scoreAdd == 4000) {
+		CEffect* effect = new CEffect(xTemp, yTemp, EFFECT_SCORE_4000);
+		scene->AddObject(effect);
+	}
+	else if (scoreAdd == 8000) {
+		CEffect* effect = new CEffect(xTemp, yTemp, EFFECT_SCORE_8000);
+		scene->AddObject(effect);
+	}
+	else if (scoreAdd == 0){
+		Up++;
+		CEffect* effect = new CEffect(xTemp, yTemp, EFFECT_UP);
+		scene->AddObject(effect);
+	}
 }

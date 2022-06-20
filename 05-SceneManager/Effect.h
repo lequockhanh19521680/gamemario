@@ -46,6 +46,7 @@ public:
 		x += vx * dt;
 		y += vy * dt;
 	}
+	virtual int IsCollidable() { return 0; }
 	void GetBoundingBox(float& l, float& t, float& r, float& b){}
 };
 
