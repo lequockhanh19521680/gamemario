@@ -323,8 +323,10 @@ void CMario::OnCollisionWithMushRoom(LPCOLLISIONEVENT e)
 {
 	CMushRoom* mushroom = dynamic_cast<CMushRoom*>(e->obj);
 	if (mushroom->GetModel() == MUSHROOM_RED) {
-		score += 1000;
-		AddScore(x, y-MARIO_BIG_BBOX_HEIGHT, 1000);
+		if (!mushroom->IsDeleted()) {
+			score += 1000;
+			AddScore(x, y - MARIO_BIG_BBOX_HEIGHT, 1000);
+		}
 		if (GetLevel() == MARIO_LEVEL_SMALL)
 		{
 			isLower = false;
@@ -332,7 +334,7 @@ void CMario::OnCollisionWithMushRoom(LPCOLLISIONEVENT e)
 		}
 	}
 	else if(mushroom->GetModel() == MUSHROOM_GREEN){
-		if(!mushroom->IsDeleted()) AddScore(x,y,0);
+		if(!mushroom->IsDeleted()) AddScore(x,y-MARIO_BIG_BBOX_HEIGHT,0);
 	}
 	mushroom->Delete();
 
@@ -393,8 +395,8 @@ void CMario::OnCollisionWithFlowerFire(LPCOLLISIONEVENT e) {
 		AddScore(x, y, 1000);
 	}
 	e->obj->Delete();
-	
-	if (level != MARIO_LEVEL_SMALL) {
+	if(level==MARIO_LEVEL_FIRE){}
+	else if (level != MARIO_LEVEL_SMALL) {
 		AddChangeAnimation();
 		SetLevel(MARIO_LEVEL_FIRE);
 	}

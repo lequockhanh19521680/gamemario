@@ -75,21 +75,17 @@ void CBullet::OnCollisionWith(LPCOLLISIONEVENT e) {
 }
 
 void CBullet::OnCollisionWithGoomba(LPCOLLISIONEVENT e) {
-	isDeleted = true;
-	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
-	CEffect* effect = new CEffect(x, y, EFFECT_ATTACK);
-	scene->AddObject(effect);
+
 	CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
 	goomba->SetState(GOOMBA_STATE_DIE_UPSIDE);
+	isDeleted = true;
 }
 
 void CBullet::OnCollisionWithKoopa(LPCOLLISIONEVENT e) {
-	isDeleted = true;
-	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
-	CEffect* effect = new CEffect(x, y, EFFECT_ATTACK);
-	scene->AddObject(effect);
+
 	CKoopa* koopa = dynamic_cast<CKoopa*>(e->obj);
 	koopa->SetState(KOOPA_STATE_DEAD_UPSIDE);
+	isDeleted = true;
 }
 
 void CBullet::OnCollisionWithPlantEnemy(LPCOLLISIONEVENT e) {
