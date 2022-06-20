@@ -29,10 +29,11 @@
 #define ID_ANI_EFFECT_1UP 31009
 
 #define ID_ANI_EFFECT_ATTACK 31010
+#define ID_ANI_EFFECT_CHANGE 31020
 class CEffect : public CGameObject
 {
 private:
-	float start_delete;
+	ULONGLONG start_delete;
 	int model;
 public:
 	CEffect(float x, float y,int model) : CGameObject(x, y) {

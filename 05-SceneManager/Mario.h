@@ -251,7 +251,7 @@
 #define MARIO_SMALL_BBOX_HEIGHT 12
 
 #define POSITION_Y_DIE 440
-#define TIME_CHANGING 700
+#define TIME_CHANGING 900
 #define MARIO_UNTOUCHABLE_TIME (TIME_CHANGING + 2500)
 #define TIME_ONE_SECOND 1000
 
@@ -354,5 +354,6 @@ public:
 	void SetFly();
 	void SetMarioTailAttack();
 	void SetLevelLower();
+	void AddChangeAnimation();
 
 };
