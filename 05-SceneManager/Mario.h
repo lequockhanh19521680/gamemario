@@ -30,7 +30,7 @@
 #define TIME_FLY 3000
 #define TIME_TAIL_ATTACK 300
 #define TIME_PREPARE_RUN 700
-#define TIME_SPEED 150
+#define TIME_SPEED 200
 #define TIME_KICK_ANIMATION 100
 #define TIME_SHOOT_ANI 100
 #define TIME_SHOOT_LIMIT 200
@@ -328,6 +328,8 @@ public:
 	//get
 	int GetLevel() { return level; }
 	int GetCoin() { return this->coin; }
+	int GetUp() { return Up; }
+	int GetClock() { return clock; }
 	int GetLevelRun() { return levelRun; }
 	bool GetIsTailAttack() { return isTailAttack; }
 	bool GetIsFlying() { return isFlying; }

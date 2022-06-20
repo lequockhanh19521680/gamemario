@@ -156,7 +156,6 @@
     <ClCompile Include="debug.cpp" />
     <ClCompile Include="FireFromPlant.cpp" />
     <ClCompile Include="FlowerFire.cpp" />
-    <ClCompile Include="Font.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Goomba.cpp" />
@@ -193,7 +192,6 @@
     <ClInclude Include="debug.h" />
     <ClInclude Include="FireFromPlant.h" />
     <ClInclude Include="FlowerFire.h" />
-    <ClInclude Include="Font.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Goomba.h" />

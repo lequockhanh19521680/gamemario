@@ -147,9 +147,6 @@
     <ClCompile Include="BrickColor.cpp">
       <Filter>Header Files\Object\Brick</Filter>
     </ClCompile>
-    <ClCompile Include="Font.cpp">
-      <Filter>Header Files\HUD</Filter>
-    </ClCompile>
     <ClCompile Include="HUD.cpp">
       <Filter>Header Files\HUD</Filter>
     </ClCompile>
@@ -259,9 +256,6 @@
     </ClInclude>
     <ClInclude Include="BrickColor.h">
       <Filter>Header Files\Object\Brick</Filter>
-    </ClInclude>
-    <ClInclude Include="Font.h">
-      <Filter>Header Files\HUD</Filter>
     </ClInclude>
     <ClInclude Include="HUD.h">
       <Filter>Header Files\HUD</Filter>
