@@ -8,6 +8,8 @@
 #define MARIO_WALKING_SPEED		0.1f
 #define MARIO_RUNNING_SPEED		0.15f
 
+
+#define MARIO_SPEED_USE_PIPE 0.015f
 #define SPEED_MARIO_WHEN_BLOCK 0.007f
 #define MARIO_ACCEL_WALK_X	0.00014f
 #define MARIO_ACCEL_RUN_X	0.0002f
@@ -31,7 +33,7 @@
 #define TIME_FLY 3000
 #define TIME_TAIL_ATTACK 400
 #define TIME_PREPARE_RUN 700
-#define TIME_SPEED 200
+#define TIME_SPEED 150
 #define TIME_KICK_ANIMATION 100
 #define TIME_SHOOT_ANI 100
 #define TIME_SHOOT_LIMIT 200
@@ -55,6 +57,9 @@
 
 #define MARIO_STATE_SHOOT	900
 #define MARIO_STATE_FLY	1000
+
+#define MARIO_STATE_DOWNING_PIPE 1100
+#define MARIO_STATE_UPPING_PIPE 1200
 #pragma region ANIMATION_ID
 
 #define ID_ANI_MARIO_BIG_IDLE_RIGHT 401
@@ -224,6 +229,8 @@
 #define ID_ANI_MARIO_TAIL_FLY_DOWN_RIGHT 3061
 #define ID_ANI_MARIO_TAIL_FLY_DOWN_LEFT 3060
 
+#define ID_ANI_MARIO_TAIL_USE_PIPE 3411
+
 #define ID_ANI_MARIO_CHANGE_SMALL_TO_BIG_RIGHT 3401
 #define ID_ANI_MARIO_CHANGE_SMALL_TO_BIG_LEFT 3400
 #define ID_ANI_MARIO_CHANGE_BIG_TO_BIGGER 3402
@@ -270,6 +277,12 @@ class CMario : public CGameObject
 	int score;
 	int Up;
 	int scoreUpCollision;
+	//danh cho downing va upping pipe
+	float startUsePiPeY;
+	bool isDowned;
+
+
+
 
 	ULONGLONG start_score_up;
 	ULONGLONG untouchable_start;
@@ -294,6 +307,7 @@ class CMario : public CGameObject
 	bool isShoot;
 	bool isTailAttack;
 	bool isLower;
+	bool isUsePipe;
 
 	void BlockIfNoBlock(LPGAMEOBJECT gameobject);
 	int GetAniIdBig();

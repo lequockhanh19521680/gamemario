@@ -23,9 +23,7 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 		mario->SetPosition(2325, 366);
 		break;
 	case DIK_DOWN:
-		if (mario->GetVx()!=0) {
-			mario->SetState(MARIO_STATE_SIT);
-		}
+		mario->SetState(MARIO_STATE_SIT);
 		break;
 	case DIK_S:
 		if (mario->GetIsOnPlatform()) {

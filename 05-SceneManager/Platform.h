@@ -2,6 +2,7 @@
 
 #include "GameObject.h"
 
+#define HEIGHT_CAN_DOWN 15.9f
 // 
 // The most popular type of object in Mario! 
 // 
@@ -36,6 +37,7 @@ public:
 	void RenderBoundingBox();
 	int GetLength() { return length; }
 	virtual int IsCollidable() { return 0; }
+	bool IsCanDown() { return cellHeight == HEIGHT_CAN_DOWN; }
 	virtual int IsBlocking() { return (cellHeight==16); }//(cellHeight==16); }
 };
 

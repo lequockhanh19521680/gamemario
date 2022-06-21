@@ -48,10 +48,7 @@ void CHUD::Render() {
 		if (mario->GetLevelRun() == LEVEL_RUN_MAX) {
 			CAnimations::GetInstance()->Get(ID_ANI_POWER_HUD_MAX)->Render(x - ADJUST_X_POWER_POSITION_MAX, y - ADJUST_Y_POWER_POSITION);
 		}
-
-
 		//WRITE SCORE
-
 		int score = mario->GetScore();
 		DrawNumber(score / 1000000, x + POSITION_SCORE_X, y - ADJUST_Y_POWER_POSITION_UNDER);
 		DrawNumber((score / 100000)%10, x + POSITION_SCORE_X + DISTANCE_NUMBER, y - ADJUST_Y_POWER_POSITION_UNDER);
