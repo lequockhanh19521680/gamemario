@@ -163,6 +163,8 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 	}
 	else {
+		isUpped = false;
+		isDowned = false;
 		ay = MARIO_GRAVITY; 
 	}
 	//Khong the bay voi dieu kien inOnPlatForm

@@ -7,8 +7,8 @@ start	1
 # type: 0: intro, 1: play scene 
 [SCENES]
 0	intro.txt	1
-1	world1-1.txt	3
-5	scene0005.txt	2
+1	Resource\World1-1\world1-1.txt	3
+
 
 
 # id	file 
