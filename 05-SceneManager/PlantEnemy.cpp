@@ -36,34 +36,36 @@ void CPlantEnemy::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				SetState(PLANT_STATE_DOWN);
 			}
 			else {
-				if (!isShoot) {
-					if (GetTickCount64() - time_shoot < TIME_SHOOT) {
-						isShoot = true;
-						bool isOnTop = false, isLeft = false;
-						if (PositionXWithMario() == 1) {
-							isOnTop = true;
+				if ((model == PLANT_SHOOT_GREEN) || (model == PLANT_SHOOT_RED)) {
+					if (!isShoot) {
+						if (GetTickCount64() - time_shoot < TIME_SHOOT) {
+							isShoot = true;
+							bool isOnTop = false, isLeft = false;
+							if (PositionXWithMario() == 1) {
+								isOnTop = true;
+							}
+							if (PositionYWithMario() == 1) {
+								isLeft = true;
+							}
+							if (isOnTop && isLeft)
+							{
+								CFireFromPlant* fire = new CFireFromPlant(x, y, isLeft, !isOnTop);
+								scene->AddObject(fire);
+							}
+							else if (isOnTop && !isLeft) {
+								CFireFromPlant* fire = new CFireFromPlant(x, y, isLeft, !isOnTop);
+								scene->AddObject(fire);
+							}
+							else if (!isOnTop && !isLeft) {
+								CFireFromPlant* fire = new CFireFromPlant(x, y, isLeft, !isOnTop);
+								scene->AddObject(fire);
+							}
+							else if (!isOnTop && isLeft) {
+								CFireFromPlant* fire = new CFireFromPlant(x, y, isLeft, !isOnTop);
+								scene->AddObject(fire);
+							}
+							// code phan ban dan
 						}
-						if (PositionYWithMario() == 1) {
-							isLeft = true;
-						}
-						if (isOnTop && isLeft)
-						{
-							CFireFromPlant* fire = new CFireFromPlant(x, y, isLeft, !isOnTop);
-							scene->AddObject(fire);
-						}
-						else if (isOnTop && !isLeft) {
-							CFireFromPlant* fire = new CFireFromPlant(x, y, isLeft, !isOnTop);
-							scene->AddObject(fire);
-						}
-						else if (!isOnTop && !isLeft) {
-							CFireFromPlant* fire = new CFireFromPlant(x, y, isLeft, !isOnTop);
-							scene->AddObject(fire);
-						}
-						else if(!isOnTop && isLeft){
-							CFireFromPlant* fire = new CFireFromPlant(x, y, isLeft, !isOnTop);
-							scene->AddObject(fire);
-						}
-						// code phan ban dan
 					}
 				}
 			}
@@ -110,7 +112,7 @@ int CPlantEnemy::PositionYWithMario() {
 void CPlantEnemy::Render() {
 	CAnimations* animations = CAnimations::GetInstance();
 	int aniId = -1;
-	if (model == PLANT_SHOOT) {
+	if (model == PLANT_SHOOT_RED) {
 		if (PositionXWithMario() == 1 && PositionYWithMario() == -1)
 			if (!isShoot) aniId = ID_ANI_PLANT_LEFT_UNDER_NOT_SHOOT;
 			else aniId = ID_ANI_PLANT_LEFT_UNDER_SHOOT;

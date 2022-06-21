@@ -197,11 +197,11 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_BRICKQUESTION_COIN: obj = new CBrickQuestion(x, y, QUESTION_BRICK_COIN); break;
 	case OBJECT_TYPE_BRICKQUESTION_ITEM: obj = new CBrickQuestion(x, y, QUESTION_BRICK_ITEM); break;
 	case OBJECT_TYPE_PIPE_SHORT: obj = new CPipe(x, y, PIPE_SHORT_MODEL, PLANT_NOTHING); break;
-	case OBJECT_TYPE_PIPE_LONG: obj = new CPipe(x, y, PIPE_LONG_MODEL, PLANT_SHOOT); break;
+	case OBJECT_TYPE_PIPE_LONG: obj = new CPipe(x, y, PIPE_LONG_MODEL, PLANT_SHOOT_RED); break;
 	case OBJECT_TYPE_KOOPA_GREEN: obj = new CKoopa(x, y, KOOPA_GREEN); break;
 	case OBJECT_TYPE_KOOPA_GREEN_FLY: obj = new CKoopa(x, y, KOOPA_GREEN_WING); break;
 	case OBJECT_TYPE_KOOPA_RED: obj = new CKoopa(x, y, KOOPA_RED); break;
-	case OBJECT_TYPE_PLANT_SHOOT: obj = new CPlantEnemy(x, y, PLANT_SHOOT); break;
+	case OBJECT_TYPE_PLANT_SHOOT: obj = new CPlantEnemy(x, y, PLANT_SHOOT_RED); break;
 	case OBJECT_TYPE_PLANT_NOT_SHOOT: obj = new CPlantEnemy(x, y, PLANT_NOT_SHOOT); break;
 	case OBJECT_TYPE_BRICKQUESTION_MUSHROOM_GREEN: obj = new CBrickQuestion(x, y, QUESTION_BRICK_MUSHROOM_GREEN); break;
 	case OBJECT_TYPE_BRICK_COLOR_IS_NOT_COIN: obj = new CBrickColor(x, y, BRICK_IS_NOT_COIN); break;
@@ -354,7 +354,7 @@ void CPlayScene::Update(DWORD dt)
 	cy -= game->GetBackBufferHeight() / 2;
 	if (cx < 0) cx = 0;
 	if (cx < HIDDEN_POSITION_X) {
-		//if (cx > FULL_WEIGHT_1_1 - ADJUST_CAMERA_X) cx = FULL_WEIGHT_1_1 - ADJUST_CAMERA_X;
+		if (cx > FULL_WEIGHT_1_1 - ADJUST_CAMERA_X) cx = FULL_WEIGHT_1_1 - ADJUST_CAMERA_X;
 
 
 		if (cy > ADJUST_CAM_MAX_Y) cy = ADJUST_CAM_MAX_Y;
@@ -364,8 +364,7 @@ void CPlayScene::Update(DWORD dt)
 		if (cy < 0) cy = 0;
 	}
 	else {
-		cx = HIDDEN_POSITION_X;
-		cy = 0;
+		cy = ADJUST_CAM_HIDDEN_MAP;
 	}
 	CGame::GetInstance()->SetCamPos(cx, cy);
 

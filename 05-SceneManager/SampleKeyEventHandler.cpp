@@ -13,6 +13,15 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 
 	switch (KeyCode)
 	{
+	case DIK_5:
+		mario->SetPosition(3340, 0);
+		break;
+	case DIK_6:
+		mario->SetPosition(16, 400);
+		break;
+	case DIK_7:
+		mario->SetPosition(2325, 366);
+		break;
 	case DIK_DOWN:
 		if (!mario->GetVx()) {
 			mario->SetState(MARIO_STATE_SIT);

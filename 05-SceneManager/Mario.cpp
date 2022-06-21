@@ -996,6 +996,7 @@ void CMario::SetState(int state)
 	case MARIO_STATE_DIE:
 		vy = -MARIO_JUMP_DEFLECT_SPEED_DIE/2;
 		ay = MARIO_GRAVITY / 3;
+		untouchable = false;
 		vx = 0;
 		ax = 0;
 		break;
@@ -1017,20 +1018,10 @@ void CMario::GetBoundingBox(float &left, float &top, float &right, float &bottom
 			bottom = top + MARIO_BIG_SITTING_BBOX_HEIGHT;
 		}
 		else {
-			if (level == MARIO_LEVEL_TAIL && isTailAttack) {
-				{
-					left = x - MARIO_BIG_BBOX_WIDTH/2;
-					top = y - MARIO_BIG_BBOX_HEIGHT / 2;
-					right = left + MARIO_BIG_BBOX_WIDTH+8;
-					bottom = top + MARIO_BIG_BBOX_HEIGHT;
-				}
-			}
-			else {
 				left = x - MARIO_BIG_BBOX_WIDTH / 2;
 				top = y - MARIO_BIG_BBOX_HEIGHT / 2;
 				right = left + MARIO_BIG_BBOX_WIDTH;
 				bottom = top + MARIO_BIG_BBOX_HEIGHT;
-			}
 		}
 
 	}

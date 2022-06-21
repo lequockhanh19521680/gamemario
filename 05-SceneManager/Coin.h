@@ -5,7 +5,7 @@
 #include "Animations.h"
 
 #define ID_ANI_COIN 11000
-
+#define ID_ANI_COIN_IDLE 11601
 #define COIN_GRAVITY 0.0003f
 #define OUT_BRICK 0.2f
 #define COIN_MAX_SPEED_FALL 0.1f

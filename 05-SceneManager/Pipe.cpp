@@ -9,7 +9,7 @@ CPipe::CPipe(float x, float y, int model, int typePlant) : CGameObject(x,y){
 	this->typePlant = typePlant;
 	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
 	if (typePlant != PLANT_NOTHING) {
-		CPlantEnemy* plant= new CPlantEnemy(x, y-PLANT_BBOX_HEIGHT/4+1, PLANT_SHOOT);
+		CPlantEnemy* plant= new CPlantEnemy(x, y-PLANT_BBOX_HEIGHT/4+1, PLANT_SHOOT_RED);
 		scene->AddObject(plant);
 	}
 
