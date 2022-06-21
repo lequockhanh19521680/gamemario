@@ -94,10 +94,13 @@ void CMushRoom::GetBoundingBox(float& l, float& t, float& r, float& b)
 
 void CMushRoom::SetState(int state)
 {
+	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+
 	switch (state)
 	{
 		case MUSHROOM_STATE_WALKING:
-		vx = -MUSHROOM_SPEED;
+			if (x < mario->GetX()) vx = -MUSHROOM_SPEED;
+			else vx = MUSHROOM_SPEED;
 		break;
 	}
 	CGameObject::SetState(state);

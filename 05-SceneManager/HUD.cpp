@@ -73,14 +73,18 @@ void CHUD::Render() {
 
 		// WRITE UP
 		int up = mario->GetUp();
-		DrawNumber(up / 10, x + POSITION_UP_X, y - ADJUST_Y_POWER_POSITION_UNDER);
+		if (up / 10 > 0) {
+			DrawNumber(up / 10, x + POSITION_UP_X, y - ADJUST_Y_POWER_POSITION_UNDER);
+		}
 		DrawNumber(up % 10, x + POSITION_UP_X + DISTANCE_NUMBER, y - ADJUST_Y_POWER_POSITION_UNDER);
 
 
 
 		//WRITE COIN
 		int coin = mario->GetCoin();
-		DrawNumber(coin / 10, x + POSITION_COIN_X, y - ADJUST_Y_POWER_POSITION);
+		if (coin / 10 > 0) {
+			DrawNumber(coin / 10, x + POSITION_COIN_X, y - ADJUST_Y_POWER_POSITION);
+		}
 		DrawNumber(coin%10, x+POSITION_COIN_X+ DISTANCE_NUMBER, y - ADJUST_Y_POWER_POSITION);
 		//WRITE CLOCK
 		int clock = mario->GetClock();

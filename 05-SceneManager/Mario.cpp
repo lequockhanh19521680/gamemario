@@ -901,7 +901,11 @@ void CMario::SetState(int state)
 	switch (state)
 	{
 	case MARIO_STATE_RUNNING_RIGHT:
-		if (isSitting) break;
+		if (isSitting) {
+			vx = 0;
+			break;
+
+		}
 		SetMarioTailAttack();
 		maxVx = MARIO_RUNNING_SPEED + levelRun*SPEED_LEVEL_RUN;
 		ax = MARIO_ACCEL_RUN_X;
@@ -910,7 +914,10 @@ void CMario::SetState(int state)
 		break;
 
 	case MARIO_STATE_RUNNING_LEFT:
-		if (isSitting) break;
+		if (isSitting) { 
+			vx = 0;
+			break; 
+		}
 		SetMarioTailAttack();
 		maxVx = -MARIO_RUNNING_SPEED - levelRun* SPEED_LEVEL_RUN;
 		ax = -MARIO_ACCEL_RUN_X;
@@ -918,7 +925,11 @@ void CMario::SetState(int state)
 		nx = -1;
 		break;
 	case MARIO_STATE_WALKING_RIGHT:
-		if (isSitting) break;
+		if (isSitting)
+		{
+			vx = 0;
+			break;
+		}
 		isRunning = false;
 
 		maxVx = MARIO_WALKING_SPEED;
@@ -926,7 +937,10 @@ void CMario::SetState(int state)
 		nx = 1;
 		break;
 	case MARIO_STATE_WALKING_LEFT:
-		if (isSitting) break;
+		if (isSitting) {
+			vx = 0;
+			break;
+		}
 		isRunning = false;
 
 		maxVx = -MARIO_WALKING_SPEED;

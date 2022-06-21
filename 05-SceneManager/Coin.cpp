@@ -5,8 +5,7 @@
 void CCoin::Render()
 {
 	CAnimations* animations = CAnimations::GetInstance();
-	if (canCollect) animations->Get(ID_ANI_COIN_IDLE)->Render(x, y);
-	else animations->Get(ID_ANI_COIN)->Render(x, y);
+	animations->Get(ID_ANI_COIN)->Render(x, y);
 
 	//RenderBoundingBox();
 }

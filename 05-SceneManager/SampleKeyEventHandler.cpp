@@ -23,7 +23,7 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 		mario->SetPosition(2325, 366);
 		break;
 	case DIK_DOWN:
-		if (!mario->GetVx()) {
+		if (mario->GetVx()!=0) {
 			mario->SetState(MARIO_STATE_SIT);
 		}
 		break;
@@ -96,9 +96,6 @@ void CSampleKeyHandler::KeyState(BYTE* states)
 	{
 		if (game->IsKeyDown(DIK_A))
 			mario->SetState(MARIO_STATE_RUNNING_LEFT);
-		else if (game->IsKeyDown(DIK_DOWN)) {
-			mario->SetState(MARIO_STATE_SIT);
-		}
 		else mario->SetState(MARIO_STATE_WALKING_LEFT);
 	}
 	else

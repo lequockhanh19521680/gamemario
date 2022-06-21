@@ -19,7 +19,7 @@ class CFireFromPlant :public CGameObject
 {
 protected:
 	ULONGLONG start_deleted;
-	virtual int IsCollidable() { return 1; }
+	virtual int IsCollidable() { return 0; }
 
 public:
 	CFireFromPlant(float bx, float by, bool Up, bool Right);
