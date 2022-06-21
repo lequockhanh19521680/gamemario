@@ -64,7 +64,7 @@ protected:
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void Render();
 
-	virtual int IsCollidable() { return 1; };
+	virtual int IsCollidable() { return !isUpside; };
 	virtual int IsBlocking() { return 0; }
 	virtual int IsEnemy() { return 1; }
 

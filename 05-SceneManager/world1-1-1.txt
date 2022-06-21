@@ -1,0 +1,25 @@
+[ASSETS]
+
+mario.txt
+brick.txt
+coin.txt
+goomba.txt
+cloud.txt
+mushroom.txt
+leaf.txt
+flowerfire.txt
+brickquestion.txt
+platform.txt
+pipe.txt
+koopa.txt
+bulletplant.txt
+hud.txt
+effect.txt
+[TILEMAP]
+Resource\Tilemap\world1-1-1.txt
+[OBJECTS]
+
+#BLOCK
+40	0	176	16	16	32	2	2	2
+#MARIO
+0	134	0

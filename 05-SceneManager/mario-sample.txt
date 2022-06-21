@@ -8,7 +8,6 @@ start	1
 [SCENES]
 0	intro.txt	1
 1	world1-1.txt	3
-2	scene02.txt		3
 5	scene0005.txt	2
 
 

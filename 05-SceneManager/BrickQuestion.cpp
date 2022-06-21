@@ -32,7 +32,12 @@ void CBrickQuestion::OnNoCollision(DWORD dt)
 void CBrickQuestion::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {	
 	if (!checkObjectInCamera(this)) return;
-
+	if (x != startX) {
+		x = startX;
+	}
+	if (!isEmpty) {
+		if (y != startY) y = startY;
+	}
 	if (isUnbox) {
 		vy = 0;
 		ay = 0;

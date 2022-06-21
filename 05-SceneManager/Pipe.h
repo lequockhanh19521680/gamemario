@@ -1,7 +1,7 @@
 #pragma once
 #include "GameObject.h"
 
-#define PIPE_BBOX_WIDTH 28
+#define PIPE_BBOX_WIDTH 32
 #define PIPE_BBOX_HEIGHT_SHORT 32 
 #define	PIPE_BBOX_HEIGHT_LONG 48 
 
@@ -25,6 +25,7 @@ class CPipe : public CGameObject
 		void Update(DWORD dt) {}
 		void GetBoundingBox(float& l, float& t, float& r, float& b);
 
+		virtual int IsColliable() { return 0; }
 		virtual int IsBlocking() { return 1; }
 		void SetModel(int model) { this->model = model; }
 		int GetModel() { return model; }

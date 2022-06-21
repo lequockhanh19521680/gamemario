@@ -49,7 +49,7 @@ void CKoopa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 
 	if (mario->GetIsHolding() && isHeld) {
 		this->x = mario->GetX() + mario->GetNx() * (MARIO_BIG_BBOX_WIDTH-3);
-		this->y = mario->GetY();
+		this->y = mario->GetY() - 3;
 
 		vx = mario->GetVx();
 		vy = mario->GetVy();
