@@ -37,6 +37,7 @@ CMario::CMario(float x, float y) : CGameObject(x, y) {
 	untouchable_start = -1;
 	isOnPlatform = false;
 	isDowned = false;
+	isUpped = false;
 	isChanging = false;
 	isLower = false;
 	isUsePipe = false;
@@ -54,7 +55,12 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	//DebugOutTitle(L"[POSITION] %f %f", x, y);
 	//DebugOutTitle(L"[Vx Vy] %f %f", vx, vy);
 	//DebugOutTitle(L"[IsSitting] %d", isSitting);
-	DebugOutTitle(L"[startUsePiPe] %f ", startUsePiPeY);
+	//DebugOutTitle(L"[startUsePiPe] %f ", startUsePiPeY);
+	//DebugOutTitle(L"[ay] %f ", ay);
+	DebugOutTitle(L"[isDowned isUpped isUsePipe] %d   %d    %d", isDowned,isUpped,isUsePipe);
+
+
+	//Trong luc animation thay doi level mario se dung yen
 	if (isChanging) {
 		vx = 0;
 		vy = 0;
@@ -63,6 +69,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		vy += ay * dt;
 		vx += ax * dt;
 	}
+	//Neu mario bi fall => DIE
 	if (y > POSITION_Y_DIE) {
 		SetState(MARIO_STATE_DIE);
 	}
@@ -132,39 +139,54 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	//Tinh toan voi viec mario di xuong pipe hay len pipe
 	if (isUsePipe) {
-		ay = 0;
-		if (!isDowned) {
-			if (abs(y - startUsePiPeY) > MARIO_BIG_BBOX_HEIGHT / 2) {
-				SetPosition(3340, 0);
-				isDowned = true;
+		if (vy > 0) {
+			if (!isDowned) {
+				if (abs(y - startUsePiPeY) > MARIO_BIG_BBOX_HEIGHT / 2) {
+					TeleportToHiddenMap();
+					isDowned = true;
+				}
+			}
+			else if (isDowned) {
+				isUsePipe = false;
 			}
 		}
-		else if(isDowned){
-			isUsePipe = false;
+		else {
+			if (!isUpped) {
+				if (abs(y - startUsePiPeY) > MARIO_BIG_BBOX_HEIGHT/2 ) {
+					ReturnWorldFromHiddenMap();
+					isUpped = true;
+				}
+			}
+			else if (isUpped) {
+				isUsePipe = false;
+			}
 		}
 	}
 	else {
 		ay = MARIO_GRAVITY; 
 	}
+	//Khong the bay voi dieu kien inOnPlatForm
 	if (isFlying) {
 		if (isOnPlatform) {
 			isFlying = false;
 			ay = MARIO_GRAVITY;
 		}
 	}
+	//Dung thoi gian tail attack animation
 	if (isTailAttack) {
 		if (GetTickCount64() - start_tail_attack > TIME_TAIL_ATTACK) {
 			isTailAttack = false;
 			start_tail_attack = 0;
 		}
 	}
+	//Dung thoi gian kick animation
 	if (isKicking) {
 		if (GetTickCount64() - start_kick > TIME_KICK_ANIMATION) {
 			isKicking = false;
 			start_kick = 0;
 		}
 	}
-	
+	// Delay giua cac lan ban tu mario
 	if (isShoot) {
 		start_limit_shoot = GetTickCount64();
 		if (GetTickCount64() - start_shoot > TIME_SHOOT_ANI) {
@@ -238,6 +260,33 @@ void CMario::OnCollisionWithPlatForm(LPCOLLISIONEVENT e) {
 				BlockIfNoBlock(platform); 
 			}
 		}
+		if (e->ny > 0)
+		{
+			if (platform->IsCanDown()) {
+				if (isPrepareUp || isUsePipe) SetState(MARIO_STATE_UPPING_PIPE);
+				else 
+				{
+					if (!isFlying) {
+						vy = 0;
+						y = platform->GetY() + MARIO_BIG_BBOX_HEIGHT;
+					}
+				}
+				
+			}
+		}
+		if (e->nx < 0) {
+				if (platform->IsCanDown()) {
+					vx = 0;
+					x = platform->GetX() - MARIO_BIG_BBOX_WIDTH - 2;
+				}
+			}
+		if (e->nx > 0) {
+			if (platform->IsCanDown()) {
+				vx = 0;
+				x = platform->GetX() + MARIO_BIG_BBOX_WIDTH*2 + 2;
+			}
+		}
+		
 	}
 }
 void CMario::OnCollisionWithPlantEnemy(LPCOLLISIONEVENT e) {
@@ -934,11 +983,10 @@ void CMario::SetState(int state)
 	switch (state)
 	{
 	case MARIO_STATE_RUNNING_RIGHT:
-		if (isUsePipe) break;
-		if (isSitting) {
+		if ((isUsePipe) || (isPrepareUp) || (isSitting))
+		{
 			vx = 0;
 			break;
-
 		}
 		SetMarioTailAttack();
 		maxVx = MARIO_RUNNING_SPEED + levelRun*SPEED_LEVEL_RUN;
@@ -948,10 +996,10 @@ void CMario::SetState(int state)
 		break;
 
 	case MARIO_STATE_RUNNING_LEFT:
-		if (isUsePipe) break;
-		if (isSitting) { 
+		if ((isUsePipe) || (isPrepareUp) || (isSitting)) 
+		{
 			vx = 0;
-			break; 
+			break;
 		}
 		SetMarioTailAttack();
 		maxVx = -MARIO_RUNNING_SPEED - levelRun* SPEED_LEVEL_RUN;
@@ -960,8 +1008,7 @@ void CMario::SetState(int state)
 		nx = -1;
 		break;
 	case MARIO_STATE_WALKING_RIGHT:
-		if (isUsePipe) break;
-		if (isSitting)
+		if ((isUsePipe) || (isPrepareUp) || (isSitting))
 		{
 			vx = 0;
 			break;
@@ -973,8 +1020,8 @@ void CMario::SetState(int state)
 		nx = 1;
 		break;
 	case MARIO_STATE_WALKING_LEFT:
-		if (isUsePipe) break;
-		if (isSitting) {
+		if ((isUsePipe) || (isPrepareUp) || (isSitting))
+		{
 			vx = 0;
 			break;
 		}
@@ -991,7 +1038,6 @@ void CMario::SetState(int state)
 		break;
 	case MARIO_STATE_JUMP:
 		if (isSitting) break;
-
 		if (isOnPlatform)
 		{
 			if (abs(this->vx) == MARIO_RUNNING_SPEED)
@@ -1002,6 +1048,7 @@ void CMario::SetState(int state)
 		break;
 
 	case MARIO_STATE_RELEASE_JUMP:
+		if (isUsePipe) break;
 		if (vy < 0) vy += MARIO_JUMP_SPEED_Y / 2;
 		break;
 
@@ -1016,6 +1063,7 @@ void CMario::SetState(int state)
 		break;
 
 	case MARIO_STATE_SIT_RELEASE:
+		
 		if (isSitting)
 		{
 			isSitting = false;
@@ -1027,7 +1075,6 @@ void CMario::SetState(int state)
 	case MARIO_STATE_IDLE:
 		ax = 0.0f;
 		vx = 0.0f;
-
 		break;
 	case MARIO_STATE_TAIL_ATTACK:
 		isTailAttack = true;
@@ -1047,11 +1094,16 @@ void CMario::SetState(int state)
 	case MARIO_STATE_DOWNING_PIPE:
 		isUsePipe = true;
 		vx = 0;
+		ay = 0;
 		startUsePiPeY = y;
 		vy = MARIO_SPEED_USE_PIPE;
 		break;
 	case MARIO_STATE_UPPING_PIPE:
 		isUsePipe = true;
+		vx = 0;
+		ay = 0;
+		startUsePiPeY = y;
+		vy = -MARIO_SPEED_USE_PIPE;
 		break;
 	case MARIO_STATE_DIE:
 		vy = -MARIO_JUMP_DEFLECT_SPEED_DIE/2;
@@ -1185,6 +1237,7 @@ void CMario::AddEffectAttack(float xTemp, float yTemp) {
 	CEffect* effect = new CEffect(xTemp, yTemp, EFFECT_ATTACK);
 	scene->AddObject(effect);
 }
+//Trong AddScore, thong nhat AddScore(x,y,0) la + 1 Up, con lai la + score
 void CMario::AddScore(float xTemp, float yTemp, int scoreAdd) {
 	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
 	if (scoreAdd == 100) {

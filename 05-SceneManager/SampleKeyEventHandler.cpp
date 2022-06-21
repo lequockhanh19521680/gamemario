@@ -14,13 +14,13 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 	switch (KeyCode)
 	{
 	case DIK_5:
-		mario->SetPosition(3340, 0);
+		mario->SetPosition(3340, 0); // To Hidden Map
 		break;
 	case DIK_6:
-		mario->SetPosition(16, 400);
+		mario->SetPosition(16, 400); // return start world 1-1
 		break;
 	case DIK_7:
-		mario->SetPosition(2325, 366);
+		mario->SetPosition(2325, 366);// out hidden map
 		break;
 	case DIK_DOWN:
 		mario->SetState(MARIO_STATE_SIT);
@@ -66,6 +66,9 @@ void CSampleKeyHandler::OnKeyUp(int KeyCode)
 	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 	switch (KeyCode)
 	{
+	case DIK_UP:
+		mario->SetIsPrepareUp(false);
+		break;
 	case DIK_S:
 		mario->SetState(MARIO_STATE_RELEASE_JUMP);
 		break;
@@ -75,6 +78,7 @@ void CSampleKeyHandler::OnKeyUp(int KeyCode)
 		break;
 	case DIK_A:
 		if (mario->GetIsHolding()) mario->SetIsHolding(false);
+		break;
 	}
 }
 
@@ -96,6 +100,8 @@ void CSampleKeyHandler::KeyState(BYTE* states)
 			mario->SetState(MARIO_STATE_RUNNING_LEFT);
 		else mario->SetState(MARIO_STATE_WALKING_LEFT);
 	}
-	else
-		mario->SetState(MARIO_STATE_IDLE);
+	else if (game->IsKeyDown(DIK_UP)) {
+		mario->SetIsPrepareUp(true);
+	}
+	else mario->SetState(MARIO_STATE_IDLE);
 }

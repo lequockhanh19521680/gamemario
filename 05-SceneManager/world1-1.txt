@@ -26,7 +26,7 @@ Resource\Tilemap\world1-1-1.txt
 
 
 #MARIO
-0	2270	73
+0	18	400
 
 
 #BRICK

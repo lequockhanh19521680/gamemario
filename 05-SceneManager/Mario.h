@@ -9,7 +9,7 @@
 #define MARIO_RUNNING_SPEED		0.15f
 
 
-#define MARIO_SPEED_USE_PIPE 0.015f
+#define MARIO_SPEED_USE_PIPE 0.02f
 #define SPEED_MARIO_WHEN_BLOCK 0.007f
 #define MARIO_ACCEL_WALK_X	0.00014f
 #define MARIO_ACCEL_RUN_X	0.0002f
@@ -37,6 +37,11 @@
 #define TIME_KICK_ANIMATION 100
 #define TIME_SHOOT_ANI 100
 #define TIME_SHOOT_LIMIT 200
+
+#define POSITION_X_HIDDEN_MAP 3340
+#define POSITION_Y_HIDDEN_MAP 0
+#define POSITION_X_OUT_HIDDEN_MAP 2325
+#define POSITION_Y_OUT_HIDDEN_MAP 366
 
 #define MARIO_STATE_DIE				-10
 #define MARIO_STATE_IDLE			0
@@ -280,7 +285,7 @@ class CMario : public CGameObject
 	//danh cho downing va upping pipe
 	float startUsePiPeY;
 	bool isDowned;
-
+	bool isUpped;
 
 
 
@@ -308,6 +313,7 @@ class CMario : public CGameObject
 	bool isTailAttack;
 	bool isLower;
 	bool isUsePipe;
+	bool isPrepareUp = false;
 
 	void BlockIfNoBlock(LPGAMEOBJECT gameobject);
 	int GetAniIdBig();
@@ -349,9 +355,10 @@ public:
 	int GetLevel() { return level; }
 	int GetCoin() { return this->coin; }
 	int GetUp() { return Up; }
-	
 	int GetClock() { return clock; }
 	int GetLevelRun() { return levelRun; }
+
+	bool GetIsPrepareUp() { return isPrepareUp; }
 	bool GetIsTailAttack() { return isTailAttack; }
 	bool GetIsFlying() { return isFlying; }
 	bool GetIsHolding() { return isHolding; }
@@ -367,6 +374,7 @@ public:
 	void SetIsHolding(bool b) { isHolding = b; }
 	void SetIsKicking(bool b) { isKicking = b; }
 	void SetIsRunning(bool b) { isRunning = b; }
+	void SetIsPrepareUp(bool b) { isPrepareUp = b; }
 	void SetCoin(int coin) { this->coin = coin; }
 	void SetLevel(int l);
 	void SetVy(float v) { vy = v; }
@@ -380,4 +388,10 @@ public:
 	void AddEffectAttack(float xTemp,float yTemp);
 	void AddScore(float xTemp, float yTemp, int scoreAdd);
 	void IncreaseScoreUpCollision(float xTemp,float yTemp);
+	void TeleportToHiddenMap() {
+		SetPosition(POSITION_X_HIDDEN_MAP,POSITION_Y_HIDDEN_MAP);
+	}
+	void ReturnWorldFromHiddenMap() {
+		SetPosition(POSITION_X_OUT_HIDDEN_MAP,POSITION_Y_OUT_HIDDEN_MAP);
+	}
 };
