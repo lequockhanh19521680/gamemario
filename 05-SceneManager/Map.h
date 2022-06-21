@@ -11,12 +11,14 @@ class CMap
 	int TotalRowsOfMap, TotalColumnsOfMap;
 	int TotalRowsOfTileSet, TotalColumnsOfTileSet;
 	int TotalTiles;	//total tiles of tile set
+	int startX;
+	int startY;
 	LPTEXTURE TileSet; //sceneX_bank.png
 	vector<LPSPRITE> Tiles;
 	int** TileMap;
 	float CamX, CamY;
 public:
-	CMap(int TileSetID, int TotalRowsOfMap, int TotalColumnsOfMap, int TotalRowsOfTileSet, int  TotalColumnsOfTileSet, int TotalTiles);
+	CMap(int TileSetID, int TotalRowsOfMap, int TotalColumnsOfMap, int TotalRowsOfTileSet, int  TotalColumnsOfTileSet, int TotalTiles, int startX, int startY);
 	~CMap();
 	void Render();
 	void SetTileMapData(int** TileMapData);

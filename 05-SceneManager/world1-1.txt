@@ -18,6 +18,8 @@ hud.txt
 effect.txt
 [TILEMAP]
 Resource\Tilemap\world1-1.txt
+[HIDDENMAP]
+Resource\Tilemap\world1-1-1.txt
 [OBJECTS]
 # type	x	y	extra_settings per object type
 # type: 0 = Mario , 1 = Brick, 2 = Goomba, 4 = Koopas
@@ -221,7 +223,7 @@ Resource\Tilemap\world1-1.txt
 38	2112	400
 
 #MARIO
-0	16	400
+0	4800	32
 
 
 

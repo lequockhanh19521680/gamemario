@@ -48,7 +48,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	//DebugOutTitle(L"Up %d", Up);
 	//DebugOutTitle(L"TIME %d", clock);
 	//DebugOutTitle(L"POWERUP %d", levelRun);
-	DebugOutTitle(L"[POSITION] %f %f", vx, vy);
+	DebugOutTitle(L"[POSITION] %f %f", x, y);
 	if (isChanging) {
 		vx = 0;
 		vy = 0;
@@ -105,6 +105,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	//- Brace
 	//- Luc bay xuong 
 	// - Bi chan boi block (nhung block trong luc flying se khong bi)
+	//=> Cac truong hop con lai se tang power up
 	if ((!isRunning) || (!vx) || (IsBrace()) || ((!isOnPlatform) && (isFlying) && (vy>0)) || ((abs(vx) < SPEED_MARIO_WHEN_BLOCK)&&(!isFlying)))
 	{
 			if (GetTickCount64() - speed_stop > TIME_SPEED) {

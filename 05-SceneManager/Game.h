@@ -26,6 +26,7 @@ using namespace std;
 #define FULL_WEIGHT_1_1 2816
 #define ADJUST_CAM_MIN_Y 220
 #define ADJUST_CAM_MAX_Y 256
+#define HIDDEN_POSITION_X 4800
 
 /*
 	Our simple game framework
