@@ -36,7 +36,7 @@ CFireFromPlant::CFireFromPlant(float bx, float by, bool Up, bool Right)
 void CFireFromPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
-	if (mario->GetIsChanging()) return;
+	if (mario->GetIsChanging() || mario->GetState() == MARIO_STATE_DIE) return;
 	if (GetTickCount64() - start_deleted > TIME_BULLET_DELETE) {
 		isDeleted = true;
 	}

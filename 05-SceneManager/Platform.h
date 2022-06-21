@@ -35,7 +35,7 @@ public:
 
 	void RenderBoundingBox();
 	int GetLength() { return length; }
-	virtual int IsCollidable() { return 1; }
+	virtual int IsCollidable() { return 0; }
 	virtual int IsBlocking() { return (cellHeight==16); }//(cellHeight==16); }
 };
 

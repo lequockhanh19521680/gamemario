@@ -78,7 +78,7 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 	if (!checkObjectInCamera(this)) return;
-	if (mario->GetIsChanging()) return;
+	if (mario->GetIsChanging() || mario->GetState()==MARIO_STATE_DIE) return;
 	vy += ay * dt;
 	vx += ax * dt;
 

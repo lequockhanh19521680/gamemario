@@ -48,7 +48,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	//DebugOutTitle(L"Up %d", Up);
 	//DebugOutTitle(L"TIME %d", clock);
 	//DebugOutTitle(L"POWERUP %d", levelRun);
-	DebugOutTitle(L"[POSITION] %f %f", x, y);
+	DebugOutTitle(L"[POSITION] %f %f", vx, vy);
 	if (isChanging) {
 		vx = 0;
 		vy = 0;
@@ -99,7 +99,13 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		start_changing = 0;
 	}
 
-	if ((!isRunning) || (!vx) || (IsBrace()) || ((!isOnPlatform) && (isFlying) && (vy>0)))
+	//Xet cac truong hop ma power up xuong
+	//- Khong Running
+	//- Flying nhung vx  = 0
+	//- Brace
+	//- Luc bay xuong 
+	// - Bi chan boi block (nhung block trong luc flying se khong bi)
+	if ((!isRunning) || (!vx) || (IsBrace()) || ((!isOnPlatform) && (isFlying) && (vy>0)) || ((abs(vx) < SPEED_MARIO_WHEN_BLOCK)&&(!isFlying)))
 	{
 			if (GetTickCount64() - speed_stop > TIME_SPEED) {
 				if (levelRun > 0) levelRun--;
@@ -397,12 +403,14 @@ void CMario::OnCollisionWithBrickQuestion(LPCOLLISIONEVENT e) {
 			SetCoin(GetCoin() + 1);
 			CCoin* coin = new CCoin(xTemp, yTemp);
 			coin->SetState(COIN_SUMMON_STATE);
-			scene->AddObject(coin);
 			questionBrick->SetIsEmpty(true);
+			scene->AddObject(coin);
 		}
 		else {
 			CMushRoom* mushroom = new CMushRoom(xTemp, yTemp, MUSHROOM_GREEN);
 			scene->AddObject(mushroom);
+			questionBrick->SetIsEmpty(true);
+
 		}
 	}
 
@@ -418,6 +426,7 @@ void CMario::OnCollisionWithFlowerFire(LPCOLLISIONEVENT e) {
 		AddScore(x, y, 1000);
 	}
 	e->obj->Delete();
+
 	if(level==MARIO_LEVEL_FIRE){}
 	else if (level != MARIO_LEVEL_SMALL) {
 		AddChangeAnimation();
@@ -984,7 +993,8 @@ void CMario::SetState(int state)
 		}
 		break;
 	case MARIO_STATE_DIE:
-		vy = -MARIO_JUMP_DEFLECT_SPEED_DIE;
+		vy = -MARIO_JUMP_DEFLECT_SPEED_DIE/2;
+		ay = MARIO_GRAVITY / 3;
 		vx = 0;
 		ax = 0;
 		break;

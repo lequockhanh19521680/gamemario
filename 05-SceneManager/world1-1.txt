@@ -221,7 +221,7 @@ Resource\Tilemap\world1-1.txt
 38	2112	400
 
 #MARIO
-0	17	368
+0	16	400
 
 
 
