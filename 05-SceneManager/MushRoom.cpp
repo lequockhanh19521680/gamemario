@@ -32,7 +32,7 @@ void CMushRoom::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects){
 		vx += ax * dt;
 	}
 	else if(state == MUSHROOM_STATE_OUTSIDE) {
-		if (startY - y < MUSHROOM_BBOX_HEIGHT - 1) {
+		if (startY - y < MUSHROOM_BBOX_HEIGHT ) {
 			vy = OUT_BRICK;
 			vx = 0;
 		}

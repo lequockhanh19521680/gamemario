@@ -985,7 +985,7 @@ void CMario::SetState(int state)
 	switch (state)
 	{
 	case MARIO_STATE_RUNNING_RIGHT:
-		if ((isUsePipe) || (isPrepareUp) || (isSitting))
+		if ((isUsePipe) || (isSitting))
 		{
 			vx = 0;
 			break;
@@ -998,7 +998,7 @@ void CMario::SetState(int state)
 		break;
 
 	case MARIO_STATE_RUNNING_LEFT:
-		if ((isUsePipe) || (isPrepareUp) || (isSitting)) 
+		if ((isUsePipe) || (isSitting)) 
 		{
 			vx = 0;
 			break;
@@ -1010,7 +1010,7 @@ void CMario::SetState(int state)
 		nx = -1;
 		break;
 	case MARIO_STATE_WALKING_RIGHT:
-		if ((isUsePipe) || (isPrepareUp) || (isSitting))
+		if ((isUsePipe) || (isSitting))
 		{
 			vx = 0;
 			break;
@@ -1022,7 +1022,7 @@ void CMario::SetState(int state)
 		nx = 1;
 		break;
 	case MARIO_STATE_WALKING_LEFT:
-		if ((isUsePipe) || (isPrepareUp) || (isSitting))
+		if ((isUsePipe)|| (isSitting))
 		{
 			vx = 0;
 			break;
