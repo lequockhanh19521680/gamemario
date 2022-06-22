@@ -52,6 +52,12 @@
     <Filter Include="Header Files\Object\Effects">
       <UniqueIdentifier>{b26b889d-0d12-4c3b-82ce-b4ef873373d1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\WorldMap">
+      <UniqueIdentifier>{d1870f51-b392-4e1c-a8d7-ac9dada84a95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\WorldMap\ObjectWorldMap">
+      <UniqueIdentifier>{d4e4fa2a-25a7-4d73-8021-876ca6d3ea6c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -92,9 +98,6 @@
     </ClCompile>
     <ClCompile Include="Game.cpp">
       <Filter>Header Files\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="WorlaMap.cpp">
-      <Filter>Header Files\Map</Filter>
     </ClCompile>
     <ClCompile Include="Brick.cpp">
       <Filter>Header Files\Object\Brick</Filter>
@@ -156,6 +159,15 @@
     <ClCompile Include="Effect.cpp">
       <Filter>Header Files\Object\Effects</Filter>
     </ClCompile>
+    <ClCompile Include="WorldMapScene.cpp">
+      <Filter>Header Files\WorldMap</Filter>
+    </ClCompile>
+    <ClCompile Include="WorldMapPlayer.cpp">
+      <Filter>Header Files\WorldMap</Filter>
+    </ClCompile>
+    <ClCompile Include="WorldMapKeyEvent.cpp">
+      <Filter>Header Files\WorldMap</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="KeyEventHandler.h">
@@ -202,9 +214,6 @@
     </ClInclude>
     <ClInclude Include="Game.h">
       <Filter>Header Files\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="WorlaMap.h">
-      <Filter>Header Files\Map</Filter>
     </ClInclude>
     <ClInclude Include="Brick.h">
       <Filter>Header Files\Object\Brick</Filter>
@@ -268,6 +277,15 @@
     </ClInclude>
     <ClInclude Include="AssetIDs.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldMapScene.h">
+      <Filter>Header Files\WorldMap</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldMapPlayer.h">
+      <Filter>Header Files\WorldMap</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldMapKeyEvent.h">
+      <Filter>Header Files\WorldMap</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

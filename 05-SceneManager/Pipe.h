@@ -11,6 +11,8 @@
 
 #define PIPE_SHORT_MODEL 1
 #define PIPE_LONG_MODEL	2
+
+
 #define PLANT_NOTHING 10
 class CPipe : public CGameObject
 {

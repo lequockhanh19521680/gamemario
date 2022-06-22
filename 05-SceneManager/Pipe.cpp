@@ -9,8 +9,20 @@ CPipe::CPipe(float x, float y, int model, int typePlant) : CGameObject(x,y){
 	this->typePlant = typePlant;
 	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
 	if (typePlant != PLANT_NOTHING) {
-		CPlantEnemy* plant= new CPlantEnemy(x, y-PLANT_BBOX_HEIGHT/4+1, PLANT_SHOOT_RED);
-		scene->AddObject(plant);
+	
+		if (typePlant == PLANT_SHOOT_RED) {
+			CPlantEnemy* plant = new CPlantEnemy(x, y - PLANT_BBOX_HEIGHT / 4 + 1, PLANT_SHOOT_RED);
+			scene->AddObject(plant);
+		}
+		else if (typePlant == PLANT_SHOOT_GREEN) {
+			CPlantEnemy* plant = new CPlantEnemy(x, y - PLANT_BBOX_HEIGHT_SMALL / 4 + 1, PLANT_SHOOT_GREEN);
+			scene->AddObject(plant);
+		}
+		else if (typePlant == PLANT_NOT_SHOOT) {
+			CPlantEnemy* plant = new CPlantEnemy(x, y - PLANT_BBOX_HEIGHT_SMALL / 4 + (PIPE_BBOX_HEIGHT_LONG- PIPE_BBOX_HEIGHT_SHORT)/2 + 1, PLANT_NOT_SHOOT);
+			scene->AddObject(plant);
+		}
+
 	}
 
 }

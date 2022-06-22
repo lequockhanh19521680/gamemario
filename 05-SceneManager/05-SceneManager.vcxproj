@@ -153,6 +153,8 @@
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Coin.cpp" />
     <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="WorldMapKeyEvent.cpp" />
+    <ClCompile Include="WorldMapScene.cpp" />
     <ClCompile Include="debug.cpp" />
     <ClCompile Include="Effect.cpp" />
     <ClCompile Include="FireFromPlant.cpp" />
@@ -177,7 +179,7 @@
     <ClCompile Include="Sprites.cpp" />
     <ClCompile Include="Textures.cpp" />
     <ClCompile Include="Utils.cpp" />
-    <ClCompile Include="WorlaMap.cpp" />
+    <ClCompile Include="WorldMapPlayer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
@@ -190,6 +192,8 @@
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Coin.h" />
     <ClInclude Include="Collision.h" />
+    <ClInclude Include="WorldMapKeyEvent.h" />
+    <ClInclude Include="WorldMapScene.h" />
     <ClInclude Include="debug.h" />
     <ClInclude Include="Effect.h" />
     <ClInclude Include="FireFromPlant.h" />
@@ -216,7 +220,7 @@
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Textures.h" />
     <ClInclude Include="Utils.h" />
-    <ClInclude Include="WorlaMap.h" />
+    <ClInclude Include="WorldMapPlayer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

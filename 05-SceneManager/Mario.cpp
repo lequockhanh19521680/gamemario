@@ -1108,7 +1108,7 @@ void CMario::SetState(int state)
 		vy = -MARIO_SPEED_USE_PIPE;
 		break;
 	case MARIO_STATE_DIE:
-		vy = -MARIO_JUMP_DEFLECT_SPEED_DIE/2;
+		vy = -MARIO_JUMP_DEFLECT_SPEED_DIE;
 		ay = MARIO_GRAVITY / 3;
 		untouchable = false;
 		vx = 0;

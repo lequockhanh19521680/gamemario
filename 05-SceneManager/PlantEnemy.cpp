@@ -14,10 +14,18 @@ CPlantEnemy::CPlantEnemy(float x, float y, int model) : CGameObject(x,y)
 
 void CPlantEnemy::GetBoundingBox(float& left, float& top, float& right, float& bottom) {
 	if (state == PLANT_STATE_DEATH) return;
-	left = x - PLANT_BBOX_WIDTH / 2;
-	top = y - PLANT_BBOX_HEIGHT / 2 + 4;
-	right = left + PLANT_BBOX_WIDTH;
-	bottom = top + PLANT_BBOX_HEIGHT;
+	if (model == PLANT_SHOOT_RED) {
+		left = x - PLANT_BBOX_WIDTH / 2;
+		top = y - PLANT_BBOX_HEIGHT / 2 + 4;
+		right = left + PLANT_BBOX_WIDTH;
+		bottom = top + PLANT_BBOX_HEIGHT;
+	}
+	else {
+		left = x - PLANT_BBOX_WIDTH / 2;
+		top = y - PLANT_BBOX_HEIGHT_SMALL / 2 + 4;
+		right = left + PLANT_BBOX_WIDTH;
+		bottom = top + PLANT_BBOX_HEIGHT_SMALL;
+	}
 }
 void CPlantEnemy::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
@@ -34,6 +42,7 @@ void CPlantEnemy::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			y = minY;
 			if (GetTickCount64() - time_out_pipe > TIME_OUT_PIPE) {
 				SetState(PLANT_STATE_DOWN);
+
 			}
 			else {
 				if ((model == PLANT_SHOOT_GREEN) || (model == PLANT_SHOOT_RED)) {
@@ -64,7 +73,6 @@ void CPlantEnemy::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 								CFireFromPlant* fire = new CFireFromPlant(x, y, isLeft, !isOnTop);
 								scene->AddObject(fire);
 							}
-							// code phan ban dan
 						}
 					}
 				}
@@ -72,14 +80,28 @@ void CPlantEnemy::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 	}
 	else if (isDowning) {
-		if (y < startY + 2) {
-			vy = PLANT_SPEED_UP_DOWN;
+		if (model == PLANT_SHOOT_GREEN || model == PLANT_SHOOT_RED) {
+			if ((y < startY + 2)) {
+				vy = PLANT_SPEED_UP_DOWN;
+			}
+			else {
+				vy = 0;
+				y = startY + 2;
+				if (GetTickCount64() - time_down_pipe > TIME_DOWN_PIPE) {
+					SetState(PLANT_STATE_UP);
+				}
+			}
 		}
 		else {
-			vy = 0;
-			y = startY + 2;
-			if (GetTickCount64() - time_down_pipe > TIME_DOWN_PIPE) {
-				SetState(PLANT_STATE_UP);
+			if (y < startY +2 - DISTANCE_PIPE_LONG_SHORT) {
+				vy = PLANT_SPEED_UP_DOWN;
+			}
+			else {
+				vy = 0;
+				y = startY +2 - DISTANCE_PIPE_LONG_SHORT;
+				if (GetTickCount64() - time_down_pipe > TIME_DOWN_PIPE) {
+					SetState(PLANT_STATE_UP);
+				}
 			}
 		}
 	}
@@ -126,10 +148,23 @@ void CPlantEnemy::Render() {
 			if (!isShoot) aniId = ID_ANI_PLANT_RIGHT_UNDER_NOT_SHOOT;
 			else aniId = ID_ANI_PLANT_RIGHT_UNDER_SHOOT;
 		}
-	
-
 	}
-	else {
+	else if (model == PLANT_SHOOT_GREEN) {
+		if (PositionXWithMario() == 1 && PositionYWithMario() == -1)
+			if (!isShoot) aniId = ID_ANI_PLANT_LEFT_UNDER_NOT_SHOOT_GREEN;
+			else aniId = ID_ANI_PLANT_LEFT_UNDER_SHOOT_GREEN;
+		else if (PositionXWithMario() == 1 && PositionYWithMario() == 1)
+			if (!isShoot) aniId = ID_ANI_PLANT_LEFT_TOP_NOT_SHOOT_GREEN;
+			else aniId = ID_ANI_PLANT_LEFT_TOP_SHOOT_GREEN;
+		else if (PositionXWithMario() == -1 && PositionYWithMario() == 1)
+			if (!isShoot) aniId = ID_ANI_PLANT_RIGHT_TOP_NOT_SHOOT_GREEN;
+			else aniId = ID_ANI_PLANT_RIGHT_TOP_SHOOT_GREEN;
+		else {
+			if (!isShoot) aniId = ID_ANI_PLANT_RIGHT_UNDER_NOT_SHOOT_GREEN;
+			else aniId = ID_ANI_PLANT_RIGHT_UNDER_SHOOT_GREEN;
+		}
+	}
+	else if(model == PLANT_NOT_SHOOT){
 		aniId = ID_ANI_PLANT_NOT_SHOOT;
 	}
 
@@ -143,12 +178,14 @@ void CPlantEnemy::SetState(int state) {
 		isDowning = false;
 		isShoot = false;
 		time_out_pipe = GetTickCount64();
+		time_down_pipe = 0;
 		break;
 	case PLANT_STATE_DOWN:
 		isShoot = false;
 		isUpping = false;
 		isDowning = true;
 		time_down_pipe = GetTickCount64();
+		time_out_pipe = 0;
 		break;
 	case PLANT_STATE_DEATH:
 		isDeleted = true;
