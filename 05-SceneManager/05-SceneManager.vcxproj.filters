@@ -168,6 +168,12 @@
     <ClCompile Include="WorldMapKeyEvent.cpp">
       <Filter>Header Files\WorldMap</Filter>
     </ClCompile>
+    <ClCompile Include="Door.cpp">
+      <Filter>Header Files\WorldMap\ObjectWorldMap</Filter>
+    </ClCompile>
+    <ClCompile Include="Grass.cpp">
+      <Filter>Header Files\WorldMap\ObjectWorldMap</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="KeyEventHandler.h">
@@ -286,6 +292,12 @@
     </ClInclude>
     <ClInclude Include="WorldMapKeyEvent.h">
       <Filter>Header Files\WorldMap</Filter>
+    </ClInclude>
+    <ClInclude Include="Door.h">
+      <Filter>Header Files\WorldMap\ObjectWorldMap</Filter>
+    </ClInclude>
+    <ClInclude Include="Grass.h">
+      <Filter>Header Files\WorldMap\ObjectWorldMap</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

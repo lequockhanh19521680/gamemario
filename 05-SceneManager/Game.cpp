@@ -463,6 +463,7 @@ void CGame::_ParseSection_SCENES(string line)
 	/*switch (type) {
 	case TYPE_WORLD_PLAY:*/ 
 	scene = new CWorldMapScene(id, path);
+	//scene = new CPlayScene(id, path);
 	scenes[id] = scene;
 		//break;
 	/*case TYPE_WORLD_UNKNOWN:

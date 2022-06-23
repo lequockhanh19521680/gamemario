@@ -8,6 +8,8 @@
 #include "WorldMapPlayer.h"
 #include "GameObject.h"
 #include "PlayScene.h"
+#include "Grass.h"
+#include "Door.h"
 #include "Game.h"
 #include "Scene.h"
 #include "debug.h"
@@ -105,7 +107,15 @@ void CWorldMapScene::_ParseSection_OBJECTS(string line) {
 
 		DebugOut(L"[INFO] Player object has been created!\n");
 		break;
-	//case...
+	case OBJECT_TYPE_GRASS: obj = new CGrass(x, y); break;
+	case OBJECT_TYPE_DOOR_START: obj = new CDoor(x, y, DOOR_WORLD_START); break;
+	case OBJECT_TYPE_DOOR_1: obj = new CDoor(x, y, DOOR_WORLD_1_1); break;
+	case OBJECT_TYPE_DOOR_2: obj = new CDoor(x, y, DOOR_WORLD_1_2); break;
+	case OBJECT_TYPE_DOOR_3: obj = new CDoor(x, y, DOOR_WORLD_1_3); break;
+	case OBJECT_TYPE_DOOR_4: obj = new CDoor(x, y, DOOR_WORLD_1_4); break;
+	case OBJECT_TYPE_DOOR_5: obj = new CDoor(x, y, DOOR_WORLD_1_5); break;
+	case OBJECT_TYPE_DOOR_6: obj = new CDoor(x, y, DOOR_WORLD_1_6); break;
+
 	default:
 		DebugOut(L"[ERROR] Invalid object type: %d\n", object_type);
 		return;

@@ -6,7 +6,7 @@
 
 class CWorldMapScene : public CScene
 {
-	CWorldMapPlayer* player = NULL;
+	LPGAMEOBJECT player = NULL;
 	CMap* current_map = NULL;
 	vector<LPGAMEOBJECT> objects;
 
@@ -22,7 +22,7 @@ class CWorldMapScene : public CScene
 public:
 
 	CWorldMapScene(int id, LPCWSTR filePath);
-	CWorldMapPlayer* GetPlayer() { return player; }
+	LPGAMEOBJECT GetPlayer() { return player; }
 	virtual void Load();
 	virtual void Update(DWORD dt);
 	virtual void Render();
