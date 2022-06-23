@@ -39,6 +39,11 @@
 #define OBJECT_TYPE_PORTAL	50
 
 
+
+
+
+#define OBJECT_TYPE_MARIO_WORLDMAP 1000
+
 #pragma region MARIO 
 
 #define ID_SPRITE_MARIO 10000

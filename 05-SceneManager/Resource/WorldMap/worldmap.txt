@@ -1,0 +1,6 @@
+[ASSETS]
+Resource\World1-1\mario.txt
+[TILEMAP]
+Resource\Tilemap\world1.txt
+[OBJECTS]
+1000	32	48

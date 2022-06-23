@@ -1,4 +1,5 @@
 #include "WorldMapPlayer.h"
+#include "GameObject.h"
 void CWorldMapPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 
 }
@@ -25,7 +26,7 @@ void CWorldMapPlayer::OnCollisionWith(LPCOLLISIONEVENT e) {
 
 }
 
-void SetState(int state) {
+void CWorldMapPlayer::SetState(int state) {
 
 	CGameObject:SetState(state);
 }

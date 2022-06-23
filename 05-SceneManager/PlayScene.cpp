@@ -2,7 +2,7 @@
 #include <fstream>
 #include "AssetIDs.h"
 
-
+#include "Scene.h"
 #include "PlayScene.h"
 #include "Utils.h"
 #include "Textures.h"

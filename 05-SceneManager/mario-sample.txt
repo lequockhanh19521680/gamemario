@@ -6,8 +6,9 @@ start	1
 #id	type	file
 # type: 0: intro, 1: play scene 
 [SCENES]
-0	intro.txt	1
-1	Resource\World1-1\world1-1.txt	3
+0	intro.txt
+1	Resource\WorldMap\worldmap.txt
+2	Resource\World1-1\world1-1.txt
 
 
 
@@ -30,6 +31,7 @@ start	1
 150	textures\worldmapObj.png
 
 200	Resource\Tilemap\world1-1_bank.png
+205	Resource\Tilemap\world1_bank.png
 210	Resource\Tilemap\world1-1-1_bank.png
 300	textures\marioWorldMap.png
 

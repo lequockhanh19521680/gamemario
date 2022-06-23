@@ -7,7 +7,7 @@
 class CWorldMapScene : public CScene
 {
 	CWorldMapPlayer* player = NULL;
-	CMap* map = NULL;
+	CMap* current_map = NULL;
 	vector<LPGAMEOBJECT> objects;
 
 	void _ParseSection_SPRITES(string line);
@@ -15,7 +15,7 @@ class CWorldMapScene : public CScene
 
 	void _ParseSection_ASSETS(string line);
 	void _ParseSection_OBJECTS(string line);
-	void _ParseSection_TILEMAP(string line);
+	void _ParseSection_TILEMAP_DATA(string line);
 
 	void LoadAssets(LPCWSTR assetFile);
 
@@ -28,7 +28,9 @@ public:
 	virtual void Render();
 	virtual void Unload();
 	void Clear();
+	bool IsGameObjectDeleted(const LPGAMEOBJECT& o);
 
+	void PurgeDeletedObjects();
 };
 
 typedef CWorldMapScene* LPWORLDSCENE;
