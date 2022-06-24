@@ -162,9 +162,6 @@
     <ClCompile Include="WorldMapScene.cpp">
       <Filter>Header Files\WorldMap</Filter>
     </ClCompile>
-    <ClCompile Include="WorldMapPlayer.cpp">
-      <Filter>Header Files\WorldMap</Filter>
-    </ClCompile>
     <ClCompile Include="WorldMapKeyEvent.cpp">
       <Filter>Header Files\WorldMap</Filter>
     </ClCompile>
@@ -172,6 +169,12 @@
       <Filter>Header Files\WorldMap\ObjectWorldMap</Filter>
     </ClCompile>
     <ClCompile Include="Grass.cpp">
+      <Filter>Header Files\WorldMap\ObjectWorldMap</Filter>
+    </ClCompile>
+    <ClCompile Include="WorldMapPlayer.cpp">
+      <Filter>Header Files\WorldMap\ObjectWorldMap</Filter>
+    </ClCompile>
+    <ClCompile Include="OtherObject.cpp">
       <Filter>Header Files\WorldMap\ObjectWorldMap</Filter>
     </ClCompile>
   </ItemGroup>
@@ -287,9 +290,6 @@
     <ClInclude Include="WorldMapScene.h">
       <Filter>Header Files\WorldMap</Filter>
     </ClInclude>
-    <ClInclude Include="WorldMapPlayer.h">
-      <Filter>Header Files\WorldMap</Filter>
-    </ClInclude>
     <ClInclude Include="WorldMapKeyEvent.h">
       <Filter>Header Files\WorldMap</Filter>
     </ClInclude>
@@ -297,6 +297,12 @@
       <Filter>Header Files\WorldMap\ObjectWorldMap</Filter>
     </ClInclude>
     <ClInclude Include="Grass.h">
+      <Filter>Header Files\WorldMap\ObjectWorldMap</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldMapPlayer.h">
+      <Filter>Header Files\WorldMap\ObjectWorldMap</Filter>
+    </ClInclude>
+    <ClInclude Include="OtherObject.h">
       <Filter>Header Files\WorldMap\ObjectWorldMap</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,5 +1,7 @@
 
 #include "GameObject.h"
+#define SPEED_MARIO 0.1f
+
 #define MARIO_WORLD_MAP_BBOX_WIDTH 8
 #define MARIO_WORLD_MAP_BBOX_HEIGHT 8
 
@@ -25,7 +27,7 @@ public:
 	int IsCollidable() { return 1; }
 	int IsBlocking() { return 1; }
 	virtual void OnNoCollision(DWORD dt);
-	void OnCollisionWith(LPCOLLISIONEVENT e);
+	virtual void OnCollisionWith(LPCOLLISIONEVENT e);
 
-	void SetState(int state);
+	virtual void SetState(int state);
 };

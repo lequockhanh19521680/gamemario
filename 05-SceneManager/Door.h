@@ -4,6 +4,8 @@
 #include "GameObject.h"
 #include "Animation.h"
 #include "Animations.h"
+#include "Game.h"
+#include "PlayScene.h"
 
 #define ID_ANI_DOOR_START 25010
 #define ID_ANI_DOOR_1 25011
@@ -29,12 +31,15 @@ class CDoor :
 {
 private:
 	int model;
+	int idScene;
 public:
 	CDoor(float x, float y,int model) : CGameObject(x, y) {
 		this->model = model;
+		this->idScene = DOOR_WORLD_1_1;// dat nhu vay la vi chi ton tai world 1-1
 	}
 	void Render();
 	void Update(DWORD dt) {}
+	virtual int IsBlocking() { return 0; }
 	void GetBoundingBox(float& l, float& t, float& r, float& b);
 };
 

@@ -461,6 +461,7 @@ void CGame::_ParseSection_SCENES(string line)
 	LPCWSTR path = ToLPCWSTR(tokens[1]);   // file: ASCII format (single-byte char) => Wide Char
 	int type = atoi(tokens[2].c_str());
 	scene = new CWorldMapScene(id, path);
+	//scene = new CPlayScene(id, path);
 	scenes[id] = scene;
 	/*switch (type) {
 	case TYPE_WORLD_PLAY:

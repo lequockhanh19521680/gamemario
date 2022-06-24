@@ -151,7 +151,7 @@ int Run()
 	MSG msg;
 	int done = 0;
 	ULONGLONG frameStart = GetTickCount64();
-	DWORD tickPerFrame = 1000 / MAX_FRAME_RATE;
+	DWORD tickPerFrame = 3000 / MAX_FRAME_RATE;
 
 	while (!done)
 	{

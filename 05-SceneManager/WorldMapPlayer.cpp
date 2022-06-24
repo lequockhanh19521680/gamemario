@@ -1,7 +1,8 @@
 #include "WorldMapPlayer.h"
 #include "GameObject.h"
 void CWorldMapPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
-
+	CGameObject::Update(dt, coObjects);
+	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
 
 void CWorldMapPlayer::Render() {
@@ -27,6 +28,22 @@ void CWorldMapPlayer::OnCollisionWith(LPCOLLISIONEVENT e) {
 }
 
 void CWorldMapPlayer::SetState(int state) {
-
-	CGameObject:SetState(state);
+	switch (state) {
+	case MARIO_STATE_GO_LEFT:
+		vy = 0.0f;
+		vx = -SPEED_MARIO;
+		break;
+	case MARIO_STATE_GO_RIGHT:
+		vy = 0.0f;
+		vx = SPEED_MARIO;
+		break;
+	case MARIO_STATE_GO_TOP:
+		vy = -SPEED_MARIO;
+		vx = 0.0f;
+		break;
+	case MARIO_STATE_GO_UNDER:
+		vy = SPEED_MARIO;
+		vx = 0.0f;
+		break;
+	}
 }

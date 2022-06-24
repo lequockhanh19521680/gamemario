@@ -8,6 +8,7 @@
 #include "WorldMapPlayer.h"
 #include "GameObject.h"
 #include "PlayScene.h"
+#include "Platform.h"
 #include "Grass.h"
 #include "Door.h"
 #include "Game.h"
@@ -115,8 +116,24 @@ void CWorldMapScene::_ParseSection_OBJECTS(string line) {
 	case OBJECT_TYPE_DOOR_4: obj = new CDoor(x, y, DOOR_WORLD_1_4); break;
 	case OBJECT_TYPE_DOOR_5: obj = new CDoor(x, y, DOOR_WORLD_1_5); break;
 	case OBJECT_TYPE_DOOR_6: obj = new CDoor(x, y, DOOR_WORLD_1_6); break;
+	case OBJECT_TYPE_PLATFORM:
+	{
 
-	default:
+		float cell_width = (float)atof(tokens[3].c_str());
+		float cell_height = (float)atof(tokens[4].c_str());
+		int length = atoi(tokens[5].c_str());
+		int sprite_begin = atoi(tokens[6].c_str());
+		int sprite_middle = atoi(tokens[7].c_str());
+		int sprite_end = atoi(tokens[8].c_str());
+
+		obj = new CPlatform(
+			x, y,
+			cell_width, cell_height, length,
+			sprite_begin, sprite_middle, sprite_end
+		);
+
+		break;
+	}	default:
 		DebugOut(L"[ERROR] Invalid object type: %d\n", object_type);
 		return;
 	}
