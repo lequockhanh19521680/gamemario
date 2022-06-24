@@ -63,8 +63,9 @@ class CGame
 	ID3D10SamplerState* pPointSamplerState;
 
 	unordered_map<int, LPSCENE> scenes;
-	int current_scene;
+	int current_scene ;
 	int next_scene = -1;
+	int prev_scene = -1;
 
 	void _ParseSection_SETTINGS(string line);
 	void _ParseSection_SCENES(string line);

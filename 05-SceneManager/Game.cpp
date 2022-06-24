@@ -455,24 +455,19 @@ void CGame::_ParseSection_SETTINGS(string line)
 void CGame::_ParseSection_SCENES(string line)
 {
 	vector<string> tokens = split(line);
-	int type = TYPE_WORLD_UNKNOWN;
-	if (tokens.size() < 2) return;
+	if (tokens.size() < 3) return;
 	LPSCENE scene;
 	int id = atoi(tokens[0].c_str());
 	LPCWSTR path = ToLPCWSTR(tokens[1]);   // file: ASCII format (single-byte char) => Wide Char
-	/*switch (type) {
-	case TYPE_WORLD_PLAY:*/ 
+	int type = atoi(tokens[2].c_str());
 	scene = new CWorldMapScene(id, path);
-	//scene = new CPlayScene(id, path);
 	scenes[id] = scene;
-		//break;
-	/*case TYPE_WORLD_UNKNOWN:
-		DebugOut(L"[ERROR] Khong tim thay scene");
+	/*switch (type) {
+	case TYPE_WORLD_PLAY:
+		scene = new CPlayScene(id, path);
+		scenes[id] = scene;
 		break;
-	case TYPE_WORLD_INTRO:
-		break;
-	case TYPE_WORLD_MAP:
-		break;*/
+	}*/
 	
 	
 
@@ -528,7 +523,7 @@ void CGame::Load(LPCWSTR gameFile)
 
 void CGame::SwitchScene()
 {
-	if (next_scene < 0 || next_scene == current_scene) return; 
+	if (next_scene < 0 || next_scene == current_scene) return;
 
 	DebugOut(L"[INFO] Switching to scene %d\n", next_scene);
 
@@ -538,7 +533,7 @@ void CGame::SwitchScene()
 	CAnimations::GetInstance()->Clear();
 
 	current_scene = next_scene;
-	LPSCENE s = scenes[next_scene];
+	LPSCENE s = scenes[current_scene];
 	this->SetKeyHandler(s->GetKeyEventHandler());
 	s->Load();
 }
