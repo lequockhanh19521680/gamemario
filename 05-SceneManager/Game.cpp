@@ -455,24 +455,26 @@ void CGame::_ParseSection_SETTINGS(string line)
 void CGame::_ParseSection_SCENES(string line)
 {
 	vector<string> tokens = split(line);
-	if (tokens.size() < 3) return;
+	if (tokens.size() < 2) return;
 	LPSCENE scene;
 	int id = atoi(tokens[0].c_str());
 	LPCWSTR path = ToLPCWSTR(tokens[1]);   // file: ASCII format (single-byte char) => Wide Char
 	int type = atoi(tokens[2].c_str());
-	scene = new CWorldMapScene(id, path);
-	//scene = new CPlayScene(id, path);
-	scenes[id] = scene;
-	/*switch (type) {
+	DebugOut(L"TYPE CUA CAI VUA LOAD %d\n", type);
+	switch(type){
 	case TYPE_WORLD_PLAY:
 		scene = new CPlayScene(id, path);
 		scenes[id] = scene;
 		break;
-	}*/
-	
-	
-
-	
+	case TYPE_WORLD_MAP:
+		scene = new CWorldMapScene(id, path);
+		scenes[id] = scene;
+		break;
+	case TYPE_WORLD_INTRO:
+		scene = new CPlayScene(id, path);
+		scenes[id] = scene;
+		break;
+	}
 }
 
 /*
@@ -526,15 +528,14 @@ void CGame::SwitchScene()
 {
 	if (next_scene < 0 || next_scene == current_scene) return;
 
-	DebugOut(L"[INFO] Switching to scene %d\n", next_scene);
-
+	DebugOut(L"[INFO] Switching to scene %d %d\n",current_scene, next_scene);
 	scenes[current_scene]->Unload();
 
 	CSprites::GetInstance()->Clear();
 	CAnimations::GetInstance()->Clear();
 
 	current_scene = next_scene;
-	LPSCENE s = scenes[current_scene];
+	LPSCENE s = scenes[next_scene];
 	this->SetKeyHandler(s->GetKeyEventHandler());
 	s->Load();
 }
