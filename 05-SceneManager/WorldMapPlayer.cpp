@@ -1,6 +1,14 @@
 #include "WorldMapPlayer.h"
 #include "GameObject.h"
+#include "Door.h"
+#include "Game.h"
+#include "debug.h"
 void CWorldMapPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
+	if (sceneChange  && isCanGoWorld && CanActive()) {
+			CGame::GetInstance()->InitiateSwitchScene(sceneChange);
+	}
+	//DebugOutTitle(L"vx vy: %f %f", vx, vy);
+	DebugOutTitle(L"x y: %f %f", x,y);
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
@@ -24,7 +32,17 @@ void CWorldMapPlayer::OnNoCollision(DWORD dt) {
 	y += vy * dt;
 }
 void CWorldMapPlayer::OnCollisionWith(LPCOLLISIONEVENT e) {
+	if (e->obj->IsBlocking()) {
+		vx = 0;
+		vy = 0;
+	}
+	if (dynamic_cast<CDoor*>(e->obj))
+		OnCollisionWithDoor(e);
+}
 
+void CWorldMapPlayer::OnCollisionWithDoor(LPCOLLISIONEVENT e) {
+	CDoor* door = dynamic_cast<CDoor*>(e->obj);
+	sceneChange = door->GetIdScene();
 }
 
 void CWorldMapPlayer::SetState(int state) {
@@ -44,6 +62,9 @@ void CWorldMapPlayer::SetState(int state) {
 	case MARIO_STATE_GO_UNDER:
 		vy = SPEED_MARIO;
 		vx = 0.0f;
+		break;
+	case MARIO_STATE_GO_WORLD_1:
+		isCanGoWorld = true;
 		break;
 	}
 }

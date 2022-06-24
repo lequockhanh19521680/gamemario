@@ -10,19 +10,19 @@ void CWorldMapKeyEvent::OnKeyDown(int KeyCode)
 	switch (KeyCode)
 	{
 	case DIK_RIGHT:
-		player->SetState(MARIO_STATE_GO_RIGHT);
+		if(player->CanActive()) player->SetState(MARIO_STATE_GO_RIGHT);
 		break;
 	case DIK_LEFT:
-		player->SetState(MARIO_STATE_GO_LEFT);
+		if (player->CanActive()) player->SetState(MARIO_STATE_GO_LEFT);
 		break;
 	case DIK_UP:
-		player->SetState(MARIO_STATE_GO_TOP);
+		if (player->CanActive()) player->SetState(MARIO_STATE_GO_TOP);
 		break;
 	case DIK_DOWN:
-		player->SetState(MARIO_STATE_GO_UNDER);
+		if (player->CanActive()) player->SetState(MARIO_STATE_GO_UNDER);
 		break;
 	case DIK_S:
-	
+		if (player->CanActive()) player->SetState(MARIO_STATE_GO_WORLD_1);
 		break;
 	
 	}
