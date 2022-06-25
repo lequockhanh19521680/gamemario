@@ -57,7 +57,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	//DebugOutTitle(L"[IsSitting] %d", isSitting);
 	//DebugOutTitle(L"[startUsePiPe] %f ", startUsePiPeY);
 	//DebugOutTitle(L"[ay] %f ", ay);
-	DebugOutTitle(L"[isDowned isUpped isUsePipe] %d   %d    %d", isDowned,isUpped,isUsePipe);
+	//DebugOutTitle(L"[isDowned isUpped isUsePipe] %d   %d    %d", isDowned,isUpped,isUsePipe);
 
 
 	//Trong luc animation thay doi level mario se dung yen

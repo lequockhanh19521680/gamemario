@@ -7,6 +7,7 @@
 #include "WorldMapKeyEvent.h"
 #include "WorldMapPlayer.h"
 #include "GameObject.h"
+#include "OtherObject.h"
 #include "PlayScene.h"
 #include "Platform.h"
 #include "Grass.h"
@@ -109,13 +110,25 @@ void CWorldMapScene::_ParseSection_OBJECTS(string line) {
 		DebugOut(L"[INFO] Player object has been created!\n");
 		break;
 	case OBJECT_TYPE_GRASS: obj = new CGrass(x, y); break;
-	case OBJECT_TYPE_DOOR_START: obj = new CDoor(x, y, DOOR_WORLD_START); break;
-	case OBJECT_TYPE_DOOR_1: obj = new CDoor(x, y, DOOR_WORLD_1_1); break;
-	case OBJECT_TYPE_DOOR_2: obj = new CDoor(x, y, DOOR_WORLD_1_2); break;
-	case OBJECT_TYPE_DOOR_3: obj = new CDoor(x, y, DOOR_WORLD_1_3); break;
-	case OBJECT_TYPE_DOOR_4: obj = new CDoor(x, y, DOOR_WORLD_1_4); break;
-	case OBJECT_TYPE_DOOR_5: obj = new CDoor(x, y, DOOR_WORLD_1_5); break;
-	case OBJECT_TYPE_DOOR_6: obj = new CDoor(x, y, DOOR_WORLD_1_6); break;
+
+	case OBJECT_TYPE_OTHER: {
+		int model = atoi(tokens[3].c_str());
+		bool allowLeft = atoi(tokens[4].c_str());
+		bool allowTop = atoi(tokens[5].c_str());
+		bool allowRight = atoi(tokens[6].c_str());
+		bool allowBottom = atoi(tokens[7].c_str());
+		obj = new COtherObject(x, y, model, allowLeft, allowTop, allowRight, allowBottom); 
+		break;
+	}
+	case OBJECT_TYPE_DOOR: {
+		int model = atoi(tokens[3].c_str());
+		bool allowLeft = atoi(tokens[4].c_str());
+		bool allowTop = atoi(tokens[5].c_str());
+		bool allowRight = atoi(tokens[6].c_str());
+		bool allowBottom = atoi(tokens[7].c_str());
+		obj = new CDoor(x, y, model, allowLeft, allowTop, allowRight, allowBottom); \
+			break;
+	}
 	case OBJECT_TYPE_PLATFORM:
 	{
 

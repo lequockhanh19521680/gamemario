@@ -4,7 +4,9 @@
 void COtherObject::Render()
 {
 	CAnimations* animations = CAnimations::GetInstance();
-	animations->Get(ID_ANI_GRASS)->Render(x, y);
+	if (model == CARD_WORLD_MAP) {
+		animations->Get(ID_ANI_CARD)->Render(x, y);
+	}
 	//RenderBoundingBox();
 }
 

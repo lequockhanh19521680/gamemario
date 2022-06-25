@@ -32,14 +32,27 @@ class CDoor :
 private:
 	int model;
 	int idScene;
+
+	bool allowLeft;
+	bool allowTop;
+	bool allowRight;
+	bool allowBottom;
 public:
-	CDoor(float x, float y,int model) : CGameObject(x, y) {
+	CDoor(float x, float y,int model,bool allowLeft, bool allowTop, bool allowRight, bool allowBottom) : CGameObject(x, y) {
 		this->model = model;
 		this->idScene = DOOR_WORLD_1_1;// dat nhu vay la vi chi ton tai world 1-1
+		this->allowLeft = allowLeft;
+		this->allowTop = allowTop;
+		this->allowRight = allowRight;
+		this->allowBottom = allowBottom;
 	}
 	void Render();
 	void Update(DWORD dt) {}
 	virtual int IsBlocking() { return 0; }
+	bool GetAllowLeft() { return allowLeft; }
+	bool GetAllowTop() { return allowTop; }
+	bool GetAllowRight() { return allowRight; }
+	bool GetAllowBottom() { return allowBottom; }
 	int GetIdScene() { return idScene; }
 	void GetBoundingBox(float& l, float& t, float& r, float& b);
 };

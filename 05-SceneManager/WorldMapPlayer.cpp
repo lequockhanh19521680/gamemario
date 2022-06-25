@@ -1,6 +1,7 @@
 #include "WorldMapPlayer.h"
 #include "GameObject.h"
 #include "Door.h"
+#include "OtherObject.h"
 #include "Game.h"
 #include "debug.h"
 void CWorldMapPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
@@ -8,7 +9,7 @@ void CWorldMapPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 			CGame::GetInstance()->InitiateSwitchScene(sceneChange);
 	}
 	if (isGoingNodeX == true) {
-		if (vx * (x - startX) > 0) {
+		if (vx * (x - startX ) >= 0) {
 			x = startX;
 			vx = 0;
 			vy = 0;
@@ -35,7 +36,7 @@ void CWorldMapPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 		}
 	}*/
 	if (isGoingNodeY == true) {
-		if (vy * (y - startY) > 0) {
+		if (vy * (y - startY + 2) >= 0) {
 			y = startY;
 			vx = 0;
 			vy = 0;
@@ -44,7 +45,7 @@ void CWorldMapPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 	}
 	//DebugOutTitle(L"vx vy: %f %f", vx, vy);
 	//DebugOutTitle(L"x y: %f %f", x,y);
-	DebugOutTitle(L"x y startX startY: %f %f %f %f", x,y,startX,startY);
+	//DebugOutTitle(L"x y startX startY: %f %f %f %f", x,y,startX,startY);
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
@@ -74,10 +75,31 @@ void CWorldMapPlayer::OnCollisionWith(LPCOLLISIONEVENT e) {
 	}
 	if (dynamic_cast<CDoor*>(e->obj))
 		OnCollisionWithDoor(e);
+	else if (dynamic_cast<COtherObject*>(e->obj))
+		OnCollisionWithOtherObject(e);
 }
 
+void CWorldMapPlayer::OnCollisionWithOtherObject(LPCOLLISIONEVENT e) {
+
+	COtherObject* object = dynamic_cast<COtherObject*>(e->obj);
+	sceneChange = 0;
+	isAllowLeft = object->GetAllowLeft();
+	isAllowRight = object->GetAllowRight();
+	isAllowTop = object->GetAllowTop();
+	isAllowBottom = object->GetAllowBottom();
+	if (e->nx != 0) {
+		Go1NodeX(object);
+	}
+	if (e->ny != 0) {
+		Go1NodeY(object);
+	}
+}
 void CWorldMapPlayer::OnCollisionWithDoor(LPCOLLISIONEVENT e) {
 	CDoor* door = dynamic_cast<CDoor*>(e->obj);
+	isAllowLeft = door->GetAllowLeft();
+	isAllowRight = door->GetAllowRight();
+	isAllowTop = door->GetAllowTop();
+	isAllowBottom = door->GetAllowBottom();
 	sceneChange = door->GetIdScene();
 	if (e->nx != 0) {
 		Go1NodeX(door);
