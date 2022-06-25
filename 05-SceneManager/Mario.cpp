@@ -10,6 +10,7 @@
 #include "Koopa.h"
 #include "MushRoom.h"
 #include "Goomba.h"
+#include "Card.h"
 #include "Coin.h"
 #include "Platform.h"
 #include "FlowerFire.h"
@@ -45,6 +46,9 @@ CMario::CMario(float x, float y) : CGameObject(x, y) {
 	score = 0;
 	scoreUpCollision = 1;
 	startUsePiPeY = 0;
+	card1 = 0;
+	card2 = 0;
+	card3 = 0;
 }
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -58,7 +62,8 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	//DebugOutTitle(L"[startUsePiPe] %f ", startUsePiPeY);
 	//DebugOutTitle(L"[ay] %f ", ay);
 	//DebugOutTitle(L"[isDowned isUpped isUsePipe] %d   %d    %d", isDowned,isUpped,isUsePipe);
-
+	//DebugOutTitle(L"[isHolding] %d  \n", isHolding);
+	//DebugOutTitle(L"[CARD 1 2 3] %d %d %d \n", card1,card2,card3);
 
 	//Trong luc animation thay doi level mario se dung yen
 	if (isChanging) {
@@ -82,8 +87,13 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 
 	if (abs(vx) > abs(maxVx)) vx = maxVx;
-
-
+	
+	if (isHolding) {
+		if (GetTickCount64() - start_holding > TIME_MAX_HOLDING) {
+			isHolding = false;
+			start_holding = 0;
+		}
+	}
 
 	if (GetTickCount64() - start_score_up > TIME_SCORE_UP_MAX) {
 		scoreUpCollision = 1;
@@ -246,8 +256,20 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 			OnCollisionWithPlantEnemy(e);
 		else if (dynamic_cast<CFireFromPlant*>(e->obj))
 			OnCollisionWithFireFromPlant(e);
+		else if (dynamic_cast<CCard*>(e->obj))
+			OnCollisionWithCard(e);
 }
-
+void CMario::OnCollisionWithCard(LPCOLLISIONEVENT e) {
+	CCard* card = dynamic_cast<CCard*>(e->obj);
+	card->Delete();
+	if (card1 == 0) { card1 = card->GetCard(); }
+	else {
+		if (card2 == 0) { card2 = card->GetCard(); }
+		else {
+			card3 = card->GetCard();
+		}
+	}
+}
 
 void CMario::OnCollisionWithPlatForm(LPCOLLISIONEVENT e) {
 	CPlatform* platform = dynamic_cast<CPlatform*>(e->obj);
@@ -331,6 +353,7 @@ void CMario::OnCollisionWithKoopa(LPCOLLISIONEVENT e) {
 				}
 				else {
 					koopa->SetState(KOOPA_STATE_IS_KICKED);
+					vy = -MARIO_JUMP_DEFLECT_SPEED;
 				}
 			}
 			else
@@ -367,6 +390,7 @@ void CMario::OnCollisionWithKoopa(LPCOLLISIONEVENT e) {
 					else {
 						isHolding = true;
 						koopa->SetIsHeld(true);
+						start_holding = GetTickCount64();
 					}
 				}
 				else {

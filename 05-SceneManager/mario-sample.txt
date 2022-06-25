@@ -26,6 +26,8 @@ start	1
 130	textures\Font.png
 140	textures\hud_source.png
 150	textures\worldmapObj.png
+160	textures\card.png
+170	textures\reward_x3.png
 
 200	Resource\Tilemap\world1-1_bank.png
 205	Resource\Tilemap\world1_bank.png

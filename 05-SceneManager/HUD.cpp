@@ -61,9 +61,16 @@ void CHUD::Render() {
 
 
 
+		//WRITE CARD
+		int card1 = mario->GetCard1();
+		int card2 = mario->GetCard2();
+		int card3 = mario->GetCard3();
 
+		if(card1) DrawCard(card1, x + X_CARD_POSITION, y + Y_CARD_POSITION);
+		if(card2) DrawCard(card2, x+ X_CARD_POSITION + CARD_WIDTH, y + Y_CARD_POSITION);
+		if(card3) DrawCard(card3, x+ X_CARD_POSITION + CARD_WIDTH*2, y + Y_CARD_POSITION);
 
-
+		DebugOutTitle(L"[CARD 1 2 3 hjhj] %d %d %d \n", card1, card2, card3);
 
 
 	
@@ -105,4 +112,12 @@ void CHUD::DrawNumber(int n, float xTemp, float yTemp) {
 	else if (n == 7) CAnimations::GetInstance()->Get(ID_ANI_7)->Render(xTemp, yTemp);
 	else if (n == 8) CAnimations::GetInstance()->Get(ID_ANI_8)->Render(xTemp, yTemp);
 	else  CAnimations::GetInstance()->Get(ID_ANI_9)->Render(xTemp, yTemp);
+}
+
+void CHUD::DrawCard(int n, float xTemp, float yTemp) {
+
+	if(n==HUD_CARD_MUSHROOM) CAnimations::GetInstance()->Get(ID_ANI_HUD_CARD_MUSHROOM)->Render(xTemp, yTemp);
+	else if(n==HUD_CARD_FLOWER) CAnimations::GetInstance()->Get(ID_ANI_HUD_CARD_FLOWER)->Render(xTemp, yTemp);
+	else if(n== HUD_CARD_STAR) CAnimations::GetInstance()->Get(ID_ANI_HUD_CARD_STAR)->Render(xTemp, yTemp);
+	//else CAnimations::GetInstance()->Get(ID_ANI_HUD_CARD_MUSHROOM)->Render(xTemp, yTemp);
 }

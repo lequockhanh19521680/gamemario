@@ -177,6 +177,9 @@
     <ClCompile Include="OtherObject.cpp">
       <Filter>Header Files\WorldMap\ObjectWorldMap</Filter>
     </ClCompile>
+    <ClCompile Include="Card.cpp">
+      <Filter>Header Files\Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="KeyEventHandler.h">
@@ -304,6 +307,9 @@
     </ClInclude>
     <ClInclude Include="OtherObject.h">
       <Filter>Header Files\WorldMap\ObjectWorldMap</Filter>
+    </ClInclude>
+    <ClInclude Include="Card.h">
+      <Filter>Header Files\Object</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

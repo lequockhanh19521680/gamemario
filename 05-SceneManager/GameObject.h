@@ -13,7 +13,7 @@ using namespace std;
 
 #define ID_TEX_BBOX -100		// special texture to draw object bounding box
 #define BBOX_ALPHA 0.25f		// Bounding box transparency
-
+#define DEATH_ZONE_Y 416
 class CGameObject
 {
 protected:
@@ -47,7 +47,9 @@ public:
 
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom) = 0;
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL) {
-
+		if (!IsPlayer()) {
+			if (y > DEATH_ZONE_Y) isDeleted = true;
+		}
 	};
 	virtual void Render() = 0;
 	virtual void SetState(int state) { this->state = state; }

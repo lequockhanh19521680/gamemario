@@ -1,5 +1,6 @@
 # list of object assets to load in this scene
 [ASSETS]
+Resource\World1-1\card.txt
 Resource\World1-1\mario.txt
 Resource\World1-1\brick.txt
 Resource\World1-1\coin.txt
@@ -275,6 +276,9 @@ Resource\Tilemap\world1-1-1.txt
 30	3440	32
 30	3424	32
 30	3408	48
+
+#CARD
+45	2688	336
 
 #PIPE DOWN AND UP
 

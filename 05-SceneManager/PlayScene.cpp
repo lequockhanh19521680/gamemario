@@ -6,6 +6,7 @@
 #include "PlayScene.h"
 #include "Utils.h"
 #include "Textures.h"
+#include "Card.h"
 #include "Sprites.h"
 #include "Portal.h"
 #include "Coin.h"
@@ -203,6 +204,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_KOOPA_GREEN_FLY: obj = new CKoopa(x, y, KOOPA_GREEN_WING); break;
 	case OBJECT_TYPE_KOOPA_RED: obj = new CKoopa(x, y, KOOPA_RED); break;
 	case OBJECT_TYPE_PLANT_SHOOT: obj = new CPlantEnemy(x, y, PLANT_SHOOT_RED); break;
+	case OBJECT_TYPE_CARD: obj = new CCard(x, y); break;
 	case OBJECT_TYPE_PLANT_NOT_SHOOT: obj = new CPlantEnemy(x, y, PLANT_NOT_SHOOT); break;
 	case OBJECT_TYPE_BRICKQUESTION_MUSHROOM_GREEN: obj = new CBrickQuestion(x, y, QUESTION_BRICK_MUSHROOM_GREEN); break;
 	case OBJECT_TYPE_BRICK_COLOR_IS_NOT_COIN: obj = new CBrickColor(x, y, BRICK_IS_NOT_COIN); break;
