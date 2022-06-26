@@ -6,6 +6,7 @@
 
 #define MARIO_WALKING_SPEED		0.1f
 #define MARIO_RUNNING_SPEED		0.15f
+#define MARIO_SIT_VY_ADJUST 0.2f
 
 
 #define MARIO_SPEED_USE_PIPE 0.02f

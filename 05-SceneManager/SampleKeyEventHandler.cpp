@@ -13,6 +13,12 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 	if (!mario->GetIsPrepareEndScene()) {
 		switch (KeyCode)
 		{
+		case DIK_LEFT:
+			mario->SetState(MARIO_STATE_WALKING_LEFT);
+			break;
+		case DIK_RIGHT:
+			mario->SetState(MARIO_STATE_WALKING_RIGHT);
+			break;
 		case DIK_5:
 			mario->SetPosition(3340, 0); // To Hidden Map
 			break;
@@ -97,16 +103,30 @@ void CSampleKeyHandler::KeyState(BYTE* states)
 		{
 			if (game->IsKeyDown(DIK_A))
 				mario->SetState(MARIO_STATE_RUNNING_RIGHT);
-			else
-				mario->SetState(MARIO_STATE_WALKING_RIGHT);
+			else if (game->IsKeyDown(DIK_S)) {
+				if (mario->GetIsOnPlatform()) {
+					mario->SetState(MARIO_STATE_JUMP);
+				}
+			}
+			else if (game->IsKeyDown(DIK_DOWN)) {
+				mario->SetState(MARIO_STATE_SIT);
+			}
+			else mario->SetState(MARIO_STATE_WALKING_RIGHT);
 		}
 		else if (game->IsKeyDown(DIK_LEFT))
 		{
 			if (game->IsKeyDown(DIK_A))
 				mario->SetState(MARIO_STATE_RUNNING_LEFT);
+			else if (game->IsKeyDown(DIK_S)) {
+				if (mario->GetIsOnPlatform()) {
+					mario->SetState(MARIO_STATE_JUMP);
+				}
+			}
+			else if (game->IsKeyDown(DIK_DOWN)) {
+				mario->SetState(MARIO_STATE_SIT);
+			}
 			else mario->SetState(MARIO_STATE_WALKING_LEFT);
 		}
-
 		else mario->SetState(MARIO_STATE_IDLE);
 	}
 }

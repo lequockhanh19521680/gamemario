@@ -58,6 +58,7 @@ CMario::CMario(float x, float y) : CGameObject(x, y) {
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	//DebugOutTitle(L"Up %d", Up);
+	DebugOutTitle(L"State %d", state);
 	//DebugOutTitle(L"TIME %d", clock);
 	//DebugOutTitle(L"POWERUP %d", levelRun);
 	//DebugOutTitle(L"[POSITION] %f %f", x, y);
@@ -91,16 +92,30 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		coin = 0;
 	}
 	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
-
+	//Khi ngoi, toc do se giam dan
+	/*if (isSitting) {
+		if (nx>0) {
+			if (vx > 0) {
+				ax = -MARIO_ACCEL_WALK_X/2;
+			}
+			else vx = 0;		
+		}
+		else {
+			if (vx < 0) {
+				ax = MARIO_ACCEL_WALK_X/2;
+			}
+			else vx = 0;
+		}
+	}*/
 	if (abs(vx) > abs(maxVx)) vx = maxVx;
-
+	//Khi die, doi 1 thoi gian => chuyen canh world map
 	if (GetTickCount64() - start_change_scene_die > TIME_CHANGE_SCENE) {
 		if (state == MARIO_STATE_DIE) {
 			Up--;
 			CGame::GetInstance()->InitiateSwitchScene(MARIO_WORLD_MAP_SCENE);
 		}
 	}
-
+	//Khi mario hoan thanh world 1-1, doi 1 thoi gian => chuyen canh world map
 	if (isEndScene) {
 		start_change_scene_clock = GetTickCount64();
 		if (GetTickCount64() - start_change_scene_clock > TIME_CHANGE_SCENE) CGame::GetInstance()->InitiateSwitchScene(MARIO_WORLD_MAP_SCENE);
@@ -135,14 +150,14 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	
 	
-
+	//Phan mario holding koopa
 	if (isHolding) {
 		if (GetTickCount64() - start_holding > TIME_MAX_HOLDING) {
 			isHolding = false;
 			start_holding = 0;
 		}
 	}
-
+	//Tang score cho mario moi x2
 	if (GetTickCount64() - start_score_up > TIME_SCORE_UP_MAX) {
 		scoreUpCollision = 1;
 		start_score_up = 0;
@@ -1164,8 +1179,7 @@ void CMario::SetState(int state)
 		{
 			isSitting = true;
 			isRunning = false;
-			state = MARIO_STATE_IDLE;
-			y += MARIO_SIT_HEIGHT_ADJUST;
+			y += MARIO_SIT_HEIGHT_ADJUST -4;
 		}
 		break;
 
@@ -1182,6 +1196,8 @@ void CMario::SetState(int state)
 	case MARIO_STATE_IDLE:
 		ax = 0.0f;
 		vx = 0.0f;
+		isSitting = false;
+		//vy = 0.0f;
 		break;
 	case MARIO_STATE_TAIL_ATTACK:
 		isTailAttack = true;
