@@ -1,7 +1,7 @@
 #include "MushRoom.h"
 #define MUSHROOM_GRAVITY 0.001f
-#define MUSHROOM_SPEED 0.07f
-#define OUT_BRICK -0.02f
+#define MUSHROOM_SPEED 0.055f
+#define OUT_BRICK -0.016f
 #include "Platform.h"
 #include "PlayScene.h"
 #include "Mario.h"

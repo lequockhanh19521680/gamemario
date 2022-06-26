@@ -27,7 +27,7 @@ CMario::CMario(float x, float y) : CGameObject(x, y) {
 	maxVx = 0.0f;
 	Up = 4;
 	ax = 0.0f;
-	clock = 300;
+	clock = 200;
 	ay = MARIO_GRAVITY;
 
 	level = MARIO_LEVEL_SMALL;
@@ -43,7 +43,7 @@ CMario::CMario(float x, float y) : CGameObject(x, y) {
 	isLower = false;
 	isUsePipe = false;
 	isPrepareEndScene = false;
-	isEndScene = false;
+	isNotMove = false;
 	isClockVeryFast = false;
 	coin = 0;
 	score = 0;
@@ -52,6 +52,7 @@ CMario::CMario(float x, float y) : CGameObject(x, y) {
 	card1 = 0;
 	card2 = 0;
 	card3 = 0;
+	cardCollected = 0;
 }
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -67,6 +68,10 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	//DebugOutTitle(L"[isDowned isUpped isUsePipe] %d   %d    %d", isDowned,isUpped,isUsePipe);
 	//DebugOutTitle(L"[isHolding] %d  \n", isHolding);
 	//DebugOutTitle(L"[CARD 1 2 3] %d %d %d \n", card1,card2,card3);
+	//DebugOutTitle(L"start change scene %d", start_change_scene);
+	//DebugOutTitle(L"isClockVeryFast isNotMove %d %d", isClockVeryFast, isNotMove);
+	//DebugOutTitle(L"test isNotMove isWillAddEffect %d %d %d", testDebug,isNotMove,isWillAddEffect);
+	//DebugOutTitle(L"cardCollected %d", cardCollected);
 
 	//Trong luc animation thay doi level mario se dung yen
 	if (isChanging) {
@@ -87,29 +92,49 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
 
-	if (GetTickCount64() - start_change_scene > TIME_CHANGE_SCENE) {
+	if (abs(vx) > abs(maxVx)) vx = maxVx;
+
+	if (GetTickCount64() - start_change_scene_die > TIME_CHANGE_SCENE) {
 		if (state == MARIO_STATE_DIE) {
 			Up--;
 			CGame::GetInstance()->InitiateSwitchScene(MARIO_WORLD_MAP_SCENE);
 		}
-		else if (clock == 0) {
-			CGame::GetInstance()->InitiateSwitchScene(MARIO_WORLD_MAP_SCENE);
-		}
-		start_change_scene = 0;
-		
 	}
 
-
-	if (isPrepareEndScene && x > POSITION_MAX_END_SCENE) {
-		SetState(MARIO_STATE_IDLE);
-		isEndScene = true;
+	if (isEndScene) {
+		start_change_scene_clock = GetTickCount64();
+		if (GetTickCount64() - start_change_scene_clock > TIME_CHANGE_SCENE) CGame::GetInstance()->InitiateSwitchScene(MARIO_WORLD_MAP_SCENE);
 	}
 	
-	if (isEndScene) {
-		//chen effect vao
+	//Khi mario di chuyen cuoi scene 1.1 => Dung lai. Neu khong dung lai => Bi roi va chet
+	//Doan code nay lien quan den cac effect khi mario ket thuc 1.1
+	if (isPrepareEndScene && x > POSITION_MAX_END_SCENE) {
+		SetState(MARIO_STATE_IDLE);
 		isClockVeryFast = true;
+		isNotMove = true;
 	}
-	if (abs(vx) > abs(maxVx)) vx = maxVx;
+	
+	if (isNotMove) {
+		if (!isEndScene) {
+			CEffect* effect1 = new CEffect(POSITION_X_EFFECT_FONT_1, POSITION_Y_EFFECT_FONT_1, EFFECT_FONT_END_1);
+			scene->AddObject(effect1);
+			isWillAddEffect = true;
+			start_add_effect = GetTickCount64();
+			isEndScene = true;
+		}
+	}
+
+	if (GetTickCount64() - start_add_effect > TIME_ADD_EFFECT) {
+		if (isWillAddEffect) {	
+			testDebug++;
+			CEffect* effect2 = new CEffect(POSITION_X_EFFECT_FONT_2,POSITION_Y_EFFECT_FONT_2, EFFECT_FONT_END_2);
+			scene->AddObject(effect2);
+			start_add_effect = 0;
+			isWillAddEffect = false;
+		}
+	}
+	
+	
 
 	if (isHolding) {
 		if (GetTickCount64() - start_holding > TIME_MAX_HOLDING) {
@@ -132,6 +157,8 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 		else {
 			clock = 0;
+			isEndScene= true;
+			isClockVeryFast = false;
 			SetState(MARIO_STATE_DIE);
 		}
 	}
@@ -140,14 +167,16 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		if (clock > 0) {
 			if (GetTickCount64() - time_down_1_second > TIME_CLOCK_VERY_FAST) {
 				clock--;
-				score += 50;
+				score += 500;
 				time_down_1_second = GetTickCount64();
 			}
 		}
 		else {
 			clock = 0;
-			start_change_scene = GetTickCount64();
+			start_change_scene_clock = GetTickCount64();
+			isClockVeryFast = false;
 		}
+
 	}
 
 	
@@ -317,6 +346,7 @@ void CMario::OnCollisionWithCard(LPCOLLISIONEVENT e) {
 					card->SetCard(card3);
 				}
 			}
+			cardCollected = card->GetCard();
 			SetState(MARIO_STATE_END_SCENE);
 		
 	}
@@ -1186,7 +1216,7 @@ void CMario::SetState(int state)
 		vy = -MARIO_JUMP_DEFLECT_SPEED_DIE;
 		ay = MARIO_GRAVITY / 3;
 		untouchable = false;
-		start_change_scene = GetTickCount64();
+		start_change_scene_die = GetTickCount64();
 		vx = 0;
 		ax = 0;
 		break;

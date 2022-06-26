@@ -29,9 +29,9 @@ class CLeaf :	public CGameObject
 		CLeaf(float x, float y, int state);
 		void Render();
 		virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
-		virtual int IsCollidable() { return 1; }
+		virtual int IsCollidable() { return 0; }
 		virtual void OnNoCollision(DWORD dt);
-
+		virtual int IsBlocking() { return 0; }
 		virtual void OnCollisionWith(LPCOLLISIONEVENT e);
 		void GetBoundingBox(float& l, float& t, float& r, float& b);
 		virtual void SetState(int state);

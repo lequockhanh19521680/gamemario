@@ -272,12 +272,14 @@
 #define TIME_SCORE_UP_MAX 1000
 #define TIME_MAX_HOLDING 6000
 #define TIME_CHANGE_SCENE 4000
+#define TIME_ADD_EFFECT 400
 #define POSITION_MAX_END_SCENE 2830
 
 
 #define MARIO_WORLD_MAP_SCENE 1
 class CMario : public CGameObject
 {
+	int testDebug = 0;
 	BOOLEAN isSitting;
 	float maxVx;
 	float ax;				// acceleration on x 
@@ -295,6 +297,7 @@ class CMario : public CGameObject
 	bool isUpped;
 	bool isPrepareEndScene;
 
+	ULONGLONG start_add_effect;
 	ULONGLONG start_score_up;
 	ULONGLONG untouchable_start;
 	ULONGLONG start_limit_shoot;
@@ -308,7 +311,8 @@ class CMario : public CGameObject
 	ULONGLONG start_changing;
 	ULONGLONG time_down_1_second;
 	ULONGLONG start_holding;
-	ULONGLONG start_change_scene;
+	ULONGLONG start_change_scene_die;
+	ULONGLONG start_change_scene_clock;
 	BOOLEAN isOnPlatform;
 	int coin; 
 
@@ -322,11 +326,14 @@ class CMario : public CGameObject
 	bool isLower;
 	bool isUsePipe;
 	bool isPrepareUp = false;
-	bool isEndScene;
+	bool isNotMove = false;
+	bool isEndScene = false;
+	bool isWillAddEffect = false;
 	bool isClockVeryFast ;
 	int card1;
 	int card2;
 	int card3;
+	int cardCollected;
 
 	void BlockIfNoBlock(LPGAMEOBJECT gameobject);
 	int GetAniIdBig();
@@ -375,8 +382,10 @@ public:
 	int GetCard1() { return card1; }
 	int GetCard2() { return card2; }
 	int GetCard3() { return card3; }
+	int GetCardCollected() { return cardCollected; }
 	bool GetIsPrepareEndScene() { return isPrepareEndScene; }
 	bool IsEndScene() { return isEndScene; }
+	bool IsNotMove() { return isNotMove; }
 
 	bool GetIsPrepareUp() { return isPrepareUp; }
 	bool GetIsTailAttack() { return isTailAttack; }

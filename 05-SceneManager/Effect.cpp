@@ -1,4 +1,7 @@
 #include "Effect.h"
+#include"HUD.h"
+#include"Game.h"
+#include"PlayScene.h"
 void CEffect::Render() {
 	CAnimations* animations = CAnimations::GetInstance();
 	if (model == EFFECT_SCORE_100) animations->Get(ID_ANI_EFFECT_100_SCORE)->Render(x, y);
@@ -11,6 +14,15 @@ void CEffect::Render() {
 	else if (model == EFFECT_SCORE_8000) animations->Get(ID_ANI_EFFECT_8000_SCORE)->Render(x, y);
 	else if (model == EFFECT_UP) animations->Get(ID_ANI_EFFECT_1UP)->Render(x, y);
 	else if (model == EFFECT_ATTACK) animations->Get(ID_ANI_EFFECT_ATTACK)->Render(x, y);
+	else if (model == EFFECT_FONT_END_1) animations->Get(ID_ANI_EFFECT_FONT_END_1)->Render(x, y);
+	else if (model == EFFECT_FONT_END_2) {
+		CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+		int cardCollected = mario->GetCardCollected();
+		animations->Get(ID_ANI_EFFECT_FONT_END_2)->Render(x, y);
+		if (cardCollected == 1) animations->Get(ID_ANI_HUD_CARD_MUSHROOM)->Render(x + POSITION_X_CARD_EFFECT, y);
+		else if(cardCollected == 2)animations->Get(ID_ANI_HUD_CARD_FLOWER)->Render(x + POSITION_X_CARD_EFFECT, y);
+		else if (cardCollected == 3)animations->Get(ID_ANI_HUD_CARD_STAR)->Render(x + POSITION_X_CARD_EFFECT, y);
+	}
 	else animations->Get(ID_ANI_EFFECT_CHANGE)->Render(x, y);
 }
 
@@ -28,6 +40,7 @@ void CEffect::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 	if (model == EFFECT_CHANGE) {
 		if (GetTickCount64() - start_delete > EFFECT_DELETE_TIME ) { isDeleted = true; }
 	}
+	
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 
 }

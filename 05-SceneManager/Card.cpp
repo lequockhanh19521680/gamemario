@@ -3,7 +3,7 @@
 #include "debug.h"
 void CCard::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 
-	DebugOutTitle(L"CARD %d", card);
+	//DebugOutTitle(L"CARD %d", card);
 	if (!isCollected) {
 		if (GetTickCount64() - start_change > TIME_CHANGE_CARD) {
 			if (card == CARD_MUSHROOM) card = CARD_FLOWER;
