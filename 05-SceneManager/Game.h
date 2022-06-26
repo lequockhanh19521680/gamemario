@@ -24,7 +24,7 @@ using namespace std;
 #define TYPE_WORLD_MAP 2
 #define TYPE_WORLD_PLAY 3
 #define FULL_WEIGHT_1_1 2816
-#define ADJUST_CAM_MIN_Y 220
+#define ADJUST_CAM_MIN_Y 200
 #define ADJUST_CAM_MAX_Y 256
 #define ADJUST_CAM_HIDDEN_MAP 0
 #define HIDDEN_POSITION_X 3000
@@ -65,7 +65,6 @@ class CGame
 	unordered_map<int, LPSCENE> scenes;
 	int current_scene;
 	int next_scene = -1;
-	int prev_scene = -1;
 
 	void _ParseSection_SETTINGS(string line);
 	void _ParseSection_SCENES(string line);

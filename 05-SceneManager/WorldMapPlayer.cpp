@@ -5,7 +5,8 @@
 #include "Game.h"
 #include "debug.h"
 void CWorldMapPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
-	if (sceneChange  && isCanGoWorld && CanActive()) {
+	if (!CanActive()) isCanGoWorld = false;
+	if (sceneChange  && isCanGoWorld) {
 			CGame::GetInstance()->InitiateSwitchScene(sceneChange);
 	}
 	if (isGoingNodeX == true) {
@@ -36,7 +37,7 @@ void CWorldMapPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 		}
 	}*/
 	if (isGoingNodeY == true) {
-		if (vy * (y - startY + 2) >= 0) {
+		if (vy * (y - startY ) >= 0) {
 			y = startY;
 			vx = 0;
 			vy = 0;

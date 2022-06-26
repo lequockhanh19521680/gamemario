@@ -3,12 +3,14 @@
 #include "debug.h"
 void CCard::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 
-	//DebugOutTitle(L"CARD %d", card);
-	if (GetTickCount64() - start_change > TIME_CHANGE_CARD) {
-		if (card == CARD_MUSHROOM) card = CARD_FLOWER;		
-		else if (card == CARD_FLOWER) card = CARD_STAR;
-		else if (card == CARD_STAR) card = CARD_MUSHROOM;
-		start_change = GetTickCount64();
+	DebugOutTitle(L"CARD %d", card);
+	if (!isCollected) {
+		if (GetTickCount64() - start_change > TIME_CHANGE_CARD) {
+			if (card == CARD_MUSHROOM) card = CARD_FLOWER;
+			else if (card == CARD_FLOWER) card = CARD_STAR;
+			else if (card == CARD_STAR) card = CARD_MUSHROOM;
+			start_change = GetTickCount64();
+		}
 	}
 
 	CGameObject::Update(dt, coObjects);
@@ -31,4 +33,14 @@ void CCard::GetBoundingBox(float& l, float& t, float& r, float& b)
 	t = y - CARD_BBOX_HEIGHT / 2;
 	r = l + CARD_BBOX_WIDTH;
 	b = t + CARD_BBOX_HEIGHT;
+}
+
+void CCard::SetState(int state) {
+	switch (state) {
+	case CARD_STATE_COLLECTED:
+		isCollected = true;
+		vy = -SPEED_CARD;
+		break;
+	}
+	CGameObject::SetState(state);
 }

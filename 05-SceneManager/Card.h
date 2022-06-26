@@ -1,6 +1,8 @@
 #pragma once
 #include "GameObject.h"
 
+#define SPEED_CARD 0.07f
+
 #define CARD_BBOX_HEIGHT 16
 #define CARD_BBOX_WIDTH 16
 
@@ -9,10 +11,12 @@
 #define ID_ANI_CARD_FLOWER 24786
 #define ID_ANI_CARD_STAR 24791
 
-#define TIME_CHANGE_CARD 100
+#define TIME_CHANGE_CARD 150
 #define CARD_MUSHROOM 1
 #define CARD_FLOWER 2
 #define CARD_STAR 3
+
+#define CARD_STATE_COLLECTED 100
 class CCard : public CGameObject
 {
 	int card;
@@ -36,5 +40,8 @@ public:
 
 
 	int GetCard() { return card; }
+	void SetCard(int card) { this->card = card; }
+	bool GetCollected(){ return isCollected; }
+	void SetState(int state);
 };
 

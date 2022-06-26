@@ -64,6 +64,8 @@
 
 #define MARIO_STATE_DOWNING_PIPE 1100
 #define MARIO_STATE_UPPING_PIPE 1200
+
+#define MARIO_STATE_END_SCENE 1300
 #pragma region ANIMATION_ID
 
 #define ID_ANI_MARIO_BIG_IDLE_RIGHT 401
@@ -266,9 +268,14 @@
 #define TIME_CHANGING 900
 #define MARIO_UNTOUCHABLE_TIME (TIME_CHANGING + 2500)
 #define TIME_ONE_SECOND 1000
+#define TIME_CLOCK_VERY_FAST 10
 #define TIME_SCORE_UP_MAX 1000
 #define TIME_MAX_HOLDING 6000
+#define TIME_CHANGE_SCENE 4000
+#define POSITION_MAX_END_SCENE 2830
 
+
+#define MARIO_WORLD_MAP_SCENE 1
 class CMario : public CGameObject
 {
 	BOOLEAN isSitting;
@@ -286,8 +293,7 @@ class CMario : public CGameObject
 	float startUsePiPeY;
 	bool isDowned;
 	bool isUpped;
-
-
+	bool isPrepareEndScene;
 
 	ULONGLONG start_score_up;
 	ULONGLONG untouchable_start;
@@ -302,6 +308,7 @@ class CMario : public CGameObject
 	ULONGLONG start_changing;
 	ULONGLONG time_down_1_second;
 	ULONGLONG start_holding;
+	ULONGLONG start_change_scene;
 	BOOLEAN isOnPlatform;
 	int coin; 
 
@@ -315,6 +322,8 @@ class CMario : public CGameObject
 	bool isLower;
 	bool isUsePipe;
 	bool isPrepareUp = false;
+	bool isEndScene;
+	bool isClockVeryFast ;
 	int card1;
 	int card2;
 	int card3;
@@ -366,6 +375,8 @@ public:
 	int GetCard1() { return card1; }
 	int GetCard2() { return card2; }
 	int GetCard3() { return card3; }
+	bool GetIsPrepareEndScene() { return isPrepareEndScene; }
+	bool IsEndScene() { return isEndScene; }
 
 	bool GetIsPrepareUp() { return isPrepareUp; }
 	bool GetIsTailAttack() { return isTailAttack; }

@@ -70,7 +70,7 @@ void CHUD::Render() {
 		if(card2) DrawCard(card2, x+ X_CARD_POSITION + CARD_WIDTH, y + Y_CARD_POSITION);
 		if(card3) DrawCard(card3, x+ X_CARD_POSITION + CARD_WIDTH*2, y + Y_CARD_POSITION);
 
-		DebugOutTitle(L"[CARD 1 2 3 hjhj] %d %d %d \n", card1, card2, card3);
+		//DebugOutTitle(L"[CARD 1 2 3 hjhj] %d %d %d \n", card1, card2, card3);
 
 
 	
