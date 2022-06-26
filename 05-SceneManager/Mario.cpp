@@ -93,7 +93,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
 	//Khi ngoi, toc do se giam dan
-	/*if (isSitting) {
+	if (isSitting) {
 		if (nx>0) {
 			if (vx > 0) {
 				ax = -MARIO_ACCEL_WALK_X/2;
@@ -106,7 +106,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			}
 			else vx = 0;
 		}
-	}*/
+	}
 	if (abs(vx) > abs(maxVx)) vx = maxVx;
 	//Khi die, doi 1 thoi gian => chuyen canh world map
 	if (GetTickCount64() - start_change_scene_die > TIME_CHANGE_SCENE) {
