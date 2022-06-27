@@ -10,15 +10,10 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 {
 	//DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
 	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
-	if (!mario->GetIsPrepareEndScene()) {
+	if ((!mario->GetIsPrepareEndScene()) || mario->GetIsUsePipe()) {
 		switch (KeyCode)
 		{
-		case DIK_LEFT:
-			mario->SetState(MARIO_STATE_WALKING_LEFT);
-			break;
-		case DIK_RIGHT:
-			mario->SetState(MARIO_STATE_WALKING_RIGHT);
-			break;
+	
 		case DIK_5:
 			mario->SetPosition(3340, 0); // To Hidden Map
 			break;
@@ -74,7 +69,7 @@ void CSampleKeyHandler::OnKeyUp(int KeyCode)
 	//DebugOut(L"[INFO] KeyUp: %d\n", KeyCode);
 
 	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
-	if (!mario->GetIsPrepareEndScene()) {
+	if ((!mario->GetIsPrepareEndScene()) || mario->GetIsUsePipe()){
 		switch (KeyCode)
 		{
 		case DIK_UP:
@@ -98,7 +93,7 @@ void CSampleKeyHandler::KeyState(BYTE* states)
 {
 	LPGAME game = CGame::GetInstance();
 	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
-	if (!mario->GetIsPrepareEndScene()) {
+	if ((!mario->GetIsPrepareEndScene()) || mario->GetIsUsePipe()){
 		if (game->IsKeyDown(DIK_RIGHT))
 		{
 			if (game->IsKeyDown(DIK_A))
@@ -127,6 +122,7 @@ void CSampleKeyHandler::KeyState(BYTE* states)
 			}
 			else mario->SetState(MARIO_STATE_WALKING_LEFT);
 		}
+		else if (game->IsKeyDown(DIK_DOWN)) mario->SetState(MARIO_STATE_SIT);
 		else mario->SetState(MARIO_STATE_IDLE);
 	}
 }

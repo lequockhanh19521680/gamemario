@@ -389,6 +389,7 @@ public:
 	bool IsNotMove() { return isNotMove; }
 
 	bool GetIsPrepareUp() { return isPrepareUp; }
+	bool GetIsUsePipe() { return isUsePipe; }
 	bool GetIsTailAttack() { return isTailAttack; }
 	bool GetIsFlying() { return isFlying; }
 	bool GetIsHolding() { return isHolding; }

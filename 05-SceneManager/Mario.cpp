@@ -27,7 +27,7 @@ CMario::CMario(float x, float y) : CGameObject(x, y) {
 	maxVx = 0.0f;
 	Up = 4;
 	ax = 0.0f;
-	clock = 200;
+	clock = 300;
 	ay = MARIO_GRAVITY;
 
 	level = MARIO_LEVEL_SMALL;
@@ -369,13 +369,16 @@ void CMario::OnCollisionWithCard(LPCOLLISIONEVENT e) {
 
 void CMario::OnCollisionWithPlatForm(LPCOLLISIONEVENT e) {
 	CPlatform* platform = dynamic_cast<CPlatform*>(e->obj);
-	if (platform->IsBlocking()) { }
+	if (platform->IsBlocking()) {
+		isUsePipe = false;
+	}
 	else {
 		if (e->ny < 0) {
 			if ((platform->IsCanDown() && isSitting) || isUsePipe) {
 				SetState(MARIO_STATE_DOWNING_PIPE);
 			}
 			else {
+				isUsePipe = false;
 				isOnPlatform = true;
 				BlockIfNoBlock(platform); 
 			}
@@ -1179,7 +1182,8 @@ void CMario::SetState(int state)
 		{
 			isSitting = true;
 			isRunning = false;
-			y += MARIO_SIT_HEIGHT_ADJUST -4;
+			vy = 0;
+			y += MARIO_SIT_HEIGHT_ADJUST-4;
 		}
 		break;
 
@@ -1187,8 +1191,8 @@ void CMario::SetState(int state)
 		
 		if (isSitting)
 		{
+			ay = MARIO_GRAVITY;
 			isSitting = false;
-			state = MARIO_STATE_IDLE;
 			y -= MARIO_SIT_HEIGHT_ADJUST;
 		}
 		break;
@@ -1196,7 +1200,9 @@ void CMario::SetState(int state)
 	case MARIO_STATE_IDLE:
 		ax = 0.0f;
 		vx = 0.0f;
-		isSitting = false;
+		if (isSitting) {
+			state = MARIO_STATE_SIT_RELEASE;
+		}
 		//vy = 0.0f;
 		break;
 	case MARIO_STATE_TAIL_ATTACK:
