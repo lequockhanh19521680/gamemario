@@ -29,8 +29,8 @@ public:
 	void SaveCard2(int c2);
 	void SaveCard3(int c3);
 
-	float GetPositionXWorldMap() { return position_y_world_map; }
-	float GetPositionYWorldMap() { return position_x_world_map; }
+	float GetPositionXWorldMap() { return position_x_world_map; }
+	float GetPositionYWorldMap() { return position_y_world_map; }
 
 	int GetCard1() { return card1; }
 	int GetCard2() { return card2; }

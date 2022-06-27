@@ -16,10 +16,13 @@
 #include "Coin.h"
 #include "Platform.h"
 #include "FlowerFire.h"
+#include "Button.h"
 #include "FireFromPlant.h"
+#include "Button.h"
 #include "BrickQuestion.h"
 #include "Portal.h"
 #include "PlayScene.h"
+#include "BrickColor.h"
 #include "Collision.h"
 
 CMario::CMario(float x, float y) : CGameObject(x, y) {
@@ -279,6 +282,26 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 			OnCollisionWithFireFromPlant(e);
 		else if (dynamic_cast<CCard*>(e->obj))
 			OnCollisionWithCard(e);
+		else if (dynamic_cast<CBrickColor*>(e->obj))
+			OnCollisionWithGoldBrick(e);
+		else if (dynamic_cast<CButton*>(e->obj))
+			OnCollisionWithButton(e);
+}
+void CMario::OnCollisionWithButton(LPCOLLISIONEVENT e) {
+	CButton* button = dynamic_cast<CButton*>(e->obj);
+	button->SetIsCollected(true);
+}
+void CMario::OnCollisionWithGoldBrick(LPCOLLISIONEVENT e) {
+	CBrickColor* brick = dynamic_cast<CBrickColor*>(e->obj);
+	DebugOutTitle(L" brick mario %f %f", brick->GetY(), y);
+	if (e->nx != 0 && (abs(brick->GetY() - GetY())<MARIO_SMALL_BBOX_HEIGHT/2)) {
+
+		if (isTailAttack) brick->SetState(BRICK_STATE_DELETE);
+	}
+	if (e->ny > 0) {
+		if (level > MARIO_LEVEL_SMALL) brick->SetState(BRICK_STATE_DELETE);
+	}
+
 }
 void CMario::OnCollisionWithCard(LPCOLLISIONEVENT e) {
 	CCard* card = dynamic_cast<CCard*>(e->obj);
@@ -547,11 +570,15 @@ void CMario::OnCollisionWithBrickQuestion(LPCOLLISIONEVENT e) {
 			questionBrick->SetIsEmpty(true);
 			scene->AddObject(coin);
 		}
-		else {
+		else if(questionBrick->GetModel()==QUESTION_BRICK_MUSHROOM_GREEN){
 			CMushRoom* mushroom = new CMushRoom(xTemp, yTemp, MUSHROOM_GREEN);
 			scene->AddObject(mushroom);
 			questionBrick->SetIsEmpty(true);
-
+		}
+		else {
+			CButton* button = new CButton(xTemp, yTemp);
+			scene->AddObject(button);
+			questionBrick->SetIsEmpty(true);
 		}
 	}
 

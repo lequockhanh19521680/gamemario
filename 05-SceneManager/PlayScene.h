@@ -34,7 +34,7 @@ public:
 
 	void AddObject(LPGAMEOBJECT object);
 	CPlayScene(int id, LPCWSTR filePath);
-
+	vector<LPGAMEOBJECT> GetListObject() { return objects; }
 	virtual void Load();
 	virtual void Update(DWORD dt);
 	virtual void Render();

@@ -186,6 +186,12 @@
     <ClCompile Include="HUDWorldMap.cpp">
       <Filter>Header Files\HUD</Filter>
     </ClCompile>
+    <ClCompile Include="BreakBrick.cpp">
+      <Filter>Header Files\Object\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>Header Files\Object\Items</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="KeyEventHandler.h">
@@ -322,6 +328,12 @@
     </ClInclude>
     <ClInclude Include="HUDWorldMap.h">
       <Filter>Header Files\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="BreakBrick.h">
+      <Filter>Header Files\Object\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>Header Files\Object\Items</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

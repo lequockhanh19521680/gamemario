@@ -7,17 +7,26 @@
 #define BRICK_BBOX_HEIGHT 16
 
 #define BRICK_IS_COIN 1
-#define BRICK_IS_NOT_COIN 2
+
+#define BRICK_STATE_DELETE 100
+#define BRICK_STATE_GOLD 200
 
 #include "GameObject.h"
 class CBrickColor :    public CGameObject
 {
+	bool isBreak = false;
+	bool isGold = false;
+	bool isUseButton = false;
+	bool isStopLoop = false;
 protected:
 	int model;
 public:
-	CBrickColor(float x, float y, int model) : CGameObject(x, y) { this->model = model; }
+	CBrickColor(float x, float y, int model) : CGameObject(x, y) { 
+		this->model = model; 
+	}
 	void Render();
-	void Update(DWORD dt) {}
+	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void GetBoundingBox(float& l, float& t, float& r, float& b);
+	virtual void SetState(int state);
 };
 

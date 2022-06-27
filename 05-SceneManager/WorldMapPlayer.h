@@ -1,13 +1,15 @@
 
 #include "GameObject.h"
 #include "Grass.h"
-#define SPEED_MARIO 0.07f
+#define SPEED_MARIO 0.1f
 #define MARIO_WORLD_MAP_BBOX_WIDTH 8
 #define MARIO_WORLD_MAP_BBOX_HEIGHT 8
 
 
 #define ID_ANI_MARIO_WORLD_MAP 1661
-
+#define ID_ANI_MARIO_BIG_WORLD_MAP	1061
+#define ID_ANI_MARIO_FIRE_WORLD_MAP 2361
+#define ID_ANI_MARIO_TAIL_WORLD_MAP 3421
 #define MARIO_STATE_NOT_MOVE 100
 #define MARIO_STATE_GO_LEFT 200
 #define MARIO_STATE_GO_TOP 300
@@ -49,4 +51,5 @@ public:
 	int CanActive() { return !vx && !vy; }
 	void Go1NodeX(LPGAMEOBJECT gameobject);
 	void Go1NodeY(LPGAMEOBJECT gameobject);
+	void SaveData();
 };

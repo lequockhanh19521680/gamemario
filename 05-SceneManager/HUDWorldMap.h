@@ -1,6 +1,6 @@
 #pragma once
 #define POSITION_X_HUD_WORLD_MAP 120
-#define POSITION_Y_HUD_WORLD_MAP 186
+#define POSITION_Y_HUD_WORLD_MAP 188
 class CHUDWorldMap
 {
 private:

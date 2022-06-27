@@ -11,6 +11,7 @@
 #include "MushRoom.h"
 #include "Leaf.h"
 #include "Coin.h"
+#include "Button.h"
 #include "FlowerFire.h"
 #include "PlayScene.h"
 
@@ -45,7 +46,6 @@ void CKoopa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 	if (mario->GetIsChanging() || mario->GetState() == MARIO_STATE_DIE) return;
 	vy += ay * dt;
 	vx += ax * dt;
-
 
 	if (mario->GetIsHolding() && isHeld) {
 		this->x = mario->GetX() + mario->GetNx() * (MARIO_BIG_BBOX_WIDTH - 3);
@@ -254,11 +254,15 @@ void CKoopa::OnCollisionWithBrickQuestion(LPCOLLISIONEVENT e) {
 						scene->AddObject(leaf);
 					}
 				}
-				else {
+				else if(questionBrick->GetModel() == QUESTION_BRICK_COIN) {
 					mario->SetCoin(mario->GetCoin() + 1);
 					CCoin* coin = new CCoin(questionBrick->GetX(), questionBrick->GetY());
 					coin->SetState(COIN_SUMMON_STATE);
 					scene->AddObject(coin);
+				}
+				else {
+					CButton* button = new CButton(questionBrick->GetX(), questionBrick->GetY());
+					scene->AddObject(button);
 				}
 				questionBrick->SetIsEmpty(true);
 				questionBrick->SetIsUnbox(true);

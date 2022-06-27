@@ -1,11 +1,11 @@
 #include "DataGame.h"
-
+#include "Mario.h"
 CDataGame::CDataGame() {
 	Up = 4;
 	score = 0;
 	position_x_world_map = MARIO_START_WORLD_MAP_X;
 	position_y_world_map = MARIO_START_WORLD_MAP_Y;
-	level = 1;
+	level = MARIO_LEVEL_SMALL;
 	coin = 0;
 	card1 = 0;
 	card2 = 0;

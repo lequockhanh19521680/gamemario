@@ -68,7 +68,7 @@ void CBrickQuestion::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 void CBrickQuestion::Render()
 {
 	int aniId;
-	if (model == QUESTION_BRICK_MUSHROOM_GREEN) {
+	if (model == QUESTION_BRICK_MUSHROOM_GREEN || model == QUESTION_BRICK_BUTTON) {
 		aniId = ID_ANI_BRICK_COLOR;
 	}
 	else aniId = ID_ANI_QUESTION_BRICK;
