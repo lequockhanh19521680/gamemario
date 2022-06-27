@@ -1,7 +1,14 @@
 #include "Hammer.h"
 
 void CHammer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
-	if ((x > xBlock2) || (x < xBlock1)) vx = -vx;
+	if (x > xBlock2) {
+		x = xBlock2;
+		vx = -vx;
+	}
+	if (x < xBlock1) {
+		x=xBlock1;
+		vx = -vx;
+	}
 	
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);

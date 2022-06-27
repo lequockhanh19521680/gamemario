@@ -92,7 +92,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	//Neu mario bi fall => DIE
 	if (MarioInDeadZone()) {SetState(MARIO_STATE_DIE);}
 	if (coin > 99) {
-		Up++;
+		AddScore(x, y, 0);//UP++
 		coin = 0;
 	}
 	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
