@@ -23,6 +23,7 @@ void CEffect::Render() {
 		else if(cardCollected == 2)animations->Get(ID_ANI_HUD_CARD_FLOWER)->Render(x + POSITION_X_CARD_EFFECT, y);
 		else if (cardCollected == 3)animations->Get(ID_ANI_HUD_CARD_STAR)->Render(x + POSITION_X_CARD_EFFECT, y);
 	}
+	else if(model==EFFECT_HELP_WORLD_MAP) animations->Get(ID_ANI_EFFECT_HELP_WORLD_MAP)->Render(x, y);
 	else animations->Get(ID_ANI_EFFECT_CHANGE)->Render(x, y);
 }
 

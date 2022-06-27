@@ -1,5 +1,7 @@
 # id	left	top	right	bottom	texture_id
 [SPRITES]
+#NULL SPRITE
+2	40	32	56	48	40
 ############## 100 score ###########
 
 11751	456	222	467	231	20
@@ -56,6 +58,8 @@
 ###
 
 11781	484	120	491	127	20
+##WORLD MAP HELP
+31017	1	0	16	15	150
 
 # ani_id	sprite1_id	time1	sprite2_id	time2	...
 [ANIMATIONS]
@@ -107,3 +111,5 @@
 31016	11772	100
 #BRICK BREAK
 565	11781	100
+#help
+31017	31017	1000	2	400

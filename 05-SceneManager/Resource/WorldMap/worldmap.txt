@@ -1,10 +1,12 @@
 [ASSETS]
 Resource\World1-1\mario.txt
+Resource\World1-1\effect.txt
 Resource\World1-1\platform.txt
 Resource\WorldMap\grass.txt
 Resource\WorldMap\door.txt
 Resource\World1-1\platform.txt
 Resource\WorldMap\otherobject.txt
+Resource\WorldMap\hammer.txt
 Resource\World1-1\hud.txt
 [TILEMAP]
 Resource\Tilemap\world1.txt
@@ -100,7 +102,11 @@ Resource\Tilemap\world1.txt
 1011	128	112	1	1	0	1	1
 1011	160	112	1	1	0	1	0
 
-1011	192	112	1	1	0	1	0
+1011	192	112	1	1	0	0	0
 1011	64	64	1	0	0	0	1
+#EFFECT HELP
+42	208	96
+#HAMMER
+43	130	112
 #MARIO
 1000	0	0

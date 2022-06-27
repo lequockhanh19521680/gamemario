@@ -11,7 +11,9 @@
 #include "PlayScene.h"
 #include "Platform.h"
 #include "Grass.h"
+#include "Hammer.h"
 #include "Door.h"
+#include "Effect.h"
 #include "Game.h"
 #include "Scene.h"
 #include "debug.h"
@@ -112,7 +114,8 @@ void CWorldMapScene::_ParseSection_OBJECTS(string line) {
 		DebugOut(L"[INFO] Player object has been created!\n");
 		break;
 	case OBJECT_TYPE_GRASS: obj = new CGrass(x, y); break;
-
+	case OBJECT_TYPE_EFFECT_HELP: obj = new CEffect(x, y,EFFECT_HELP_WORLD_MAP); break;
+	case OBJECT_TYPE_HAMMER: obj = new CHammer(x, y); break;
 	case OBJECT_TYPE_OTHER: {
 		int model = atoi(tokens[3].c_str());
 		bool allowLeft = atoi(tokens[4].c_str());

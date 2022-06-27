@@ -159,6 +159,7 @@
     <ClCompile Include="DataGame.cpp" />
     <ClCompile Include="Door.cpp" />
     <ClCompile Include="Grass.cpp" />
+    <ClCompile Include="Hammer.cpp" />
     <ClCompile Include="HUDWorldMap.cpp" />
     <ClCompile Include="OtherObject.cpp" />
     <ClCompile Include="WorldMapKeyEvent.cpp" />
@@ -206,6 +207,7 @@
     <ClInclude Include="DataGame.h" />
     <ClInclude Include="Door.h" />
     <ClInclude Include="Grass.h" />
+    <ClInclude Include="Hammer.h" />
     <ClInclude Include="HUDWorldMap.h" />
     <ClInclude Include="OtherObject.h" />
     <ClInclude Include="WorldMapKeyEvent.h" />

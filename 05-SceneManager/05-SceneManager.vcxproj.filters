@@ -192,6 +192,9 @@
     <ClCompile Include="Button.cpp">
       <Filter>Header Files\Object\Items</Filter>
     </ClCompile>
+    <ClCompile Include="Hammer.cpp">
+      <Filter>Header Files\Object\Enemies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="KeyEventHandler.h">
@@ -334,6 +337,9 @@
     </ClInclude>
     <ClInclude Include="Button.h">
       <Filter>Header Files\Object\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Hammer.h">
+      <Filter>Header Files\Object\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
