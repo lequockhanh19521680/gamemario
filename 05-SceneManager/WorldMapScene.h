@@ -2,12 +2,15 @@
 #include "WorldMapPlayer.h"
 #include "Map.h"
 #include "GameObject.h"
+#include "HUDWorldMap.h"
+
 
 
 class CWorldMapScene : public CScene
 {
 	LPGAMEOBJECT player = NULL;
 	CMap* current_map = NULL;
+	CHUDWorldMap* hud = NULL;
 	vector<LPGAMEOBJECT> objects;
 
 	void _ParseSection_SPRITES(string line);

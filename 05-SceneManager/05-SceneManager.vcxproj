@@ -154,8 +154,10 @@
     <ClCompile Include="Card.cpp" />
     <ClCompile Include="Coin.cpp" />
     <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="DataGame.cpp" />
     <ClCompile Include="Door.cpp" />
     <ClCompile Include="Grass.cpp" />
+    <ClCompile Include="HUDWorldMap.cpp" />
     <ClCompile Include="OtherObject.cpp" />
     <ClCompile Include="WorldMapKeyEvent.cpp" />
     <ClCompile Include="WorldMapScene.cpp" />
@@ -197,8 +199,10 @@
     <ClInclude Include="Card.h" />
     <ClInclude Include="Coin.h" />
     <ClInclude Include="Collision.h" />
+    <ClInclude Include="DataGame.h" />
     <ClInclude Include="Door.h" />
     <ClInclude Include="Grass.h" />
+    <ClInclude Include="HUDWorldMap.h" />
     <ClInclude Include="OtherObject.h" />
     <ClInclude Include="WorldMapKeyEvent.h" />
     <ClInclude Include="WorldMapScene.h" />

@@ -280,6 +280,8 @@ void CWorldMapScene::Render() {
 	current_map->Render();
 	for (unsigned int i = 0; i < objects.size(); i++)
 		objects[i]->Render();
+	hud = new CHUDWorldMap(POSITION_X_HUD_WORLD_MAP, POSITION_Y_HUD_WORLD_MAP);
+	hud->Render();
 }
 void CWorldMapScene::Unload() {
 	for (unsigned int i = 0; i < objects.size(); i++)

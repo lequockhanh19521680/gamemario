@@ -4,20 +4,20 @@
 #include "Animations.h"
 #include "debug.h"
 
-#define MARIO_WALKING_SPEED		0.1f
-#define MARIO_RUNNING_SPEED		0.15f
+#define MARIO_WALKING_SPEED		0.08f
+#define MARIO_RUNNING_SPEED		0.1f
 #define MARIO_SIT_VY_ADJUST 0.2f
 
 
 #define MARIO_SPEED_USE_PIPE 0.02f
 #define SPEED_MARIO_WHEN_BLOCK 0.007f
-#define MARIO_ACCEL_WALK_X	0.00014f
-#define MARIO_ACCEL_RUN_X	0.0002f
+#define MARIO_ACCEL_WALK_X	0.00015f
+#define MARIO_ACCEL_RUN_X	0.00016f
 
 #define MARIO_JUMP_SPEED_Y		0.2f
 #define MARIO_JUMP_RUN_SPEED_Y	0.2f
 
-#define SPEED_LEVEL_RUN 0.015f
+#define SPEED_LEVEL_RUN 0.01f
 
 
 #define MARIO_GRAVITY 0.0003f
@@ -67,6 +67,8 @@
 #define MARIO_STATE_UPPING_PIPE 1200
 
 #define MARIO_STATE_END_SCENE 1300
+
+#define MARIO_STATE_CHANGE_WORLD_MAP 1400
 #pragma region ANIMATION_ID
 
 #define ID_ANI_MARIO_BIG_IDLE_RIGHT 401
@@ -272,7 +274,7 @@
 #define TIME_CLOCK_VERY_FAST 10
 #define TIME_SCORE_UP_MAX 1000
 #define TIME_MAX_HOLDING 6000
-#define TIME_CHANGE_SCENE 4000
+#define TIME_CHANGE_SCENE 3000
 #define TIME_ADD_EFFECT 400
 #define POSITION_MAX_END_SCENE 2830
 
@@ -331,6 +333,7 @@ class CMario : public CGameObject
 	bool isEndScene = false;
 	bool isWillAddEffect = false;
 	bool isClockVeryFast ;
+	bool isWillDieInClock0 = true;
 	int card1;
 	int card2;
 	int card3;
@@ -425,4 +428,15 @@ public:
 	void ReturnWorldFromHiddenMap() {
 		SetPosition(POSITION_X_OUT_HIDDEN_MAP,POSITION_Y_OUT_HIDDEN_MAP);
 	}
+	void SaveDataGame();
+	bool MarioInDeadZone(); 
+	void AdjustLogicSitting();
+	void ChangeWorldMapWhenDie();
+	void ChangeWorldMapWhenNotDie();
+	void SettingMarioAutoMoveEndPlayScene();
+	void AddEffectEndWorldFont1();
+	void AddEffectEndWorldFont2();
+	void AdjustHoldingKoopa();
+	void DownTimeClock1Second();
+	void DownTimeClockAndAddScore();
 };

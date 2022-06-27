@@ -8,7 +8,7 @@ using namespace std;
 
 #define DIRECTINPUT_VERSION 0x0800
 #include <dinput.h>
-
+#include"DataGame.h"
 #include "Texture.h"
 #include "KeyEventHandler.h"
 #include "Scene.h"
@@ -24,7 +24,7 @@ using namespace std;
 #define TYPE_WORLD_MAP 2
 #define TYPE_WORLD_PLAY 3
 #define FULL_WEIGHT_1_1 2816
-#define ADJUST_CAM_MIN_Y 200
+#define ADJUST_CAM_MIN_Y 224
 #define ADJUST_CAM_MAX_Y 256
 #define ADJUST_CAM_HIDDEN_MAP 0
 #define HIDDEN_POSITION_X 3000
@@ -71,13 +71,13 @@ class CGame
 
 	int screen_height;
 	int screen_width;
-
+	CDataGame* dataGame= new CDataGame();
 public:
 	float GetCamX() { return cam_x; }
 	float GetCamY() { return cam_y; }
 	// Init DirectX, Sprite Handler
 	void Init(HWND hWnd, HINSTANCE hInstance);
-
+	CDataGame* GetDataGame() { return dataGame; }
 	//
 	// Draw a portion or ALL the texture at position (x,y) on the screen. (x,y) is at the CENTER of the image
 	// rect : if NULL, the whole texture will be drawn

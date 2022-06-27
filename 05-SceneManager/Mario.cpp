@@ -5,9 +5,11 @@
 #include "Effect.h"
 #include "Mario.h"
 #include "Bullet.h"
+#include"Game.h"
 #include "PlantEnemy.h"
 #include "Game.h"
 #include "Koopa.h"
+#include "DataGame.h"
 #include "MushRoom.h"
 #include "Goomba.h"
 #include "Card.h"
@@ -21,16 +23,17 @@
 #include "Collision.h"
 
 CMario::CMario(float x, float y) : CGameObject(x, y) {
+	CDataGame* dataGame = CGame::GetInstance()->GetDataGame();
 	isShoot = false;
 	isHolding = false;
 	isSitting = false;
 	maxVx = 0.0f;
-	Up = 4;
+	Up = dataGame->GetUp();
 	ax = 0.0f;
 	clock = 300;
 	ay = MARIO_GRAVITY;
 
-	level = MARIO_LEVEL_SMALL;
+	level = dataGame->GetLevel();
 	levelRun = 0;
 	isFlying = false;
 	isRunning = false;
@@ -45,20 +48,20 @@ CMario::CMario(float x, float y) : CGameObject(x, y) {
 	isPrepareEndScene = false;
 	isNotMove = false;
 	isClockVeryFast = false;
-	coin = 0;
-	score = 0;
+	coin = dataGame->GetCoin();
+	score = dataGame->GetScore();
 	scoreUpCollision = 1;
 	startUsePiPeY = 0;
-	card1 = 0;
-	card2 = 0;
-	card3 = 0;
+	card1 = dataGame->GetCard1();
+	card2 = dataGame->GetCard2();
+	card3 = dataGame->GetCard3();
 	cardCollected = 0;
 }
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	//DebugOutTitle(L"Up %d", Up);
-	DebugOutTitle(L"State %d", state);
+	//DebugOutTitle(L"State %d", state);
 	//DebugOutTitle(L"TIME %d", clock);
 	//DebugOutTitle(L"POWERUP %d", levelRun);
 	//DebugOutTitle(L"[POSITION] %f %f", x, y);
@@ -84,115 +87,49 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		vx += ax * dt;
 	}
 	//Neu mario bi fall => DIE
-	if (y > POSITION_Y_DIE) {
-		SetState(MARIO_STATE_DIE);
-	}
+	if (MarioInDeadZone()) {SetState(MARIO_STATE_DIE);}
 	if (coin > 99) {
 		Up++;
 		coin = 0;
 	}
 	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
 	//Khi ngoi, toc do se giam dan
-	if (isSitting) {
-		if (nx>0) {
-			if (vx > 0) {
-				ax = -MARIO_ACCEL_WALK_X/2;
-			}
-			else vx = 0;		
-		}
-		else {
-			if (vx < 0) {
-				ax = MARIO_ACCEL_WALK_X/2;
-			}
-			else vx = 0;
-		}
-	}
+	if (isSitting) AdjustLogicSitting();
 	if (abs(vx) > abs(maxVx)) vx = maxVx;
 	//Khi die, doi 1 thoi gian => chuyen canh world map
-	if (GetTickCount64() - start_change_scene_die > TIME_CHANGE_SCENE) {
-		if (state == MARIO_STATE_DIE) {
-			Up--;
-			CGame::GetInstance()->InitiateSwitchScene(MARIO_WORLD_MAP_SCENE);
-		}
-	}
-	//Khi mario hoan thanh world 1-1, doi 1 thoi gian => chuyen canh world map
-	if (isEndScene) {
-		start_change_scene_clock = GetTickCount64();
-		if (GetTickCount64() - start_change_scene_clock > TIME_CHANGE_SCENE) CGame::GetInstance()->InitiateSwitchScene(MARIO_WORLD_MAP_SCENE);
-	}
+
+
+	if (state == MARIO_STATE_DIE) ChangeWorldMapWhenDie();
+	//Khi mario hoan thanh world 1-1, doi 1 thoi gian => chuyen canh world map{
+	else if (state == MARIO_STATE_CHANGE_WORLD_MAP) ChangeWorldMapWhenNotDie();
 	
 	//Khi mario di chuyen cuoi scene 1.1 => Dung lai. Neu khong dung lai => Bi roi va chet
 	//Doan code nay lien quan den cac effect khi mario ket thuc 1.1
-	if (isPrepareEndScene && x > POSITION_MAX_END_SCENE) {
-		SetState(MARIO_STATE_IDLE);
-		isClockVeryFast = true;
-		isNotMove = true;
-	}
+	if (isPrepareEndScene && x > POSITION_MAX_END_SCENE) SettingMarioAutoMoveEndPlayScene();
 	
-	if (isNotMove) {
-		if (!isEndScene) {
-			CEffect* effect1 = new CEffect(POSITION_X_EFFECT_FONT_1, POSITION_Y_EFFECT_FONT_1, EFFECT_FONT_END_1);
-			scene->AddObject(effect1);
-			isWillAddEffect = true;
-			start_add_effect = GetTickCount64();
-			isEndScene = true;
-		}
+
+	//Dong chu cuoi cung xuat hien khi ket thuc world play scene 1.1
+	//Course Clear
+	//You got the card ...
+	if (isNotMove)
+	{
+		AddEffectEndWorldFont1();
+		AddEffectEndWorldFont2();
 	}
 
-	if (GetTickCount64() - start_add_effect > TIME_ADD_EFFECT) {
-		if (isWillAddEffect) {	
-			testDebug++;
-			CEffect* effect2 = new CEffect(POSITION_X_EFFECT_FONT_2,POSITION_Y_EFFECT_FONT_2, EFFECT_FONT_END_2);
-			scene->AddObject(effect2);
-			start_add_effect = 0;
-			isWillAddEffect = false;
-		}
-	}
 	
 	
+
 	//Phan mario holding koopa
-	if (isHolding) {
-		if (GetTickCount64() - start_holding > TIME_MAX_HOLDING) {
-			isHolding = false;
-			start_holding = 0;
-		}
-	}
+	if (isHolding) AdjustHoldingKoopa();
 	//Tang score cho mario moi x2
 	if (GetTickCount64() - start_score_up > TIME_SCORE_UP_MAX) {
 		scoreUpCollision = 1;
 		start_score_up = 0;
 	}
-
-	if ((!isClockVeryFast && (state != MARIO_STATE_DIE)) || !isChanging) {
-		if (clock > 0) {
-			if (GetTickCount64() - time_down_1_second > TIME_ONE_SECOND) {
-				clock--;
-				time_down_1_second = GetTickCount64();
-			}
-		}
-		else {
-			clock = 0;
-			isEndScene= true;
-			isClockVeryFast = false;
-			SetState(MARIO_STATE_DIE);
-		}
-	}
-
-	if (isClockVeryFast) {
-		if (clock > 0) {
-			if (GetTickCount64() - time_down_1_second > TIME_CLOCK_VERY_FAST) {
-				clock--;
-				score += 500;
-				time_down_1_second = GetTickCount64();
-			}
-		}
-		else {
-			clock = 0;
-			start_change_scene_clock = GetTickCount64();
-			isClockVeryFast = false;
-		}
-
-	}
+	//Tinh thoi gian
+	if ((state != MARIO_STATE_DIE) || !isChanging) DownTimeClock1Second();
+	if (isClockVeryFast) DownTimeClockAndAddScore();
 
 	
 	if (GetTickCount64() - untouchable_start > MARIO_UNTOUCHABLE_TIME)
@@ -1093,7 +1030,7 @@ void CMario::Render()
 			}
 		}
 	}
-	
+	//DebugOutTitle(L"aniId %d", aniId);
 
 	//RenderBoundingBox();
 	
@@ -1248,6 +1185,9 @@ void CMario::SetState(int state)
 		ax = MARIO_ACCEL_WALK_X;
 		isRunning = false;
 		nx = 1;
+		break;
+	case MARIO_STATE_CHANGE_WORLD_MAP:
+		start_change_scene_clock = GetTickCount64();
 		break;
 	}
 	CGameObject::SetState(state);
@@ -1464,4 +1404,120 @@ void CMario::IncreaseScoreUpCollision(float xTemp, float yTemp) {
 		AddScore(xTemp, yTemp, 0);
 	}
 
+}
+
+bool CMario::MarioInDeadZone() { return y > POSITION_Y_DIE;}
+
+void CMario::AdjustLogicSitting() {
+	if (nx > 0) {
+		if (vx > 0) {
+			ax = -MARIO_ACCEL_WALK_X / 2;
+		}
+		else vx = 0;
+	}
+	else {
+		if (vx < 0) {
+			ax = MARIO_ACCEL_WALK_X / 2;
+		}
+		else vx = 0;
+	}
+}
+
+void CMario::ChangeWorldMapWhenDie() {
+	if (GetTickCount64() - start_change_scene_die > TIME_CHANGE_SCENE) {
+		Up--;
+		SaveDataGame();
+		CGame::GetInstance()->InitiateSwitchScene(MARIO_WORLD_MAP_SCENE);
+	}
+}
+
+void CMario::ChangeWorldMapWhenNotDie() {
+	if (GetTickCount64() - start_change_scene_clock > TIME_CHANGE_SCENE) {
+		SaveDataGame();
+		CGame::GetInstance()->InitiateSwitchScene(MARIO_WORLD_MAP_SCENE);
+	}
+}
+
+
+void CMario::SettingMarioAutoMoveEndPlayScene()
+{
+	SetState(MARIO_STATE_IDLE);
+	x -= 1;// DE KHONG VONG LAP VO TAN XAY RA TRONG DAY
+	isWillDieInClock0 = false;
+	isClockVeryFast = true;
+	isNotMove = true;
+}
+
+void CMario::AddEffectEndWorldFont1() {
+	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
+	if (!isEndScene) {
+		CEffect* effect1 = new CEffect(POSITION_X_EFFECT_FONT_1, POSITION_Y_EFFECT_FONT_1, EFFECT_FONT_END_1);
+		scene->AddObject(effect1);
+		isWillAddEffect = true;
+		start_add_effect = GetTickCount64();
+		isEndScene = true;
+	}
+}
+
+void CMario::AddEffectEndWorldFont2() {
+	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
+
+	if (GetTickCount64() - start_add_effect > TIME_ADD_EFFECT) {
+		if (isWillAddEffect) {
+			//testDebug++;
+			CEffect* effect2 = new CEffect(POSITION_X_EFFECT_FONT_2, POSITION_Y_EFFECT_FONT_2, EFFECT_FONT_END_2);
+			scene->AddObject(effect2);
+			start_add_effect = 0;
+			isWillAddEffect = false;
+			//SetState(MARIO_STATE_CHANGE_WORLD_MAP);
+		}
+	}
+}
+void CMario::AdjustHoldingKoopa() {
+	if (GetTickCount64() - start_holding > TIME_MAX_HOLDING) {
+		isHolding = false;
+		start_holding = 0;
+	}
+}
+void CMario::DownTimeClock1Second() {
+	if (clock > 0) {
+
+		if (GetTickCount64() - time_down_1_second > TIME_ONE_SECOND) {
+			clock--;
+			time_down_1_second = GetTickCount64();
+		}
+	}
+	else
+	{
+		clock = 0;
+		if (!isPrepareEndScene) {
+			SetState(MARIO_STATE_DIE);
+		}
+	}
+}
+
+void CMario::DownTimeClockAndAddScore() {
+	if (clock > 0) {
+		if (GetTickCount64() - time_down_1_second > TIME_CLOCK_VERY_FAST) {
+			clock--;
+			score += 50;
+			time_down_1_second = GetTickCount64();
+		}
+	}
+	else {
+		clock = 0;
+		isEndScene = true;
+		isClockVeryFast = false;
+		SetState(MARIO_STATE_CHANGE_WORLD_MAP);
+	}
+}
+void CMario::SaveDataGame() {
+	CDataGame* dataGame = CGame::GetInstance()->GetDataGame();
+	dataGame->SaveCoin(coin);
+	dataGame->SaveLevel(level);
+	dataGame->SaveScore(score);
+	dataGame->SaveUp(Up);
+	dataGame->SaveCard1(card1);
+	dataGame->SaveCard2(card2);
+	dataGame->SaveCard3(card3);
 }

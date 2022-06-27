@@ -180,6 +180,12 @@
     <ClCompile Include="Card.cpp">
       <Filter>Header Files\Object</Filter>
     </ClCompile>
+    <ClCompile Include="DataGame.cpp">
+      <Filter>Header Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="HUDWorldMap.cpp">
+      <Filter>Header Files\HUD</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="KeyEventHandler.h">
@@ -310,6 +316,12 @@
     </ClInclude>
     <ClInclude Include="Card.h">
       <Filter>Header Files\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="DataGame.h">
+      <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="HUDWorldMap.h">
+      <Filter>Header Files\HUD</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
