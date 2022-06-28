@@ -51,6 +51,7 @@
 #define OBJECT_TYPE_DOOR 1010
 #define OBJECT_TYPE_OTHER 1011
 
+#define OBJECT_TYPE_PLATFORM_INTRO	1020
 
 #pragma region MARIO 
 

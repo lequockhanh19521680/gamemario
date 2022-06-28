@@ -4,6 +4,7 @@
 #include "Animations.h"
 #include "debug.h"
 
+
 #define MARIO_WALKING_SPEED		0.08f
 #define MARIO_RUNNING_SPEED		0.1f
 #define MARIO_SIT_VY_ADJUST 0.2f
@@ -20,13 +21,13 @@
 #define SPEED_LEVEL_RUN 0.01f
 
 
-#define MARIO_GRAVITY 0.00035f
+#define MARIO_GRAVITY 0.00039f
 
 #define MARIO_JUMP_DEFLECT_SPEED  0.1f
 #define MARIO_JUMP_DEFLECT_SPEED_DIE  0.17f
 
 #define MARIO_FLY_FALL 0.0f
-#define MARIO_FLYING 0.2f
+#define MARIO_FLYING 0.24f
 
 
 #define LEVEL_RUN_MAX 7

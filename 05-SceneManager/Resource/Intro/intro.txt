@@ -1,111 +1,27 @@
 [ASSETS]
+Resource\Intro\platform.txt
+Resource\World1-1\card.txt
 Resource\World1-1\mario.txt
-Resource\World1-1\effect.txt
+Resource\World1-1\brick.txt
+Resource\World1-1\coin.txt
+Resource\World1-1\goomba.txt
+Resource\World1-1\cloud.txt
+Resource\World1-1\mushroom.txt
+Resource\World1-1\leaf.txt
+Resource\World1-1\flowerfire.txt
+Resource\World1-1\brickquestion.txt
 Resource\World1-1\platform.txt
-Resource\WorldMap\grass.txt
-Resource\WorldMap\door.txt
-Resource\World1-1\platform.txt
-Resource\WorldMap\otherobject.txt
-Resource\WorldMap\hammer.txt
+Resource\World1-1\pipe.txt
+Resource\World1-1\koopa.txt
+Resource\World1-1\bulletplant.txt
 Resource\World1-1\hud.txt
+Resource\World1-1\effect.txt
+Resource\World1-1\button.txt
 
 [OBJECTS]
-
-#GRASS
-1001	16	16
-1001	16	32
-1001	32	16
-1001	32	32
-1001	48	16
-1001	48	32
-
-1001	16	64
-1001	32	64
-1001	48	64
-1001	16	80
-1001	32	80
-1001	48	80
-1001	16	96
-
-1001	80	32
-1001	96	32
-1001	112	32
-1001	80	48
-1001	96	48
-1001	112	48
-1001	80	64
-1001	96	64
-1001	112	64
-
-1001	144	32
-1001	160	32
-1001	176	32
-
-1001	208	16
-1001	224	16
-1001	208	32
-1001	224	32
-1001	208	48
-1001	224	48
-
-1001	144	64
-1001	160	64
-1001	176	64
-1001	192	64
-1001	208	64
-1001	224	64
-
-1001	144	80
-1001	160	80
-
-1001	96	96
-1001	112	96
-1001	128	96
-
-1001	224	80
-1001	224	96
-1001	224	112
-1001	224	128
-1001	224	144
-#DOOR #x y model left top right bottom
-1010	32	48	1	1	0	1	0
-1010	64	16	3	0	0	1	1
-1010	128	16	4	1	0	1	1
-1010	160	16	5	1	0	1	0
-1010	160	48	6	1	0	1	0
-1010	64	144	7	0	1	1	0
-1010	128	144	8	1	1	0	0
-#PLATFORM BLOCK
-40	0	4	16	16	16	2	2	2
-40	0	156	16	16	16	2	2	2
-
-40	0	48	16	16	1	2	2	2
+1020	120	176
 
 
-#OBJECT
-1011	64	48	1	1	1	0	0
-1011	96	16	1	1	0	1	0
-1011	192	16	1	1	0	0	1
+0	40	80
 
-1011	192	48	1	1	1	0	0
-1011	128	48	1	0	1	1	1
-1011	128	80	2	1	1	0	0
-
-1011	96	80	1	1	0	1	0
-1011	64	80	1	0	1	1	1
-
-1011	64	112	1	0	1	0	1
-1011	96	144	1	1	0	1	0
-
-1011	96	112	1	0	0	1	0
-1011	128	112	1	1	0	1	1
-1011	160	112	1	1	0	1	0
-
-1011	192	112	1	1	0	0	0
-1011	64	64	1	0	0	0	1
-#EFFECT HELP
-42	208	96
-#HAMMER
-43	130	112
-#MARIO
-1000	0	0
+40	-64	166	16	16	30	2	2	2

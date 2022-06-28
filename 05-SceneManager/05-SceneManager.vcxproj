@@ -164,7 +164,10 @@
     <ClCompile Include="IntroArrow.cpp" />
     <ClCompile Include="IntroKey.cpp" />
     <ClCompile Include="IntroScene.cpp" />
+    <ClCompile Include="MarioGreenIntro.cpp" />
+    <ClCompile Include="MarioRedIntro.cpp" />
     <ClCompile Include="OtherObject.cpp" />
+    <ClCompile Include="PlatformIntro.cpp" />
     <ClCompile Include="WorldMapKeyEvent.cpp" />
     <ClCompile Include="WorldMapScene.cpp" />
     <ClCompile Include="debug.cpp" />
@@ -215,7 +218,10 @@
     <ClInclude Include="IntroArrow.h" />
     <ClInclude Include="IntroKey.h" />
     <ClInclude Include="IntroScene.h" />
+    <ClInclude Include="MarioGreenIntro.h" />
+    <ClInclude Include="MarioRedIntro.h" />
     <ClInclude Include="OtherObject.h" />
+    <ClInclude Include="PlatformIntro.h" />
     <ClInclude Include="WorldMapKeyEvent.h" />
     <ClInclude Include="WorldMapScene.h" />
     <ClInclude Include="debug.h" />

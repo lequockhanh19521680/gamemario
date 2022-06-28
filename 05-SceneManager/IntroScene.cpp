@@ -5,7 +5,12 @@
 
 #include "IntroKey.h"
 #include "PlayScene.h"
+#include "Platform.h"
+#include "PlatformIntro.h"
+#include "Mario.h"
+#include "Platform.h"
 #include "Game.h"
+#include "Goomba.h"
 #include "Scene.h"
 #include "debug.h"
 
@@ -88,8 +93,27 @@ void CIntroScene::_ParseSection_OBJECTS(string line) {
 	CDataGame* data = CGame::GetInstance()->GetDataGame();
 	switch (object_type)
 	{//Tu dien object o day
-	case 1:
+	case OBJECT_TYPE_PLATFORM_INTRO: obj = new CPlatformIntro(x, y); break;
+	case OBJECT_TYPE_MARIO: obj = new CMario(x, y); break;
+	case OBJECT_TYPE_GOOMBA: obj = new CGoomba(x, y,GOOMBA_BASE); break;
+	case OBJECT_TYPE_PLATFORM:
+	{
+
+		float cell_width = (float)atof(tokens[3].c_str());
+		float cell_height = (float)atof(tokens[4].c_str());
+		int length = atoi(tokens[5].c_str());
+		int sprite_begin = atoi(tokens[6].c_str());
+		int sprite_middle = atoi(tokens[7].c_str());
+		int sprite_end = atoi(tokens[8].c_str());
+
+		obj = new CPlatform(
+			x, y,
+			cell_width, cell_height, length,
+			sprite_begin, sprite_middle, sprite_end
+		);
+
 		break;
+	}
 	default:
 		DebugOut(L"[ERROR] Invalid object type: %d\n", object_type);
 		return;
