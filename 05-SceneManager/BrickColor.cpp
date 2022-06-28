@@ -71,8 +71,10 @@ void CBrickColor::SetState(int state) {
 	switch (state) {
 	case BRICK_STATE_DELETE:
 		isBreak = true;
+		platform->Delete();
 		break;
 	case BRICK_STATE_GOLD:
+		platform->Delete();
 		isGold = true;
 		break;
 	}

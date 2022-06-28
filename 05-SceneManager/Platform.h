@@ -3,6 +3,7 @@
 #include "GameObject.h"
 
 #define HEIGHT_CAN_DOWN 15.9f
+#define SPRITE_NULL 2
 // 
 // The most popular type of object in Mario! 
 // 
@@ -27,6 +28,14 @@ public:
 		this->spriteIdBegin = sprite_id_begin;
 		this->spriteIdMiddle = sprite_id_middle;
 		this->spriteIdEnd = sprite_id_end;
+	}
+	CPlatform(float x, float y, float cell_width, float cell_height, int length) :CGameObject(x, y) {
+		this->length = length;
+		this->cellWidth = cell_width;
+		this->cellHeight = cell_height;
+		this->spriteIdBegin = SPRITE_NULL;
+		this->spriteIdMiddle = SPRITE_NULL;
+		this->spriteIdEnd = SPRITE_NULL;
 	}
 
 	void Render();

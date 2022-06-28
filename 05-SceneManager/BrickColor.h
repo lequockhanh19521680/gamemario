@@ -1,6 +1,9 @@
 #pragma once
 #include "Animation.h"
 #include "Animations.h"
+#include "Platform.h"
+#include"Game.h"
+#include"PlayScene.h"
 
 #define ID_ANI_BRICK_COLOR 10001
 #define BRICK_BBOX_WIDTH 16
@@ -14,6 +17,7 @@
 #include "GameObject.h"
 class CBrickColor :    public CGameObject
 {
+	CPlatform* platform;
 	bool isBreak = false;
 	bool isGold = false;
 	bool isUseButton = false;
@@ -22,6 +26,9 @@ protected:
 	int model;
 public:
 	CBrickColor(float x, float y, int model) : CGameObject(x, y) { 
+		CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
+		platform = new CPlatform(x, y, BRICK_BBOX_WIDTH-1,BRICK_BBOX_HEIGHT-1,1);
+		scene->AddObject(platform);
 		this->model = model; 
 	}
 	void Render();

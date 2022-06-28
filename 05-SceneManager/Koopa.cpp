@@ -7,6 +7,7 @@
 #include "PlantEnemy.h"
 #include "PlayScene.h"
 #include "debug.h"
+#include "BrickColor.h"
 #include "BrickQuestion.h"
 #include "MushRoom.h"
 #include "Leaf.h"
@@ -207,9 +208,19 @@ void CKoopa::OnCollisionWith(LPCOLLISIONEVENT e) {
 		this->OnCollisionWithKoopa(e);
 	else if ((dynamic_cast<CPlantEnemy*>(e->obj)))
 		this->OnCollisionWithPlantEnemy(e);
+	else if ((dynamic_cast<CBrickColor*>(e->obj)))
+		this->OnCollisionWithBrickColor(e);
 }
 
+void CKoopa::OnCollisionWithBrickColor(LPCOLLISIONEVENT e) {
+	CBrickColor* brick = dynamic_cast<CBrickColor*>(e->obj);
+	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 
+	if ((isKicked) && (e->nx != 0)) {
+		mario->SetScore(mario->GetScore() + 100);
+		brick->SetState(BRICK_STATE_DELETE);
+	}
+}
 void CKoopa::OnCollisionWithPlantEnemy(LPCOLLISIONEVENT e) {
 	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 
@@ -298,16 +309,16 @@ void CKoopa::OnCollisionWithPlatform(LPCOLLISIONEVENT e) {
 	}
 	if ((model == KOOPA_RED) && (state == KOOPA_STATE_WALKING))
 	{
-		if ((platform->GetX() > GetX()) || (GetX() > platform->GetX() + (platform->GetLength() - 1) * KOOPA_BBOX_WIDTH))
-		{
-			if ((platform->GetX() > GetX())) {
-				SetX(platform->GetX());
-			}
-			if ((GetX() > platform->GetX() + (platform->GetLength() - 1) * KOOPA_BBOX_WIDTH)) {
-				SetX(platform->GetX() + (platform->GetLength() - 1) * KOOPA_BBOX_WIDTH);
-			}
+		if (platform->GetX() -KOOPA_BBOX_WIDTH/2> GetX()) {
+			SetX(platform->GetX()- KOOPA_BBOX_WIDTH/2);
 			vx = -vx;
 		}
+		if((GetX() > (platform->GetX() + (platform->GetLength() - 0.5) * KOOPA_BBOX_WIDTH))) {
+			SetX(platform->GetX() + (platform->GetLength() - 0.5) * KOOPA_BBOX_WIDTH);
+			vx = -vx;
+		}
+		
+		
 	}
 }
 void CKoopa::SetState(int state) {
