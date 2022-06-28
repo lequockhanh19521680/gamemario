@@ -1453,6 +1453,7 @@ void CMario::AdjustLogicSitting() {
 void CMario::ChangeWorldMapWhenDie() {
 	if (GetTickCount64() - start_change_scene_die > TIME_CHANGE_SCENE) {
 		Up--;
+		level = MARIO_LEVEL_SMALL;
 		SaveDataGame();
 		CGame::GetInstance()->InitiateSwitchScene(MARIO_WORLD_MAP_SCENE);
 	}
@@ -1524,14 +1525,15 @@ void CMario::DownTimeClock1Second() {
 }
 
 void CMario::DownTimeClockAndAddScore() {
-	if (clock > 0) {
+	if (clock > TIME_DOWN_END_SCENE) {
 		if (GetTickCount64() - time_down_1_second > TIME_CLOCK_VERY_FAST) {
-			clock--;
-			score += 50;
+			clock-= TIME_DOWN_END_SCENE;
+			score += 50*TIME_DOWN_END_SCENE;
 			time_down_1_second = GetTickCount64();
 		}
 	}
 	else {
+		score += clock * 50;
 		clock = 0;
 		isEndScene = true;
 		isClockVeryFast = false;
