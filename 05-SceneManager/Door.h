@@ -18,12 +18,12 @@
 #define DOOR_BBOX_HEIGHT 16
 
 #define DOOR_WORLD_START 1
-#define DOOR_WORLD_1_1 2
-#define DOOR_WORLD_1_2 3
-#define DOOR_WORLD_1_3 4
-#define DOOR_WORLD_1_4 5
-#define DOOR_WORLD_1_5 6
-#define DOOR_WORLD_1_6 7
+#define DOOR_WORLD_1_1 3
+#define DOOR_WORLD_1_2 4
+#define DOOR_WORLD_1_3 5
+#define DOOR_WORLD_1_4 6
+#define DOOR_WORLD_1_5 7
+#define DOOR_WORLD_1_6 8
 
 
 class CDoor :

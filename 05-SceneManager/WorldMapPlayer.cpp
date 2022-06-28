@@ -55,7 +55,7 @@ void CWorldMapPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 void CWorldMapPlayer::Render() {
 	CDataGame* data = CGame::GetInstance()->GetDataGame();
 	
-	int aniId = -1;
+	int aniId = ID_ANI_MARIO_WORLD_MAP;
 	if (data->GetLevel() == MARIO_LEVEL_SMALL) aniId = ID_ANI_MARIO_WORLD_MAP;
 	else if (data->GetLevel() == MARIO_LEVEL_BIG) aniId = ID_ANI_MARIO_BIG_WORLD_MAP;
 	else if (data->GetLevel() == MARIO_LEVEL_TAIL) aniId = ID_ANI_MARIO_TAIL_WORLD_MAP;

@@ -6,9 +6,10 @@ start	1
 #id	type	file
 # type: 0: intro, 1: play scene 
 [SCENES]
-0	intro.txt	1
-1	Resource\WorldMap\worldmap.txt	2
-2	Resource\World1-1\world1-1.txt	3
+0	Khongcogi	1
+1	Resource\Intro\intro.txt	1
+2	Resource\WorldMap\worldmap.txt	2
+3	Resource\World1-1\world1-1.txt	3
 # id	file 
 [TEXTURES]
 -100	textures\bbox.png

@@ -5,6 +5,7 @@
 #include "Utils.h"
 #include "Scene.h"
 #include "Texture.h"
+#include "IntroScene.h"
 #include "Animations.h"
 #include "PlayScene.h"
 #include"WorldMapScene.h"
@@ -471,7 +472,7 @@ void CGame::_ParseSection_SCENES(string line)
 		scenes[id] = scene;
 		break;
 	case TYPE_WORLD_INTRO:
-		scene = new CPlayScene(id, path);
+		scene = new CIntroScene(id, path);
 		scenes[id] = scene;
 		break;
 	}
