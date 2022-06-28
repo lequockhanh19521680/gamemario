@@ -29,6 +29,8 @@ CPipe::CPipe(float x, float y, int model, int typePlant) : CGameObject(x,y){
 
 void CPipe::Render()
 {
+	if (!checkObjectInCamera(this)) return;
+
 	CAnimations* animations = CAnimations::GetInstance();
 	int aniId = -1;
 	if (model == PIPE_SHORT_MODEL) aniId = ID_ANI_PIPE_SHORT; 

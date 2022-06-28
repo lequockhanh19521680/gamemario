@@ -2,8 +2,9 @@
 
 #include "debug.h"
 void CCard::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
+	if (!checkObjectInCamera(this)) return;
 
-	//DebugOutTitle(L"CARD %d", card);
+	DebugOutTitle(L"CARD %d", card);
 	if (!isCollected) {
 		if (GetTickCount64() - start_change > TIME_CHANGE_CARD) {
 			if (card == CARD_MUSHROOM) card = CARD_FLOWER;
@@ -18,6 +19,8 @@ void CCard::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 }
 void CCard::Render()
 {
+	if (!checkObjectInCamera(this)) return;
+
 	int aniId = ID_ANI_CARD_MUSHROOM;
 	CAnimations* animations = CAnimations::GetInstance();
 	if (card == CARD_MUSHROOM) aniId = ID_ANI_CARD_MUSHROOM;

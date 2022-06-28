@@ -182,6 +182,8 @@ int CGoomba::GetAniGoompaBase() {
 
 void CGoomba::Render()
 {
+	if (!checkObjectInCamera(this)) return;
+
 	int aniId = -1;
 	if (model == GOOMBA_WING) {
 		aniId = GetAniGoompaWing();

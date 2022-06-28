@@ -6,6 +6,8 @@ CFlowerFire::CFlowerFire(float x, float y) : CGameObject(x, y) {
 }
 
 void CFlowerFire::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
+	if (!checkObjectInCamera(this)) return;
+
 	if (firstYPosition - y < FL_BBOX_HEIGHT-1) {
 		vy = ay*dt;
 	}
@@ -19,6 +21,8 @@ void CFlowerFire::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 
 void CFlowerFire::Render()
 {
+	if (!checkObjectInCamera(this)) return;
+
 	CAnimations* animations = CAnimations::GetInstance();
 	animations->Get(ID_ANI_FLOWER)->Render(x, y);
 

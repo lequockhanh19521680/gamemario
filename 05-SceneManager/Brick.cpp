@@ -2,6 +2,8 @@
 
 void CBrick::Render()
 {
+	if (!checkObjectInCamera(this)) return;
+
 	CAnimations* animations = CAnimations::GetInstance();
 	animations->Get(ID_ANI_BRICK)->Render(x, y);
 	//RenderBoundingBox();

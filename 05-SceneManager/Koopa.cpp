@@ -163,6 +163,7 @@ int CKoopa::GetAniRed() {
 }
 
 void CKoopa::Render() {
+	if (!checkObjectInCamera(this)) return;
 	int aniId;
 	if (model == KOOPA_RED) {
 		aniId = GetAniRed();
@@ -314,7 +315,7 @@ void CKoopa::OnCollisionWithPlatform(LPCOLLISIONEVENT e) {
 			vx = -vx;
 		}
 		if((GetX() > (platform->GetX() + (platform->GetLength() - 0.5) * KOOPA_BBOX_WIDTH))) {
-			SetX(platform->GetX() + (platform->GetLength() - 0.5) * KOOPA_BBOX_WIDTH);
+			SetX(platform->GetX() + (float(platform->GetLength() - 0.5)) * KOOPA_BBOX_WIDTH);
 			vx = -vx;
 		}
 		

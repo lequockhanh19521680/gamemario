@@ -25,6 +25,8 @@ CMushRoom::CMushRoom(float x, float y,int model) :CGameObject(x, y)
 	SetState(MUSHROOM_STATE_OUTSIDE);
 }
 void CMushRoom::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects){
+	if (!checkObjectInCamera(this)) return;
+
 	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 	if (mario->GetIsChanging()) return;
 	if (state == MUSHROOM_STATE_WALKING) {
@@ -77,6 +79,8 @@ void CMushRoom::OnCollisionWithPlatForm(LPCOLLISIONEVENT e)
 }
 void CMushRoom::Render()
 {
+	if (!checkObjectInCamera(this)) return;
+
 	CAnimations* animations = CAnimations::GetInstance();
 	if (model == MUSHROOM_RED) animations->Get(ID_ANI_MUSHROOM_RED)->Render(x, y);
 	else animations->Get(ID_ANI_MUSHROOM_GREEN)->Render(x, y);

@@ -21,6 +21,8 @@ CLeaf::CLeaf(float x, float y, int state) {
 	this->state = state;
 }
 void CLeaf::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
+	if (!checkObjectInCamera(this)) return;
+
 	if (isOnPlatForm) {
 		vy = 0;
 		ay = 0;
@@ -77,6 +79,8 @@ void CLeaf::OnCollisionWithPlatForm(LPCOLLISIONEVENT e)
 
 void CLeaf::Render()
 {
+	if (!checkObjectInCamera(this)) return;
+
 	CAnimations* animations = CAnimations::GetInstance();
 	if (vx <= 0) animations->Get(ID_ANI_LEAF_LEFT)->Render(x, y);
 	else if (vx > 0) animations->Get(ID_ANI_LEAF_RIGHT)->Render(x, y);

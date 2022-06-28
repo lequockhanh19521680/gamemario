@@ -3,6 +3,8 @@
 #include"Game.h"
 #include"PlayScene.h"
 void CEffect::Render() {
+	if (!checkObjectInCamera(this)) return;
+
 	CAnimations* animations = CAnimations::GetInstance();
 	if (model == EFFECT_SCORE_100) animations->Get(ID_ANI_EFFECT_100_SCORE)->Render(x, y);
 	else if (model == EFFECT_SCORE_200) animations->Get(ID_ANI_EFFECT_200_SCORE)->Render(x, y);
@@ -28,7 +30,8 @@ void CEffect::Render() {
 }
 
 void CEffect::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
-
+	if (!checkObjectInCamera(this)) return;
+	
 	if ((EFFECT_SCORE_100 <= model) && (model <= EFFECT_UP))
 	{
 		if (GetTickCount64() - start_delete > EFFECT_DELETE_TIME) { isDeleted = true; }

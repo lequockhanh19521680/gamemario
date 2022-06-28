@@ -4,6 +4,8 @@
 #include "PlayScene.h"
 void CCoin::Render()
 {
+	if (!checkObjectInCamera(this)) return;
+
 	CAnimations* animations = CAnimations::GetInstance();
 	animations->Get(ID_ANI_COIN)->Render(x, y);
 
@@ -18,6 +20,7 @@ void CCoin::GetBoundingBox(float& l, float& t, float& r, float& b)
 	b = t + COIN_BBOX_HEIGHT;
 }
 void CCoin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
+
 	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 
 	if (!checkObjectInCamera(this)) return;

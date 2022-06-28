@@ -47,7 +47,6 @@ public:
 
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom) = 0;
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL) {
-		if (!IsPlayer()) { if (y > DEATH_ZONE_Y) Delete(); }
 	}
 	virtual void Render() = 0;
 	virtual void SetState(int state) { this->state = state; }
