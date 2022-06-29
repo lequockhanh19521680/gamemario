@@ -109,6 +109,7 @@ void CWorldMapPlayer::OnCollisionWithDoor(LPCOLLISIONEVENT e) {
 	isAllowTop = door->GetAllowTop();
 	isAllowBottom = door->GetAllowBottom();
 	sceneChange = door->GetIdScene();
+	saveDoorProcess = door->GetModel();
 	if (e->nx != 0) {
 		Go1NodeX(door);
 	}
@@ -153,6 +154,8 @@ void CWorldMapPlayer::Go1NodeY(LPGAMEOBJECT gameobject) {
 }
 void CWorldMapPlayer::SaveData() {
 	CDataGame* data = CGame::GetInstance()->GetDataGame();
+	data->SaveDoorProcess(saveDoorProcess);
 	data->SavePositionXWorldMap(x);
 	data->SavePositionYWorldMap(y);
+	data->SaveAllowKey(isAllowLeft, isAllowTop, isAllowRight, isAllowBottom);
 }

@@ -20,20 +20,27 @@
 #pragma once
 class CWorldMapPlayer : public CGameObject
 {
+	int saveDoorProcess = 0;
 	int sceneChange = 0;
 	bool isCanGoWorld = false;
 	float startX, startY;
 	bool isGoingNodeX = false;
 	bool isGoingNodeY = false;
-	bool isAllowLeft = true;
-	bool isAllowRight = true;
-	bool isAllowTop = false;
-	bool isAllowBottom = false;
+	bool isAllowLeft;
+	bool isAllowRight;
+	bool isAllowTop;
+	bool isAllowBottom;
 
 	void OnCollisionWithDoor(LPCOLLISIONEVENT e);
 	void OnCollisionWithOtherObject(LPCOLLISIONEVENT e);
 public:
-	CWorldMapPlayer(float x, float y) : CGameObject(x, y) {}
+	CWorldMapPlayer(float x, float y) : CGameObject(x, y) {
+		CDataGame* data = CGame::GetInstance()->GetDataGame();
+		isAllowLeft = data->GetAllowKeyLeft();
+		isAllowTop = data->GetAllowKeyTop();
+		isAllowRight = data->GetAllowKeyRight();
+		isAllowBottom = data->GetAllowKeyBottom();
+	}
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void Render();
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);

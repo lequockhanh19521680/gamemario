@@ -19,7 +19,7 @@ void CIntroBackGround::Render() {
 		else introArrow->RenderChangeScene(x + POSITION_X_ARROW, y + POSITION_Y_ARROW + DISTANCE_ARROW);
 	}
 	
-	DebugOutTitle(L"state %d", state);
+	//DebugOutTitle(L"state %d", state);
 }
 
 void CIntroBackGround::SetState(int state) {

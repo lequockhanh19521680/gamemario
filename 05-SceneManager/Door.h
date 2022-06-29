@@ -14,6 +14,7 @@
 #define ID_ANI_DOOR_4 25014
 #define ID_ANI_DOOR_5 25015
 #define ID_ANI_DOOR_6 25016
+#define ID_ANI_DOOR_PASS 25017
 #define DOOR_BBOX_WIDTH 16
 #define DOOR_BBOX_HEIGHT 16
 
@@ -38,14 +39,7 @@ private:
 	bool allowRight;
 	bool allowBottom;
 public:
-	CDoor(float x, float y,int model,bool allowLeft, bool allowTop, bool allowRight, bool allowBottom) : CGameObject(x, y) {
-		this->model = model;
-		this->idScene = ID_SCENE_WORLD_1_1;// dat nhu vay la vi chi ton tai world 1-1
-		this->allowLeft = allowLeft;
-		this->allowTop = allowTop;
-		this->allowRight = allowRight;
-		this->allowBottom = allowBottom;
-	}
+	CDoor(float x, float y, int model, bool allowLeft, bool allowTop, bool allowRight, bool allowBottom);
 	void Render();
 	void Update(DWORD dt) {}
 	virtual int IsBlocking() { return 0; }
@@ -54,6 +48,7 @@ public:
 	bool GetAllowRight() { return allowRight; }
 	bool GetAllowBottom() { return allowBottom; }
 	int GetIdScene() { return idScene; }
+	int GetModel() { return model; }
 	void GetBoundingBox(float& l, float& t, float& r, float& b);
 };
 

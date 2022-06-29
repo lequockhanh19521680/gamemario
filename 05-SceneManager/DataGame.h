@@ -8,7 +8,21 @@ private:
 	//world map
 	float position_x_world_map;
 	float position_y_world_map;
+	bool isAllowLeft;
+	bool isAllowRight;
+	bool isAllowTop;
+	bool isAllowBottom;
 
+	bool isPassDoor1;
+	bool isPassDoor2;
+	bool isPassDoor3;
+	bool isPassDoor4;
+	bool isPassDoor5;
+	bool isPassDoor6;
+
+	int saveDoorProcess;
+
+	bool isDisplayHUD;
 	//playscene
 	int level;
 	int score;
@@ -28,7 +42,13 @@ public:
 	void SaveCard1(int c1);
 	void SaveCard2(int c2);
 	void SaveCard3(int c3);
+	void SavePassDoor(bool door1, bool door2, bool door3, bool door4, bool door5, bool door6);
+	void SavePassDoorEasier(int i);
+	void SetIsDisplayHUD(bool b);
+	void SaveDoorProcess(int n);
 
+	void SaveAllowKey(bool isAllowLeft, bool isAllowRight, bool isAllowTop, bool isAllowBottom);
+	
 	float GetPositionXWorldMap() { return position_x_world_map; }
 	float GetPositionYWorldMap() { return position_y_world_map; }
 
@@ -40,6 +60,23 @@ public:
 	int GetScore() { return score; }
 	int GetUp() { return Up; }
 	int GetCoin() { return coin; }
+	int GetDoorProcess() { return saveDoorProcess; }
+
+	bool GetAllowKeyLeft() { return isAllowLeft; }
+	bool GetAllowKeyTop() { return isAllowTop; }
+	bool GetAllowKeyBottom() { return isAllowBottom; }
+	bool GetAllowKeyRight() { return isAllowRight; }
+
+	bool GetIsPassDoor1() { return isPassDoor1; }
+	bool GetIsPassDoor2() { return isPassDoor2; }
+	bool GetIsPassDoor3() { return isPassDoor3; }
+	bool GetIsPassDoor4() { return isPassDoor4; }
+	bool GetIsPassDoor5() { return isPassDoor5; }
+	bool GetIsPassDoor6() { return isPassDoor6; }
+
+	bool GetIsDisplayHUD() { return isDisplayHUD; }
+
+
 
 	void ResetFullData();
 };
