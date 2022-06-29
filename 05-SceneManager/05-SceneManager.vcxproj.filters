@@ -219,6 +219,9 @@
     <ClCompile Include="PlatformIntro.cpp">
       <Filter>Header Files\Intro\ObjectIntro</Filter>
     </ClCompile>
+    <ClCompile Include="IntroBackGround.cpp">
+      <Filter>Header Files\Intro</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="KeyEventHandler.h">
@@ -382,6 +385,9 @@
     </ClInclude>
     <ClInclude Include="PlatformIntro.h">
       <Filter>Header Files\Intro\ObjectIntro</Filter>
+    </ClInclude>
+    <ClInclude Include="IntroBackGround.h">
+      <Filter>Header Files\Intro</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

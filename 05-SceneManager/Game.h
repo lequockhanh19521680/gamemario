@@ -29,6 +29,10 @@ using namespace std;
 #define ADJUST_CAM_HIDDEN_MAP 0
 #define HIDDEN_POSITION_X 3000
 
+
+#define ID_SCENE_INTRO 1
+#define ID_SCENE_WORLD_MAP 2
+#define ID_SCENE_WORLD_1_1 3
 /*
 	Our simple game framework
 */

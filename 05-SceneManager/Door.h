@@ -40,7 +40,7 @@ private:
 public:
 	CDoor(float x, float y,int model,bool allowLeft, bool allowTop, bool allowRight, bool allowBottom) : CGameObject(x, y) {
 		this->model = model;
-		this->idScene = DOOR_WORLD_1_1;// dat nhu vay la vi chi ton tai world 1-1
+		this->idScene = ID_SCENE_WORLD_1_1;// dat nhu vay la vi chi ton tai world 1-1
 		this->allowLeft = allowLeft;
 		this->allowTop = allowTop;
 		this->allowRight = allowRight;

@@ -1,5 +1,6 @@
 [ASSETS]
 Resource\Intro\platform.txt
+Resource\Intro\background.txt
 Resource\World1-1\card.txt
 Resource\World1-1\mario.txt
 Resource\World1-1\brick.txt
@@ -19,9 +20,13 @@ Resource\World1-1\effect.txt
 Resource\World1-1\button.txt
 
 [OBJECTS]
-1020	120	176
+#PLATFORM MAIN
+1020	120	192
+#PLATFORM BLOCK
+40	-64	186	16	16	30	2	2	2
+
+#BACKGROUND
+
+1021	120	86
 
 
-0	40	80
-
-40	-64	166	16	16	30	2	2	2

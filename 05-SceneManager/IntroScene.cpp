@@ -9,6 +9,8 @@
 #include "PlatformIntro.h"
 #include "Mario.h"
 #include "Platform.h"
+#include"IntroBackGround.h"
+
 #include "Game.h"
 #include "Goomba.h"
 #include "Scene.h"
@@ -93,9 +95,22 @@ void CIntroScene::_ParseSection_OBJECTS(string line) {
 	CDataGame* data = CGame::GetInstance()->GetDataGame();
 	switch (object_type)
 	{//Tu dien object o day
+	case OBJECT_TYPE_BACKGROUND_INTRO: {
+		if (player != NULL)
+		{
+			DebugOut(L"[ERROR] MARIO object was created before!\n");
+			return;
+		}
+		obj = new CIntroBackGround(x, y);
+		player = (CIntroBackGround*)obj;
+
+		DebugOut(L"[INFO] Player object has been created!\n");
+		break;
+	}
 	case OBJECT_TYPE_PLATFORM_INTRO: obj = new CPlatformIntro(x, y); break;
 	case OBJECT_TYPE_MARIO: obj = new CMario(x, y); break;
 	case OBJECT_TYPE_GOOMBA: obj = new CGoomba(x, y,GOOMBA_BASE); break;
+	
 	case OBJECT_TYPE_PLATFORM:
 	{
 

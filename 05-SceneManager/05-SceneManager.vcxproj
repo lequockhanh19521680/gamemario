@@ -162,6 +162,7 @@
     <ClCompile Include="Hammer.cpp" />
     <ClCompile Include="HUDWorldMap.cpp" />
     <ClCompile Include="IntroArrow.cpp" />
+    <ClCompile Include="IntroBackGround.cpp" />
     <ClCompile Include="IntroKey.cpp" />
     <ClCompile Include="IntroScene.cpp" />
     <ClCompile Include="MarioGreenIntro.cpp" />
@@ -216,6 +217,7 @@
     <ClInclude Include="Hammer.h" />
     <ClInclude Include="HUDWorldMap.h" />
     <ClInclude Include="IntroArrow.h" />
+    <ClInclude Include="IntroBackGround.h" />
     <ClInclude Include="IntroKey.h" />
     <ClInclude Include="IntroScene.h" />
     <ClInclude Include="MarioGreenIntro.h" />

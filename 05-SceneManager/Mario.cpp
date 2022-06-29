@@ -1455,14 +1455,14 @@ void CMario::ChangeWorldMapWhenDie() {
 		Up--;
 		level = MARIO_LEVEL_SMALL;
 		SaveDataGame();
-		CGame::GetInstance()->InitiateSwitchScene(MARIO_WORLD_MAP_SCENE);
+		CGame::GetInstance()->InitiateSwitchScene(ID_SCENE_WORLD_MAP);
 	}
 }
 
 void CMario::ChangeWorldMapWhenNotDie() {
 	if (GetTickCount64() - start_change_scene_clock > TIME_CHANGE_SCENE) {
 		SaveDataGame();
-		CGame::GetInstance()->InitiateSwitchScene(MARIO_WORLD_MAP_SCENE);
+		CGame::GetInstance()->InitiateSwitchScene(ID_SCENE_WORLD_MAP);
 	}
 }
 

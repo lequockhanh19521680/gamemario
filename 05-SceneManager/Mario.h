@@ -281,7 +281,7 @@
 #define POSITION_MAX_END_SCENE 2830
 
 
-#define MARIO_WORLD_MAP_SCENE 2
+
 class CMario : public CGameObject
 {
 	int testDebug = 0;

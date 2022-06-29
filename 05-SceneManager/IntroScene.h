@@ -5,11 +5,13 @@
 #include "Map.h"
 #include "GameObject.h"
 #include "HUDWorldMap.h"
+#include "IntroBackGround.h"
 
 
 
 class CIntroScene : public CScene
 {
+	LPGAMEOBJECT player = NULL;
 	vector<LPGAMEOBJECT> objects;
 
 	void _ParseSection_SPRITES(string line);
@@ -23,6 +25,7 @@ class CIntroScene : public CScene
 public:
 
 	CIntroScene(int id, LPCWSTR filePath);
+	LPGAMEOBJECT GetPlayer() { return player; }
 	virtual void Load();
 	virtual void Update(DWORD dt);
 	virtual void Render();
@@ -33,5 +36,6 @@ public:
 	void PurgeDeletedObjects();
 };
 
+typedef CIntroScene* LPINTROSCENE;
 
 
