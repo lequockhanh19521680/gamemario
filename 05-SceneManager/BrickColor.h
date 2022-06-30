@@ -26,9 +26,6 @@ protected:
 	int model;
 public:
 	CBrickColor(float x, float y, int model) : CGameObject(x, y) { 
-		CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
-		platform = new CPlatform(x, y, BRICK_BBOX_WIDTH-1,BRICK_BBOX_HEIGHT-1,1);
-		scene->AddObject(platform);
 		this->model = model; 
 	}
 	void Render();

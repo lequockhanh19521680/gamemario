@@ -210,12 +210,6 @@
     <ClCompile Include="IntroArrow.cpp">
       <Filter>Header Files\Intro</Filter>
     </ClCompile>
-    <ClCompile Include="MarioGreenIntro.cpp">
-      <Filter>Header Files\Intro\ObjectIntro</Filter>
-    </ClCompile>
-    <ClCompile Include="MarioRedIntro.cpp">
-      <Filter>Header Files\Intro\ObjectIntro</Filter>
-    </ClCompile>
     <ClCompile Include="PlatformIntro.cpp">
       <Filter>Header Files\Intro\ObjectIntro</Filter>
     </ClCompile>
@@ -376,12 +370,6 @@
     </ClInclude>
     <ClInclude Include="IntroArrow.h">
       <Filter>Header Files\Intro</Filter>
-    </ClInclude>
-    <ClInclude Include="MarioGreenIntro.h">
-      <Filter>Header Files\Intro\ObjectIntro</Filter>
-    </ClInclude>
-    <ClInclude Include="MarioRedIntro.h">
-      <Filter>Header Files\Intro\ObjectIntro</Filter>
     </ClInclude>
     <ClInclude Include="PlatformIntro.h">
       <Filter>Header Files\Intro\ObjectIntro</Filter>

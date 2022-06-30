@@ -296,16 +296,18 @@ void CKoopa::OnCollisionWithGoomba(LPCOLLISIONEVENT e) {
 void CKoopa::OnCollisionWithPlatform(LPCOLLISIONEVENT e) {
 	CPlatform* platform = dynamic_cast<CPlatform*>(e->obj);
 	if (e->ny < 0) {
-		isOnPlatform = true;
-		if (!isDefend && !isUpside) {
-			SetY(platform->GetY() - KOOPA_BBOX_HEIGHT + 4);
-		}
-		else
-		{
-			SetY(platform->GetY() - KOOPA_BBOX_HEIGHT / 2 - 3);
-		}
-		if ((model == KOOPA_GREEN_WING) && (state == KOOPA_STATE_JUMP)) {
-			vy = -KOOPA_JUMP_SPEED;
+		if (!platform->isCanNotBlockKoopa()) {
+			isOnPlatform = true;
+			if (!isDefend && !isUpside) {
+				SetY(platform->GetY() - KOOPA_BBOX_HEIGHT + 4);
+			}
+			else
+			{
+				SetY(platform->GetY() - KOOPA_BBOX_HEIGHT / 2 - 3);
+			}
+			if ((model == KOOPA_GREEN_WING) && (state == KOOPA_STATE_JUMP)) {
+				vy = -KOOPA_JUMP_SPEED;
+			}
 		}
 	}
 	if ((model == KOOPA_RED) && (state == KOOPA_STATE_WALKING))

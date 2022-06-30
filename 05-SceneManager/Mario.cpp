@@ -108,7 +108,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	
 	//Khi mario di chuyen cuoi scene 1.1 => Dung lai. Neu khong dung lai => Bi roi va chet
 	//Doan code nay lien quan den cac effect khi mario ket thuc 1.1
-	if (isPrepareEndScene && x > POSITION_MAX_END_SCENE) SettingMarioAutoMoveEndPlayScene();
+	if (isPrepareEndScene && MarioInPositionEndScene()) SettingMarioAutoMoveEndPlayScene();
 	
 
 	//Dong chu cuoi cung xuat hien khi ket thuc world play scene 1.1
@@ -338,9 +338,11 @@ void CMario::OnCollisionWithPlatForm(LPCOLLISIONEVENT e) {
 				SetState(MARIO_STATE_DOWNING_PIPE);
 			}
 			else {
-				isUsePipe = false;
-				isOnPlatform = true;
-				BlockIfNoBlock(platform); 
+				if (!platform->isCanNotBlockKoopa()) {
+					isUsePipe = false;
+					isOnPlatform = true;
+					BlockIfNoBlock(platform);
+				}
 			}
 		}
 		if (e->ny > 0)
@@ -1462,6 +1464,11 @@ void CMario::ChangeWorldMapWhenDie() {
 void CMario::ChangeWorldMapWhenNotDie() {
 	if (GetTickCount64() - start_change_scene_clock > TIME_CHANGE_SCENE) {
 		CDataGame* data = CGame::GetInstance()->GetDataGame();
+		if (card3 != 0) {
+			card1 = 0;
+			card2 = 0;
+			card3 = 0;
+		}
 		data->SavePassDoorEasier(data->GetDoorProcess());
 		SaveDataGame();
 		CGame::GetInstance()->InitiateSwitchScene(ID_SCENE_WORLD_MAP);

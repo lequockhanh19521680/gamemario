@@ -3,6 +3,7 @@
 #include "GameObject.h"
 
 #define HEIGHT_CAN_DOWN 15.9f
+#define HEIGHT_CAN_DOWN_BLOCK 15.8f
 #define SPRITE_NULL 2
 // 
 // The most popular type of object in Mario! 
@@ -46,6 +47,7 @@ public:
 	void RenderBoundingBox();
 	int GetLength() { return length; }
 	virtual int IsCollidable() { return 0; }
+	bool isCanNotBlockKoopa() { return (cellHeight == HEIGHT_CAN_DOWN_BLOCK); }
 	bool IsCanDown() { return (cellHeight == HEIGHT_CAN_DOWN); }
 	virtual int IsBlocking() { return (cellHeight==16); }//(cellHeight==16); }
 };
