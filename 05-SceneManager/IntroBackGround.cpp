@@ -8,7 +8,9 @@ void CIntroBackGround::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 }
 
 void CIntroBackGround::Render() {
-	if (state != BACKGROUND_STATE_MOVE) { CAnimations::GetInstance()->Get(ID_ANI_INTRO_BACKGROUND_DONE)->Render(x , y); }
+	if (state != BACKGROUND_STATE_MOVE) { 
+		CAnimations::GetInstance()->Get(ID_ANI_INTRO_BACKGROUND_DONE)->Render(x , y); 
+	}
 	if (state != BACKGROUND_STATE_WILL_CHANGE_SCENE)
 	{
 		if(isUpArrow) introArrow->Render(x + POSITION_X_ARROW, y + POSITION_Y_ARROW);

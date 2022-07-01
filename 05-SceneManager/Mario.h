@@ -30,7 +30,7 @@
 #define MARIO_FLYING 0.27f
 
 
-
+#define SCORE_MAX 9999999
 #define LEVEL_RUN_MAX 7
 #define TIME_FLY 3000
 #define TIME_TAIL_ATTACK 400

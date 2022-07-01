@@ -64,6 +64,7 @@ CMario::CMario(float x, float y) : CGameObject(x, y) {
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	//DebugOutTitle(L"Up %d", Up);
+	DebugOutTitle(L"score %d", score);
 	//DebugOutTitle(L"State %d", state);
 	//DebugOutTitle(L"TIME %d", clock);
 	//DebugOutTitle(L"POWERUP %d", levelRun);
@@ -91,6 +92,10 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	//Neu mario bi fall => DIE
 	if (MarioInDeadZone()) {SetState(MARIO_STATE_DIE);}
+	if (score > SCORE_MAX) {
+		AddScore(x, y, 0);
+		score = 0;
+	}
 	if (coin > 99) {
 		AddScore(x, y, 0);//UP++
 		coin = 0;
