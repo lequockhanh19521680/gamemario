@@ -63,7 +63,8 @@ void CHUDWorldMap::Render() {
 	DrawNumber(0, x + POSITION_CLOCK_X + DISTANCE_NUMBER * 2, y - ADJUST_Y_POWER_POSITION_UNDER);
 
 	if (data->GetIsOver()) DrawGameOver();
-	DebugOutTitle(L"%d %d %d %d %d", data->GetIsOver(), data->GetIsPrepareContinue(), data->GetIsPrepareEnd(), data->GetIsContinue(), data->GetIsEnd());
+	if (data->GetIsDisplayHUD()) DrawDisPlayHudSub();
+	//DebugOutTitle(L"%d %d %d %d %d %d", data->GetIsOver(), data->GetIsPrepareContinue(), data->GetIsPrepareEnd(), data->GetIsContinue(), data->GetIsEnd(), data->GetIsDisplayHUD());
 }
 
 
@@ -95,5 +96,14 @@ void CHUDWorldMap::DrawGameOver() {
 		CAnimations::GetInstance()->Get(ID_ANI_NULL)->Render(POSITION_X_HUD_GAME_OVER + ADJUST_X_POSITION_ARROW, POSITION_Y_HUD_GAME_OVER + ADJUST_Y_POSITION_ARROW);
 		CAnimations::GetInstance()->Get(ID_ANI_ARROW)->Render(POSITION_X_HUD_GAME_OVER + ADJUST_X_POSITION_ARROW, POSITION_Y_HUD_GAME_OVER + ADJUST_Y_POSITION_ARROW + DISTANCE_2_ARROW);
 	}
+
+}
+
+void CHUDWorldMap::DrawDisPlayHudSub() {
+	CDataGame* data = CGame::GetInstance()->GetDataGame();
+	CAnimations::GetInstance()->Get(ID_ANI_HUD_SUB)->Render(POSITION_X_HUD_GAME_OVER, POSITION_Y_HUD_GAME_OVER);
+	DrawNumber(1, POSITION_X_HUD_GAME_OVER + ADJUST_X_NUMBER_WORLD, POSITION_Y_HUD_GAME_OVER + ADJUST_Y_NUMBER_WORLD );
+	DrawNumber(0, POSITION_X_HUD_GAME_OVER + ADJUST_X_POSITION_NUMBER_HUD_SUB, POSITION_Y_HUD_GAME_OVER + ADJUST_Y_POSITION_NUMBER_HUD_SUB);
+	DrawNumber(4, POSITION_X_HUD_GAME_OVER + ADJUST_X_POSITION_NUMBER_HUD_SUB +  DISTANCE_NUMBER, POSITION_Y_HUD_GAME_OVER + ADJUST_Y_POSITION_NUMBER_HUD_SUB);
 
 }

@@ -8,6 +8,7 @@ void CWorldMapKeyEvent::OnKeyDown(int KeyCode)
 {
 	CWorldMapPlayer* player = (CWorldMapPlayer*)((LPWORLDSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 	CDataGame* data = CGame::GetInstance()->GetDataGame();
+	if (data->GetIsDisplayHUD()) return;
 	switch (KeyCode)
 	{
 	case DIK_RIGHT:
@@ -26,9 +27,8 @@ void CWorldMapKeyEvent::OnKeyDown(int KeyCode)
 		break;
 	case DIK_S:
 		if (!data->GetIsOver()) { if (player->CanActive()) player->SetState(MARIO_STATE_GO_WORLD_1); }
-		else if (data->GetIsPrepareContinue()) data->SettingCountinue(); 
+		else if (data->GetIsPrepareContinue()) data->SettingCountinue();
 		else if (data->GetIsPrepareEnd()) data->SettingEnd();
 		break;
-	
-	}
+		}
 }

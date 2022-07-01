@@ -17,9 +17,12 @@
 #define MARIO_STATE_GO_UNDER 500
 
 #define MARIO_STATE_GO_WORLD_1 600
+
+#define TIME_DISPLAY_HUD_SUB 3000
 #pragma once
 class CWorldMapPlayer : public CGameObject
 {
+	ULONGLONG start_stop_hud_sub;
 	int saveDoorProcess = 0;
 	int sceneChange = 0;
 	bool isCanGoWorld = false;
@@ -36,6 +39,7 @@ class CWorldMapPlayer : public CGameObject
 public:
 	CWorldMapPlayer(float x, float y) : CGameObject(x, y) {
 		CDataGame* data = CGame::GetInstance()->GetDataGame();
+		start_stop_hud_sub = GetTickCount64();
 		isAllowLeft = data->GetAllowKeyLeft();
 		isAllowTop = data->GetAllowKeyTop();
 		isAllowRight = data->GetAllowKeyRight();

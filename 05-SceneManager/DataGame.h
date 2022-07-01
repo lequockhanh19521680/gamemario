@@ -93,10 +93,10 @@ public:
 	bool GetIsOver() { return isGameOver; }
 	bool GetIsEnd() { return isEnd; }
 	bool GetIsContinue() { return isContinue; }
+	bool GetIsDisplayHUD() { return isDisplayHUD; }
 
 	
 
-	bool GetIsDisplayHUD() { return isDisplayHUD; }
 
 
 
