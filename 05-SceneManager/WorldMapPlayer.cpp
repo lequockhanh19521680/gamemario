@@ -12,7 +12,7 @@ void CWorldMapPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 		data->ResetFullData();
 		CGame::GetInstance()->InitiateSwitchScene(ID_SCENE_WORLD_MAP_RESET);
 	}
-	else if (data->GetIsEnd()) {
+	if (data->GetIsEnd()) {
 		data->ResetFullData();
 		CGame::GetInstance()->InitiateSwitchScene(ID_SCENE_INTRO);
 	}
@@ -20,6 +20,7 @@ void CWorldMapPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 	if (data->GetIsDisplayHUD()) {
 		if (GetTickCount64() - start_stop_hud_sub > TIME_DISPLAY_HUD_SUB) {
 			data->SetIsDisplayHUD(false);
+			start_stop_hud_sub = 0;
 		}
 	}
 	//Neu dang di => khong the chuyen scene

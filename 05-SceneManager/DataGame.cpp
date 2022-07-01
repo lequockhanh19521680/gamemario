@@ -35,7 +35,7 @@ void CDataGame::SaveAllowKey(bool isAllowLeft, bool isAllowTop, bool isAllowRigh
 	this->isAllowBottom = isAllowBottom;
 }
 void CDataGame::ResetFullData() {
-	Up = 0;
+	Up = 4;
 	score = 0;
 	position_x_world_map = MARIO_START_WORLD_MAP_X;
 	position_y_world_map = MARIO_START_WORLD_MAP_Y;
