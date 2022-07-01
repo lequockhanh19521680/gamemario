@@ -15,10 +15,9 @@ void CDataGame::SaveCard1(int c1) { card1 = c1; }
 void CDataGame::SaveCard2(int c2) { card2 = c2; }
 void CDataGame::SaveCard3(int c3) { card3 = c3; }
 void CDataGame::SaveDoorProcess(int n) { saveDoorProcess = n; }
-void CDataGame::SetIsDisplayHUD(bool b) {
-	isDisplayHUD = b;
-}
-
+void CDataGame::SetIsDisplayHUD(bool b) {isDisplayHUD = b;}
+void CDataGame::SetPrepareContinue(bool b){prepareContinue = b;}
+void CDataGame::SetPrepareEnd(bool b) { prepareEnd = b; }
 
 void CDataGame::SavePassDoor(bool door1, bool door2, bool door3, bool door4, bool door5, bool door6) {
 	if(!isPassDoor1) isPassDoor1 = door1;
@@ -53,6 +52,12 @@ void CDataGame::ResetFullData() {
 	isAllowTop = false;
 
 	isDisplayHUD = true;
+	prepareContinue = true;
+	prepareEnd = false;
+	isGameOver = false;
+	isEnd = false;
+	isContinue = false;
+	
 
 	isPassDoor1 = false;
 	isPassDoor2 = false;
@@ -70,5 +75,17 @@ void CDataGame::SavePassDoorEasier(int i) {
 	case DOOR_WORLD_1_4: SavePassDoor(false, false, false, true, false, false); break;
 	case DOOR_WORLD_1_5: SavePassDoor(false, false, false, false, true, false);  break;
 	case DOOR_WORLD_1_6: SavePassDoor(false, false, false, false, false, true);  break;
+	}
+}
+
+
+void CDataGame::ChangeBetweenPrepareContinueAndEnd() {
+	if (prepareContinue) {
+		prepareEnd = true;
+		prepareContinue = false;
+	}
+	else if (prepareEnd) {
+		prepareEnd = false;
+		prepareContinue = true;
 	}
 }

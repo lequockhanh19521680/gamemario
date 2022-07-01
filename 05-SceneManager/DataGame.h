@@ -23,6 +23,16 @@ private:
 	int saveDoorProcess;
 
 	bool isDisplayHUD;
+
+	bool isGameOver;
+	bool prepareContinue;
+	bool prepareEnd;
+
+	bool isContinue;
+	bool isEnd;
+
+
+
 	//playscene
 	int level;
 	int score;
@@ -46,7 +56,11 @@ public:
 	void SavePassDoorEasier(int i);
 	void SetIsDisplayHUD(bool b);
 	void SaveDoorProcess(int n);
-
+	void SettingGameOver() { isGameOver = true; }
+	void SettingCountinue() { isContinue = true; }
+	void SettingEnd() { isEnd = true; }
+	void SetPrepareContinue(bool b);
+	void SetPrepareEnd(bool b);
 	void SaveAllowKey(bool isAllowLeft, bool isAllowRight, bool isAllowTop, bool isAllowBottom);
 	
 	float GetPositionXWorldMap() { return position_x_world_map; }
@@ -74,10 +88,19 @@ public:
 	bool GetIsPassDoor5() { return isPassDoor5; }
 	bool GetIsPassDoor6() { return isPassDoor6; }
 
+	bool GetIsPrepareContinue() { return prepareContinue; }
+	bool GetIsPrepareEnd() { return prepareEnd; }
+	bool GetIsOver() { return isGameOver; }
+	bool GetIsEnd() { return isEnd; }
+	bool GetIsContinue() { return isContinue; }
+
+	
+
 	bool GetIsDisplayHUD() { return isDisplayHUD; }
 
 
 
 	void ResetFullData();
+	void ChangeBetweenPrepareContinueAndEnd();
 };
 

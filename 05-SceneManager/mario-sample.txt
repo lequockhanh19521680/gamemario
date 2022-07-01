@@ -1,15 +1,18 @@
 [SETTINGS]
-start	1
+start	2
 #width	320
 #height	240
 
 #id	type	file
 # type: 0: intro, 1: play scene 
 [SCENES]
-0	Khongcogi	1
+0	Resource\Intro\intro.txt	1
 1	Resource\Intro\intro.txt	1
 2	Resource\WorldMap\worldmap.txt	2
 3	Resource\World1-1\world1-1.txt	3
+
+#FORRESET
+100	Resource\WorldMap\worldmap.txt	2
 # id	file 
 [TEXTURES]
 -100	textures\bbox.png
@@ -17,6 +20,8 @@ start	1
 10	textures\enemies.png
 15	textures\enemies_2.png
 20	textures\misc.png
+25	textures\mario-left.png
+30	textures\mario-right.png
 40	textures\enemies_3.png
 50	textures\enemies_4.png
 70	textures\Demo.png
@@ -29,6 +34,7 @@ start	1
 150	textures\worldmapObj.png
 160	textures\card.png
 170	textures\reward_x3.png
+180	textures\gameover.png
 
 200	Resource\Tilemap\world1-1_bank.png
 205	Resource\Tilemap\world1_bank.png

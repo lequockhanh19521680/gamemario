@@ -5,6 +5,16 @@
 #include "Game.h"
 #include "debug.h"
 void CWorldMapPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
+	CDataGame* data = CGame::GetInstance()->GetDataGame();
+	if (data->GetIsContinue()) {
+		data->ResetFullData();
+		CGame::GetInstance()->InitiateSwitchScene(ID_SCENE_WORLD_MAP_RESET);
+	}
+	else if (data->GetIsEnd()) {
+		data->ResetFullData();
+		CGame::GetInstance()->InitiateSwitchScene(ID_SCENE_INTRO);
+
+	}
 	if (!CanActive()) isCanGoWorld = false;
 	if (sceneChange  && isCanGoWorld) {
 		SaveData();

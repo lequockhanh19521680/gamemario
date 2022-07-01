@@ -1453,8 +1453,10 @@ void CMario::AdjustLogicSitting() {
 }
 
 void CMario::ChangeWorldMapWhenDie() {
+	CDataGame* data = CGame::GetInstance()->GetDataGame();
 	if (GetTickCount64() - start_change_scene_die > TIME_CHANGE_SCENE) {
-		Up--;
+		if (Up > 0) Up--;
+		else data->SettingGameOver();
 		level = MARIO_LEVEL_SMALL;
 		SaveDataGame();
 		CGame::GetInstance()->InitiateSwitchScene(ID_SCENE_WORLD_MAP);

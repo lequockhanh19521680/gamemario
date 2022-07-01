@@ -33,6 +33,7 @@ using namespace std;
 #define ID_SCENE_INTRO 1
 #define ID_SCENE_WORLD_MAP 2
 #define ID_SCENE_WORLD_1_1 3
+#define ID_SCENE_WORLD_MAP_RESET 100
 /*
 	Our simple game framework
 */
