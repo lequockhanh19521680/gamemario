@@ -239,7 +239,7 @@ void CIntroScene::Render() {
 void CIntroScene::Unload() {
 	for (unsigned int i = 0; i < objects.size(); i++)
 		delete objects[i];
-
+	player = NULL;
 	objects.clear();
 
 	DebugOut(L"[INFO] Scene %d unloaded! \n", id);
