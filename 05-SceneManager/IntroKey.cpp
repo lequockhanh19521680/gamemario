@@ -19,8 +19,13 @@ void CIntroKey::OnKeyDown(int KeyCode)
 		else if (player->GetState() == BACKGROUND_STATE_DONE_ARROW_DOWN)  player->SetState(BACKGROUND_STATE_DONE_ARROW_UP);
 		break;
 	case DIK_S:
-		if ((player->GetState() == BACKGROUND_STATE_DONE_ARROW_DOWN) || (player->GetState() == BACKGROUND_STATE_DONE_ARROW_UP))
-			player->SetState(BACKGROUND_STATE_WILL_CHANGE_SCENE);
+		if (player->GetState() != BACKGROUND_STATE_MOVE) {
+			if ((player->GetState() == BACKGROUND_STATE_DONE_ARROW_DOWN) || (player->GetState() == BACKGROUND_STATE_DONE_ARROW_UP))
+				player->SetState(BACKGROUND_STATE_WILL_CHANGE_SCENE);
+		}
+		else {
+			player->SetState(BACKGROUND_STATE_DONE_ARROW_DOWN);
+		}
 		break;
 		}
 	}

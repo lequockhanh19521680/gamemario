@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "IntroArrow.h"
+#include"FontIntro.h"
 #define SPEED_BACKGROUND 0.05f
 #define ID_ANI_INTRO_BACKGROUND_NOT_DONE 400000
 #define ID_ANI_INTRO_BACKGROUND_DONE 400001
@@ -23,7 +24,7 @@ private:
 public:
 	CIntroBackGround(float x, float y) : CGameObject(x, y) {
 		introArrow = new CIntroArrow();
-		SetState(BACKGROUND_STATE_DONE_ARROW_UP);
+		SetState(BACKGROUND_STATE_MOVE);
 	}
 	void Render();
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);

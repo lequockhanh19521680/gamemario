@@ -216,6 +216,9 @@
     <ClCompile Include="IntroBackGround.cpp">
       <Filter>Header Files\Intro</Filter>
     </ClCompile>
+    <ClCompile Include="FontIntro.cpp">
+      <Filter>Header Files\Intro</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="KeyEventHandler.h">
@@ -375,6 +378,9 @@
       <Filter>Header Files\Intro\ObjectIntro</Filter>
     </ClInclude>
     <ClInclude Include="IntroBackGround.h">
+      <Filter>Header Files\Intro</Filter>
+    </ClInclude>
+    <ClInclude Include="FontIntro.h">
       <Filter>Header Files\Intro</Filter>
     </ClInclude>
   </ItemGroup>

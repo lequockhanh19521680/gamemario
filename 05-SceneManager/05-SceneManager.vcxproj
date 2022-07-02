@@ -158,6 +158,7 @@
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="DataGame.cpp" />
     <ClCompile Include="Door.cpp" />
+    <ClCompile Include="FontIntro.cpp" />
     <ClCompile Include="Grass.cpp" />
     <ClCompile Include="Hammer.cpp" />
     <ClCompile Include="HUDWorldMap.cpp" />
@@ -211,6 +212,7 @@
     <ClInclude Include="Collision.h" />
     <ClInclude Include="DataGame.h" />
     <ClInclude Include="Door.h" />
+    <ClInclude Include="FontIntro.h" />
     <ClInclude Include="Grass.h" />
     <ClInclude Include="Hammer.h" />
     <ClInclude Include="HUDWorldMap.h" />
