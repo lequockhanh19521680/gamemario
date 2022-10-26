@@ -19,7 +19,15 @@ CMap::CMap(int TileSetID, int TotalRowsOfMap, int TotalColumnsOfMap, int TotalRo
 CMap::~CMap()
 {
 }
-
+bool CMap::checkObjectInCamera(float x, float y) {
+	float w = 32.0f;
+	float h = 32.0f;
+	if (x + w <= (CGame::GetInstance()->GetCamX()) || (CGame::GetInstance()->GetCamX()) + SCREEN_WIDTH <= x)
+		return false;
+	if (y + h <= (CGame::GetInstance()->GetCamY()) || (CGame::GetInstance()->GetCamY()) + SCREEN_HEIGHT + h <= y)
+		return false;
+	return true;
+}
 void CMap::Render()
 {
 	int FirstColumn = int(floor(CamX/ TILE_WIDTH));
@@ -33,7 +41,11 @@ void CMap::Render()
 			int index = TileMap[CurrentRow][CurrentColumn] - 1;
 			if (index < TotalTiles)
 			{
-				Tiles.at(index)->Draw(float(CurrentColumn * TILE_WIDTH)+float(startX*TILE_WIDTH), float(CurrentRow * TILE_HEIGHT) - float(startY*TILE_HEIGHT));
+				float xDraw = float(CurrentColumn * TILE_WIDTH) + float(startX * TILE_WIDTH);
+				float yDraw = float(CurrentRow * TILE_HEIGHT) - float(startY * TILE_HEIGHT);
+				if (checkObjectInCamera(xDraw, yDraw)) {
+					Tiles.at(index)->Draw(xDraw,yDraw);
+				}
 			}
 		}
 }

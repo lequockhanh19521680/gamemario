@@ -27,4 +27,5 @@ public:
 	//void GetCamPos() { DebugOut(L"CamX = %f,	CamY = %f\n", CamX, CamY); }
 	int GetMapWidth();
 	int GetMapHeight();
+	bool checkObjectInCamera(float x, float y);
 };

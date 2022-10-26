@@ -19,8 +19,8 @@ void CBrickQuestion::GetBoundingBox(float& left, float& top, float& right, float
 {
 	left = x - QUESTION_BRICK_BBOX_WIDTH / 2 ;
 	top = y - QUESTION_BRICK_BBOX_HEIGHT / 2 ;
-	right = left + QUESTION_BRICK_BBOX_WIDTH - 1;
-	bottom = top + QUESTION_BRICK_BBOX_HEIGHT - 1;
+	right = left + QUESTION_BRICK_BBOX_WIDTH;
+	bottom = top + QUESTION_BRICK_BBOX_HEIGHT;
 }
 
 void CBrickQuestion::OnNoCollision(DWORD dt)
